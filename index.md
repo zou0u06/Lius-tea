@@ -1,6 +1,6 @@
 ## Welcome to GitHub Pages
 
-Thank you, Sir!
+Hello world!
 
 You can use the [editor on GitHub](https://github.com/zou0u06/Lius-tea/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
