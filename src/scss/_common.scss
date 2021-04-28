@@ -1,0 +1,234 @@
+// 整體布局、框架類
+body {
+  @include media-breakpoint-up(md) {
+    overflow-y: auto;
+  }
+}
+
+.mx_n15px {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.flex_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.rounded_breakpoint {
+  @include media-breakpoint-up(md) {
+    border-radius: 0.25rem;
+  }
+}
+
+// 背景、遮罩類
+.bg_cover {
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.bg_light_breakpoint {
+  @include media-breakpoint-down(sm) {
+    background-color: $gray-100;
+  }
+}
+
+.mask {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  z-index: 1030;
+}
+
+// 字型類
+.line_height_large {
+  line-height: 1.5;
+}
+
+// 個別元件類
+.header {
+  height: 350px;
+  @include media-breakpoint-up(md) {
+    height: 450px;
+  }
+  @include media-breakpoint-up(lg) {
+    height: 600px;
+  }
+  @include media-breakpoint-up(xl) {
+    border-radius: 0.25rem;
+  }
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+}
+.header_text {
+  position: absolute;
+  padding: 1rem;
+  background-color: rgba(206, 212, 218, 0.3);
+  text-align: center;
+  font-weight: 600;
+  color: black;
+}
+
+//// 選單類
+.nav-item:hover {
+  background-color: $primary-dark;
+}
+.nav-item:active {
+  background-color: $primary-dark;
+}
+
+//// 對話框類
+#modal_dialog {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+// 連結類
+a {
+  display: inline-block;
+  cursor: pointer;
+}
+.page-link {
+  color: black;
+}
+
+//// 按鈕、表單類
+button.btn_fav:hover {
+  color: $tertiary;
+  border-color: $tertiary;
+  background-color: #fff;
+}
+
+.btn_setQty {
+  font-size: 24px;
+  border-radius: 0;
+  padding: 0 0.6rem;
+}
+.btn_setQty_word {
+  position: relative;
+  top: -2px;
+}
+
+.totop {
+  display: none;
+  position: fixed;
+  z-index: 5;
+  right: 10px;
+  bottom: 10px;
+  width: 46px;
+  height: 46px;
+  border: 1px solid black;
+  border-radius: 50%;
+  font-size: 20px;
+  color: #fff;
+}
+
+select{
+  height: 45px;
+}
+select, option, input[type="checkbox"] {
+  cursor: pointer;
+}
+
+////// 取消input:number的steps
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  display: none;
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"]{
+  -moz-appearance: textfield;
+}
+
+//// 圖示類
+.icon_common {
+  font-size: 30px;
+}
+.fa-envelope, .fa-phone-alt {
+  position: relative;
+  bottom: -1px;
+}
+
+//// 卡片類
+.card_header {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  margin-bottom: 0;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  background-color: $extra;
+  color: white;
+  text-align: center;
+}
+.card_lowerhalf {
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  background-color: $light;
+}
+
+////// productsCard
+.productscard_img {
+  width: 75px;
+  height: 90px;
+  @media (min-width: 400px) and (max-width: 767.98px) {
+    width: 90px;
+  }
+}
+
+//// 輪播元件類
+.carousel_control {
+  width: 50px;
+}
+
+li.carousel_indicators {
+  width: 45px;
+}
+
+//// 進度條類
+.progress {
+  height: 3px;
+  width: 50%;
+}
+.progress_icon {
+  position: relative;
+  top: -11px;
+  height: 25px;
+  width: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border-width: 3px;
+  border-color: $primary;
+  border-style: solid;
+  background-color: $light;
+  z-index: 1;
+}
+.progress_icon_active:after {
+  content: '';
+  display: block;
+  height: 11px;
+  width: 11px;
+  border-radius: 6px;
+  background-color: $primary;
+}
+
+//// 表格類
+.table {
+  th,
+  td {
+    vertical-align: middle;
+  }
+}
+
+//// 列表類
+ol,
+ul,
+dl {
+  list-style-type: none;
+  padding-left: 0;
+}
