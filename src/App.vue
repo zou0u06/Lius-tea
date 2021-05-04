@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <msg-modal/>
-    <loading :active.sync="isLoading"/>
+    <loading :active.sync="loading"/>
     <router-view/>
     <button class="totop button btn-extra" @click="goToTop()">
       <i class="fas fa-arrow-up"></i>
@@ -21,8 +21,8 @@ export default {
     };
   },
   computed: {
-    isLoading() {
-      return this.$store.state.isLoading;
+    loading() {
+      return this.$store.state.loading;
     },
   },
   methods: {

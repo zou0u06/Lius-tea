@@ -175,10 +175,6 @@
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-.error {
-  color: $danger;
-  border: 3px solid $danger;
-}
 
 // cusCart系列共用
 .progress_chara1 {
@@ -230,4 +226,11 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/images/cuscartfinished_bg.jpg');
+}
+
+.cuscartfinished_small {
+  width: 30%;
+}
+.cuscartfinished_large {
+  width: 60%;
 }

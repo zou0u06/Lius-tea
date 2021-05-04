@@ -1,7 +1,7 @@
 <template>
   <nav>
     <ul class="pagination">
-      <li class="page-item" :class="{'disabled': !pagination.has_pre}">
+      <li class="page-item rounded-left" :class="{'disabled': !pagination.has_pre}">
         <a class="page-link" href="#"
           @click.prevent="changePage(pagination.current_page - 1)">上一頁</a>
       </li>
@@ -9,7 +9,7 @@
         :class="{'active': page === pagination.current_page}">
         <a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a>
       </li>
-      <li class="page-item" :class="{'disabled': !pagination.has_next}">
+      <li class="page-item rounded-right" :class="{'disabled': !pagination.has_next}">
         <a class="page-link" href="#"
           @click.prevent="changePage(pagination.current_page + 1)">下一頁</a>
       </li>

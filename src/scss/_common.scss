@@ -42,7 +42,7 @@ body {
   z-index: 1030;
 }
 
-// 字型類
+// 文字、字型類
 .line_height_large {
   line-height: 1.5;
 }
@@ -80,10 +80,18 @@ body {
   background-color: $primary-dark;
 }
 
-//// 對話框類
-#modal_dialog {
+//// 對話框、訊息類
+#modalDialog {
   top: 50%;
   transform: translateY(-50%);
+}
+.error_msg {
+  border: 3px solid $danger;
+  border-radius: 0.25rem;
+  background-color: #f8f9fa;
+  padding: 0.75rem;
+  text-align: center;
+  color: $danger;
 }
 
 // 連結類
@@ -143,6 +151,11 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"]{
   -moz-appearance: textfield;
 }
+
+//// pagination
+// .page-item {
+//   border: 1px solid black;
+// }
 
 //// 圖示類
 .icon_common {

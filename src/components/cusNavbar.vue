@@ -2,7 +2,7 @@
   <div>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
       <div class="container-xl px-0 px-xl-3">
-        <h1 class="brand" @click.prevent="isActive = ''">
+        <h1 class="brand">
           <router-link class="w-100 h-100" to="/index"/>劉記茗茶
         </h1>
 
@@ -19,38 +19,38 @@
         </button>
 
         <div class="collapse navbar-collapse cusnavbar_collapse">
-          <ul class="navbar-nav ml-auto text-center">
-            <li class="nav-item" @click.prevent="navActive('')">
+          <ul class="navbar-nav ml-auto text-center" @click="setCusNavbar($event.target)">
+            <li class="nav-item">
               <router-link
                 class="nav-link"
                 to="/index"
-                :class="{active: isActive === ''}"
+                :class="{active: cusActive === 'cusIndex'}"
               >首頁</router-link>
             </li>
-            <li class="nav-item" @click.prevent="navActive('products')">
+            <li class="nav-item">
               <router-link
                 class="nav-link"
                 to="/products"
-                :class="{active: isActive === 'products'}"
+                :class="{active: cusActive === 'cusProducts'}"
               >商品</router-link>
             </li>
-            <li class="nav-item" @click.prevent="navActive('favs')">
+            <li class="nav-item">
               <router-link
                 class="nav-link"
                 to="/favs"
-                :class="{active: isActive === 'favs'}"
+                :class="{active: cusActive === 'cusFavs'}"
               >收藏</router-link>
             </li>
-            <li class="nav-item" @click.prevent="navActive('cart')">
+            <li class="nav-item">
               <router-link
                 class="nav-link"
                 to="/cart"
-                :class="{active: isActive === 'cart'}"
+                :class="{active: cusActive === 'cusCart'}"
               >購物車（{{ carts.length }}）</router-link>
             </li>
-            <li class="nav-item" @click.prevent="navActive('login')">
+            <li class="nav-item">
               <router-link class="nav-link" to="/login"
-              :class="{active: isActive === 'login'}">登入</router-link>
+              :class="{active: cusActive === 'cusLogin'}">登入</router-link>
             </li>
           </ul>
         </div>
@@ -63,28 +63,28 @@
 <script>
 export default {
   data() {
-    return {
-      isActive: '',
-    };
+    return {};
   },
   methods: {
-    getCart() {
-      this.$store.dispatch('getCart');
+    getCusCart() {
+      this.$store.dispatch('getCusCart');
     },
-    navActive(nav) {
-      this.isActive = nav;
+    setCusNavbar() {
       if (document.body.clientWidth < 768) {
         document.querySelector('.cusnavbar_toggler').click();
       }
     },
   },
   computed: {
+    cusActive() {
+      return this.$store.state.cusActive;
+    },
     carts() {
-      return this.$store.state.cart.carts;
+      return this.$store.state.cusCart.carts;
     },
   },
   created() {
-    this.getCart();
+    this.getCusCart();
   },
 };
 </script>

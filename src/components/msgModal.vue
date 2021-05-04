@@ -1,7 +1,7 @@
 <template>
-  <div class="modal fade" id="msg_modal" data-backdrop="static" data-keyboard="false"
+  <div class="modal fade" id="msgModel" data-backdrop="static" data-keyboard="false"
     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog" id="modal_dialog">
+    <div class="modal-dialog" id="modalDialog">
       <div class="modal-content">
         <div class="modal-header d-flex" :class="`bg-${theme}`">
           <h5 class="modal-title text-white" id="staticBackdropLabel">{{ title }}</h5>
@@ -28,7 +28,7 @@
             data-dismiss="modal">關閉</button>
           <button type="button" class="btn" :class="`btn-${theme}`"
             @click="goToCusCart()"
-            v-if="msg.event === 'addedToCart'">查看購物車</button>
+            v-if="msg.event === 'addedToCusCart'">查看購物車</button>
           <button type="button" class="btn" :class="`btn-${theme}`"
             v-if="msg.event === 'delCusCart' || msg.event === 'delAdminProduct'
               || msg.event === 'delAdminCoupon'"
@@ -51,11 +51,11 @@ export default {
   methods: {
     dismissWithTiming() {
       setTimeout(() => {
-        $('#msg_modal').modal('hide');
+        $('#msgModel').modal('hide');
       }, 5000);
     },
     goToCusCart() {
-      $('#msg_modal').modal('hide');
+      $('#msgModel').modal('hide');
       this.$router.push('/cart');
     },
     delObject(objectId) {
@@ -65,22 +65,22 @@ export default {
       switch (this.msg.event) {
         default:
           keyword1 = 'cart';
-          keyword2 = 'getCart';
+          keyword2 = 'getCusCart';
           break;
         case 'delAdminProduct':
           keyword1 = 'admin/product';
-          keyword2 = 'getProducts';
+          keyword2 = 'getAdminProducts';
           break;
         case 'delAdminCoupon':
           keyword1 = 'admin/coupon';
-          keyword2 = 'getCoupons';
+          keyword2 = 'getAdminCoupons';
           break;
       }
       const API = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/${keyword1}/${objectId}`;
       vm.axios.delete(API).then((response) => {
         if (response.data.success) {
           vm.$store.dispatch(keyword2);
-          $('#msg_modal').modal('hide');
+          $('#msgModel').modal('hide');
         }
       });
     },
@@ -93,37 +93,29 @@ export default {
             this.title = '確認刪除';
             this.theme = 'danger';
             this.action = '確認要刪除以上商品／折價券？';
-            $('#msg_modal').modal('show');
+            $('#msgModel').modal('show');
             break;
           }
           case 'showingCoupon': {
             this.title = '最新優惠';
             this.theme = 'secondary';
             this.action = '';
-            $('#msg_modal').modal('show');
-            break;
-          }
-          case 'wrongCoupon': {
-            this.title = '優惠碼錯誤';
-            this.theme = 'danger';
-            this.action = '優惠碼錯誤或已過期';
-            $('#msg_modal').modal('show');
-            this.dismissWithTiming();
+            $('#msgModel').modal('show');
             break;
           }
           case 'wrongServer': {
             this.title = '伺服器錯誤';
             this.theme = 'danger';
             this.action = '網站伺服器錯誤，請直接來電洽詢，將有專人為您服務';
-            $('#msg_modal').modal('show');
+            $('#msgModel').modal('show');
             this.dismissWithTiming();
             break;
           }
-          case 'addedToCart':
+          case 'addedToCusCart':
             this.title = '商品已加入購物車';
             this.theme = 'secondary';
             this.action = '已加入您的購物車';
-            $('#msg_modal').modal('show');
+            $('#msgModel').modal('show');
             this.dismissWithTiming();
             break;
         }

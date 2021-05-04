@@ -11,19 +11,20 @@ import 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
+
 // 以下為Vee Validate相關
 import {
   ValidationObserver, ValidationProvider, extend, localize, configure,
 } from 'vee-validate';
 import TW from 'vee-validate/dist/locale/zh_TW';
 import * as rules from 'vee-validate/dist/rules';
+
 // 以下為自定
 import App from './App';
 import router from './router';
 import store from './store';
-import './bus';
-import './components/filters/displayDate';
-import './components/filters/displayCurrency';
+import './filters/displayDate';
+import './filters/displayCurrency';
 
 window.$ = $;
 

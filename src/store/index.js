@@ -3,48 +3,43 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 
+import adminModule from './adminModule';
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   strict: true,
+  modules: { adminModule },
   state: {
-    isLoading: false,
-    products: [{
+    cusActive: '',
+    cusProducts: [{
       favored: '',
     }],
     cats: [],
-    cart: {
+    cusCart: {
       carts: [{
         product: {},
       }],
     },
-    coupons: {},
-    pagination: {},
+    loading: false,
+    carting: false,
     msg: {
       event: '',
       object: '',
       objectId: '',
-      times: 0,
     },
-    carting: false,
-
   },
   actions: {
-    // setCarting(context, payload) {
-    //   context.commit('SET_CARTING', payload);
-    // },
-    // setLoading(context, payload) {
-    //   context.commit('SET_LOADING', payload);
-    // },
-    getProducts(context, page = 1) {
+    getCusProducts(context, page = 1) {
       context.commit('SET_LOADING', true);
       const API = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products?page=${page}`;
       axios.get(API).then((response) => {
         if (response.data.success) {
-          context.commit('GET_PRODUCTS', response.data.products);
+          const tempCusProduct = response.data.products.filter((item) => item.is_enabled === 1);
+          context.commit('GET_CUSPRODUCTS', tempCusProduct);
           context.commit('GET_PAGINATION', response.data.pagination);
           context.dispatch('getCats');
-          context.dispatch('setFavs');
+          context.dispatch('setCusFavs');
         } else {
           context.commit('SET_LOADING', false);
         }
@@ -52,57 +47,57 @@ export default new Vuex.Store({
     },
     getCats(context) {
       const oriCats = new Set();
-      context.state.products.forEach((item) => {
+      context.state.cusProducts.forEach((item) => {
         oriCats.add(item.category);
       });
       context.commit('GET_CATS', Array.from(oriCats));
     },
-    setFavs(context) {
-      const favs = JSON.parse(localStorage.getItem('favs')) || [];
-      const productsL = context.state.products.length;
-      const favsL = favs.length;
-      if (favsL > 0) {
+    setCusFavs(context) {
+      const cusFavs = JSON.parse(localStorage.getItem('cusFavs')) || [];
+      const productsL = context.state.cusProducts.length;
+      const cusFavsL = cusFavs.length;
+      if (cusFavsL > 0) {
         for (let i = 0; i < productsL; i++) {
-          for (let n = 0; n < favsL; n++) {
-            if (context.state.products[i].id === favs[n]) {
-              context.commit('SET_FAVS', { i, boolean: true });
+          for (let n = 0; n < cusFavsL; n++) {
+            if (context.state.cusProducts[i].id === cusFavs[n]) {
+              context.commit('SET_CUSFAVS', { i, boolean: true });
               break;
             }
-            context.commit('SET_FAVS', { i, boolean: false });
+            context.commit('SET_CUSFAVS', { i, boolean: false });
           }
         }
         context.commit('SET_LOADING', false);
       } else {
         for (let i = 0; i < productsL; i++) {
-          context.commit('SET_FAVS', { i, boolean: false });
+          context.commit('SET_CUSFAVS', { i, boolean: false });
         }
         context.commit('SET_LOADING', false);
       }
     },
-    addToFavs(context, productId) {
-      const favs = JSON.parse(localStorage.getItem('favs')) || [];
-      favs.push(productId);
-      localStorage.setItem('favs', JSON.stringify(favs));
-      context.state.products.find((item, index) => {
-        if (item.id === productId) {
-          context.commit('SET_FAVS', { i: index, boolean: true });
+    addToCusFavs(context, cusProductId) {
+      const cusFavs = JSON.parse(localStorage.getItem('cusFavs')) || [];
+      cusFavs.push(cusProductId);
+      localStorage.setItem('cusFavs', JSON.stringify(cusFavs));
+      context.state.cusProducts.find((item, index) => {
+        if (item.id === cusProductId) {
+          context.commit('SET_CUSFAVS', { i: index, boolean: true });
         } return false;
       });
     },
-    delFav(context, productId) {
-      const favs = JSON.parse(localStorage.getItem('favs'));
-      favs.find((fav, num) => {
-        context.state.products.find((item, index) => {
-          if (item.id === fav && productId === fav) {
-            favs.splice(num, 1);
-            localStorage.setItem('favs', JSON.stringify(favs));
-            context.commit('SET_FAVS', { i: index, boolean: false });
+    delCusFav(context, cusProductId) {
+      const cusFavs = JSON.parse(localStorage.getItem('cusFavs'));
+      cusFavs.find((fav, num) => {
+        context.state.cusProducts.find((item, index) => {
+          if (item.id === fav && cusProductId === fav) {
+            cusFavs.splice(num, 1);
+            localStorage.setItem('cusFavs', JSON.stringify(cusFavs));
+            context.commit('SET_CUSFAVS', { i: index, boolean: false });
           } return false;
         });
         return false;
       });
     },
-    getCart(context) {
+    getCusCart(context) {
       context.commit('SET_CARTING', true);
       const API = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
       axios.get(API).then((response) => {
@@ -119,23 +114,23 @@ export default new Vuex.Store({
               return 0;
             });
           }
-          context.commit('GET_CART', tempCart);
+          context.commit('GET_CUSCART', tempCart);
           context.commit('SET_CARTING', false);
         } else {
           context.commit('SET_CARTING', false);
         }
       });
     },
-    addToCart(context, { product, qty }) {
+    addToCusCart(context, { cusProduct, qty }) {
       context.commit('SET_CARTING', true);
       const API = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
-      const cartsL = context.state.cart.carts.length;
+      const cartsL = context.state.cusCart.carts.length;
       function notMatched() {
-        axios.post(API, { data: { product_id: product.id, qty } }).then((response) => {
+        axios.post(API, { data: { product_id: cusProduct.id, qty } }).then((response) => {
           if (response.data.success) {
-            context.dispatch('getCart');
+            context.dispatch('getCusCart');
             context.commit('SET_MSG', {
-              event: 'addedToCart', object: `${product.title} ${qty} ${product.unit}`,
+              event: 'addedToCusCart', object: `${cusProduct.title} ${qty} ${cusProduct.unit}`,
             });
             context.commit('SET_CARTING', false);
           }
@@ -144,20 +139,20 @@ export default new Vuex.Store({
       if (cartsL > 0) {
         let match;
         for (let i = 0; i < cartsL; i++) {
-          if (context.state.cart.carts[i].product.id === product.id) {
+          if (context.state.cusCart.carts[i].product.id === cusProduct.id) {
             match = true;
-            const API_D = `${API}/${context.state.cart.carts[i].id}`;
+            const API_D = `${API}/${context.state.cusCart.carts[i].id}`;
             axios.delete(API_D);
             axios.post(API, {
               data: {
-                product_id: product.id,
-                qty: qty + context.state.cart.carts[i].qty,
+                product_id: cusProduct.id,
+                qty: qty + context.state.cusCart.carts[i].qty,
               },
             }).then((response) => {
               if (response.data.success) {
-                context.dispatch('getCart');
+                context.dispatch('getCusCart');
                 context.commit('SET_MSG', {
-                  event: 'addedToCart', object: `${product.title} ${qty} ${product.unit}`,
+                  event: 'addedToCusCart', object: `${cusProduct.title} ${qty} ${cusProduct.unit}`,
                 });
                 context.commit('SET_CARTING', false);
               }
@@ -172,58 +167,42 @@ export default new Vuex.Store({
         notMatched();
       }
     },
-    getCoupons(context, page) {
-      context.commit('SET_LOADING', true);
-      const API = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/coupons?page=${page}`;
-      axios.get(API).then((response) => {
-        if (response.data.coupons) {
-          context.commit('GET_COUPONS', response.data.coupons);
-          context.commit('GET_PAGINATION', response.data.pagination);
-          context.commit('SET_LOADING', false);
-        }
-        context.commit('SET_LOADING', false);
-      });
-    },
+    // setCarting(context, payload) {
+    //   context.commit('SET_CARTING', payload);
+    // },
+    // setLoading(context, payload) {
+    //   context.commit('SET_LOADING', payload);
+    // },
     // openDelModal(context, payload) {
     //   context.commit('SET_MSG', payload);
     // },
   },
   mutations: {
     SET_LOADING(state, payload) {
-      state.isLoading = payload;
+      state.loading = payload;
     },
     SET_CARTING(state, payload) {
       state.carting = payload;
-    },
-    GET_PRODUCTS(state, payload) {
-      state.products = payload;
-    },
-    GET_COUPONS(state, payload) {
-      state.coupons = payload;
-    },
-    GET_PAGINATION(state, payload) {
-      state.pagination = payload;
-    },
-    GET_CATS(state, payload) {
-      state.cats = payload;
-    },
-    SET_FAVS(state, payload) {
-      Vue.set(state.products[`${payload.i}`], 'favored', payload.boolean);
-    },
-    GET_CART(state, payload) {
-      state.cart = payload;
-    },
-    GET_PRODUCT(state, payload) {
-      state.product = payload;
-    },
-    GET_ADPRODUCTS(state, payload) {
-      state.adProducts.push(payload);
     },
     SET_MSG(state, payload) {
       state.msg.event = payload.event;
       state.msg.object = payload.object;
       state.msg.objectId = payload.objectId;
-      state.msg.times += 1;
+    },
+    SET_CUSACTIVE(state, payload) {
+      state.cusActive = payload;
+    },
+    GET_CUSPRODUCTS(state, payload) {
+      state.cusProducts = payload;
+    },
+    GET_CATS(state, payload) {
+      state.cats = payload;
+    },
+    SET_CUSFAVS(state, payload) {
+      Vue.set(state.cusProducts[`${payload.i}`], 'favored', payload.boolean);
+    },
+    GET_CUSCART(state, payload) {
+      state.cusCart = payload;
     },
   },
 });

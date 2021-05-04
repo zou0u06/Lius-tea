@@ -1,21 +1,21 @@
-/* eslint-disable no-unused-vars */
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import admin from '@/components/pages/admin';
-import adminCoupons from '@/components/pages/adminCoupons';
-import adminOrders from '@/components/pages/adminOrders';
-import adminProducts from '@/components/pages/adminProducts';
-import cus from '@/components/pages/cus';
-import cusFavs from '@/components/pages/cusFavs';
-import cusIndex from '@/components/pages/cusIndex';
-import cusLogin from '@/components/pages/cusLogin';
-import cusProducts from '@/components/pages/cusProducts';
-import cusProduct from '@/components/pages/cusProduct';
-import cusCart from '@/components/pages/cusCart';
-import cusCartInfo from '@/components/pages/cusCartInfo';
-import cusCartPayment from '@/components/pages/cusCartPayment';
-import cusCartFinished from '@/components/pages/cusCartFinished';
+import admin from '@/views/back/admin';
+import adminCoupons from '@/views/back/adminCoupons';
+import adminOrders from '@/views/back/adminOrders';
+import adminProducts from '@/views/back/adminProducts';
+
+import cus from '@/views/front/cus';
+import cusFavs from '@/views/front/cusFavs';
+import cusIndex from '@/views/front/cusIndex';
+import cusLogin from '@/views/front/cusLogin';
+import cusProducts from '@/views/front/cusProducts';
+import cusProduct from '@/views/front/cusProduct';
+import cusCart from '@/views/front/cusCart';
+import cusCartInfo from '@/views/front/cusCartInfo';
+import cusCartPayment from '@/views/front/cusCartPayment';
+import cusCartFinished from '@/views/front/cusCartFinished';
 
 Vue.use(VueRouter);
 
@@ -42,7 +42,7 @@ export default new VueRouter({
         },
         {
           name: 'cusProduct',
-          path: '/products/:productId',
+          path: '/products/:cusProductId',
           component: cusProduct,
         },
         {
@@ -57,12 +57,12 @@ export default new VueRouter({
         },
         {
           name: 'cusCartPayment',
-          path: '/payment/:orderId',
+          path: '/payment/:cusOrderId',
           component: cusCartPayment,
         },
         {
           name: 'cusCartFinished',
-          path: '/finished/:orderId',
+          path: '/finished/:cusOrderId',
           component: cusCartFinished,
         },
         {

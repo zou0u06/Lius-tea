@@ -17,26 +17,26 @@
         </button>
 
         <div class="collapse navbar-collapse adminnavbar_collapse">
-          <ul class="navbar-nav ml-auto text-center">
-            <li class="nav-item" @click.prevent="navActive('')">
+          <ul class="navbar-nav ml-auto text-center" @click.prevent="setAdminNavbar()">
+            <li class="nav-item">
               <router-link
                 class="nav-link"
                 to="/admin"
-                :class="{active: isActive === ''}"
+                :class="{active: adminActive === 'adminProducts'}"
               >產品列表</router-link>
             </li>
-            <li class="nav-item" @click.prevent="navActive('orders')">
+            <li class="nav-item">
               <router-link
                 class="nav-link"
                 to="/admin/orders"
-                :class="{active: isActive === 'orders'}"
+                :class="{active: adminActive === 'adminOrders'}"
               >訂單列表</router-link>
             </li>
-            <li class="nav-item" @click.prevent="navActive('coupons')">
+            <li class="nav-item">
               <router-link
                 class="nav-link"
                 to="/admin/coupons"
-                :class="{active: isActive === 'coupons'}"
+                :class="{active: adminActive === 'adminCoupons'}"
               >優惠券列表</router-link>
             </li>
             <li class="nav-item" @click.prevent="signout">
@@ -53,13 +53,10 @@
 <script>
 export default {
   data() {
-    return {
-      isActive: '',
-    };
+    return {};
   },
   methods: {
-    navActive(nav) {
-      this.isActive = nav;
+    setAdminNavbar() {
       if (document.body.clientWidth < 768) {
         document.querySelector('.adminnavbar_toggler').click();
       }
@@ -72,6 +69,11 @@ export default {
           vm.$router.push('/login');
         }
       });
+    },
+  },
+  computed: {
+    adminActive() {
+      return this.$store.state.adminModule.adminActive;
     },
   },
 };
