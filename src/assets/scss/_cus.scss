@@ -9,10 +9,10 @@
   white-space: nowrap;
   width: 223px;
   height: 45px;
-  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/images/logo-w.png');
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/assets/images/logo-w.png');
 }
 
-.cusnavbar_mask {
+.cusnavbar-mask {
   top: 261px;
   bottom: 0;
   right: 0;
@@ -20,11 +20,11 @@
 }
 
 // cusIndex
-.cusindex_header1 {
-  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/images/cusindex_header_bg1.jpg');
+.cusindex-header1 {
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/assets/images/cusindex-header-bg1.jpg');
   background-position: center top;
 }
-.cusindex_header1_text {
+.cusindex-header1-text {
   bottom: 50px;
   right: 0;
   left: 0;
@@ -33,68 +33,68 @@
   width: 290px;
 }
 
-.cusindex_header2 {
-  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/images/cusindex_header_bg2.jpg');
+.cusindex-header2 {
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/assets/images/cusindex-header-bg2.jpg');
   background-position: center top;
 }
-.cusindex_header2_text, .cusindex_header3_text {
+.cusindex-header2-text, .cusindex-header3-text {
   right: 15px;
   margin-left: auto;
   writing-mode: vertical-lr;
 }
-.cusindex_header3 {
-  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/images/cusindex_header_bg3.jpg');
+.cusindex-header3 {
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/assets/images/cusindex-header-bg3.jpg');
   background-position: right bottom;
 }
 
-.cusindex_content, .cusindex_content_header {
+.cusindex-content, .cusindex-content-header {
   height: 200px;
   color: white;
 }
-.cusindex_content {
+.cusindex-content {
   font-size: 18px;
 }
-.cusindex_content_header {
+.cusindex-content-header {
   background-color: $primary-dark;
 }
-.cusindex_content1_img {
-  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/images/cusindex_content1.jpg');
+.cusindex-content1-img {
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/assets/images/cusindex-content1.jpg');
   border-radius: 0.25rem;
 }
-.cusindex_content2_img {
-  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/images/cusindex_content2.jpg');
+.cusindex-content2-img {
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/assets/images/cusindex-content2.jpg');
   border-radius: 0.25rem;
 }
 
 // cusProducts
-.cusproducts_header {
-  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/images/cusproducts_header_bg.jpg');
+.cusproducts-header {
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/assets/images/cusproducts-header-bg.jpg');
   background-position: center top;
 }
-.cusproducts_header_text {
+.cusproducts-header-text {
   margin-left: auto;
   right: 15px;
   writing-mode: vertical-lr;
 }
-.cusproducts_content {
+.cusproducts-content {
   @include media-breakpoint-up(xl) {
     margin-right: -30px;
     margin-left: -30px;
   }
 }
 
-.cusproducts_badge {
+.cusproducts-badge {
   position: relative;
   top: 3px
 }
 
 // cusProduct
-.cusproduct_header_img,
-.cusproduct_header_text {
+.cusproduct-header-img,
+.cusproduct-header-text {
   height: 350px;
 }
 
-.cusproduct_header_img {
+.cusproduct-header-img {
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
   @include media-breakpoint-up(md) {
@@ -102,7 +102,7 @@
     border-bottom-left-radius: 0.25rem;
   }
 }
-.cusproduct_header_text {
+.cusproduct-header-text {
   border-bottom-left-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
   @include media-breakpoint-up(md) {
@@ -111,16 +111,16 @@
   }
 }
 
-.cusproduct_select {
+.cusproduct-select {
   width: 80px;
 }
 
-.cusproduct_heading {
+.cusproduct-heading {
   color: #fff;
   text-align: center;
   margin-bottom: 1rem;  
 }
-.cusproduct_heading::before, .cusproduct_heading::after {
+.cusproduct-heading::before, .cusproduct-heading::after {
   content: '';
   display: inline-block;
   vertical-align: middle;
@@ -128,70 +128,70 @@
   height: 3px;
   background-color: #fff;
 }
-.cusproduct_heading::before {
+.cusproduct-heading::before {
   margin-right: 15px;
 }
-.cusproduct_heading::after {
+.cusproduct-heading::after {
   margin-left: 15px;
 }
-.cusproduct_content {
+.cusproduct-content {
   color: #fff;
   margin-bottom: 1.5rem;  
 }
 
 // cusLogin
-.cuslogin_checkbox {
+.cuslogin-checkbox {
   margin-top: 0.5rem;
   font-size: 20px;
   font-weight: 400;
   cursor: pointer;
 }
-.cuslogin_checkbox input {
+.cuslogin-checkbox input {
   height: 15px;
   width: 15px;
 }
-.cuslogin_form {
+.cuslogin-form {
   width: 100%;
   max-width: 330px;
   padding: 15px;
   margin: auto;
 }
-.cuslogin_form .form-control {
+.cuslogin-form .form-control {
   position: relative;
   box-sizing: border-box;
   height: auto;
   padding: 10px;
   font-size: 16px;
 }
-.cuslogin_form .form-control:focus {
+.cuslogin-form .form-control:focus {
   z-index: 2;
 }
-.cuslogin_form input[type="email"] {
+.cuslogin-form input[type="email"] {
   margin-bottom: -16px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.cuslogin_form input[type="password"] {
+.cuslogin-form input[type="password"] {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 
 // cusCart系列共用
-.progress_chara1 {
+.progress-chara1 {
   border-width: 1px;
-  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/images/progress_chara1.png');
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/assets/images/progress-chara1.png');
 }
-.progress_chara2 {
+.progress-chara2 {
   border-width: 1px;
-  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/images/progress_chara2.png')
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/assets/images/progress-chara2.png')
 }
-.progress_chara3 {
+.progress-chara3 {
   border-width: 1px;
-  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/images/progress_chara3.png')
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/assets/images/progress-chara3.png')
 }
 
 // cusCart
-.cuscart_card_img {
+.cuscart-card-img {
   height: 100px;
   width: 80px;
   margin-right: 0.5rem;
@@ -200,7 +200,7 @@
     margin-right: 1rem;
   }
 }
-.cuscart_card_text {
+.cuscart-card-text {
   margin-bottom: 0;
   line-height: 1.2;
   font-weight: 500;
@@ -208,7 +208,7 @@
 }
 
 // cusCartInfo
-.cuscartinfo_card_img {
+.cuscartinfo-card-img {
   width: 80px;
   height: 80px;
 }
@@ -221,16 +221,16 @@
 }
 
 // cusCartFinished
-.cuscartfinished_container {
+.cuscartfinished-container {
   background-position: center bottom;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/images/cuscartfinished_bg.jpg');
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/gh-pages/src/assets/images/cuscartfinished-bg.jpg');
 }
 
-.cuscartfinished_small {
+.cuscartfinished-small {
   width: 30%;
 }
-.cuscartfinished_large {
+.cuscartfinished-large {
   width: 60%;
 }

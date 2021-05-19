@@ -5,32 +5,32 @@ body {
   }
 }
 
-.mx_n15px {
+.mx-n15px {
   margin-right: -15px;
   margin-left: -15px;
 }
 
-.flex_center {
+.flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
 
-.rounded_breakpoint {
+.rounded-breakpoint {
   @include media-breakpoint-up(md) {
     border-radius: 0.25rem;
   }
 }
 
 // 背景、遮罩類
-.bg_cover {
+.bg-cover {
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-.bg_light_breakpoint {
+.bg-light-breakpoint {
   @include media-breakpoint-down(sm) {
     background-color: $gray-100;
   }
@@ -43,7 +43,7 @@ body {
 }
 
 // 文字、字型類
-.line_height_large {
+.line-height-large {
   line-height: 1.5;
 }
 
@@ -63,7 +63,7 @@ body {
   background-repeat: no-repeat;
   position: relative;
 }
-.header_text {
+.header-text {
   position: absolute;
   padding: 1rem;
   background-color: rgba(206, 212, 218, 0.3);
@@ -85,7 +85,7 @@ body {
   top: 50%;
   transform: translateY(-50%);
 }
-.error_msg {
+.error-msg {
   border: 3px solid $danger;
   border-radius: 0.25rem;
   background-color: #f8f9fa;
@@ -104,18 +104,18 @@ a {
 }
 
 //// 按鈕、表單類
-button.btn_fav:hover {
-  color: $tertiary;
-  border-color: $tertiary;
+button.btn-fav:hover {
+  color: $primary;
+  border-color: $primary;
   background-color: #fff;
 }
 
-.btn_setQty {
+.btn-setQty {
   font-size: 24px;
   border-radius: 0;
   padding: 0 0.6rem;
 }
-.btn_setQty_word {
+.btn-setQty-word {
   position: relative;
   top: -2px;
 }
@@ -158,7 +158,7 @@ input[type="number"]{
 // }
 
 //// 圖示類
-.icon_common {
+.icon-common {
   font-size: 30px;
 }
 .fa-envelope, .fa-phone-alt {
@@ -167,7 +167,7 @@ input[type="number"]{
 }
 
 //// 卡片類
-.card_header {
+.card-header {
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
   margin-bottom: 0;
@@ -177,14 +177,14 @@ input[type="number"]{
   color: white;
   text-align: center;
 }
-.card_lowerhalf {
+.card-lowerhalf {
   border-bottom-left-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
   background-color: $light;
 }
 
 ////// productsCard
-.productscard_img {
+.productscard-img {
   width: 75px;
   height: 90px;
   @media (min-width: 400px) and (max-width: 767.98px) {
@@ -193,11 +193,11 @@ input[type="number"]{
 }
 
 //// 輪播元件類
-.carousel_control {
+.carousel-control {
   width: 50px;
 }
 
-li.carousel_indicators {
+li.carousel-indicators {
   width: 45px;
 }
 
@@ -206,7 +206,7 @@ li.carousel_indicators {
   height: 3px;
   width: 50%;
 }
-.progress_icon {
+.progress-icon {
   position: relative;
   top: -11px;
   height: 25px;
@@ -221,7 +221,7 @@ li.carousel_indicators {
   background-color: $light;
   z-index: 1;
 }
-.progress_icon_active:after {
+.progress-icon-active:after {
   content: '';
   display: block;
   height: 11px;
