@@ -1,31 +1,26 @@
 <!-- eslint-disable max-len -->
 <template>
   <div>
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <router-link to="/index" class="text-tertiary">首頁</router-link>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">購物車</li>
-      </ol>
-    </nav>
     <div class="row">
       <div class="col-md-7 mb-4">
-        <h3 class="card_header">購物車清單</h3>
-        <div class="card_lowerhalf mb-3 mb-md-4 text-center">
-          <div v-if="cusCart.carts.length > 0">
-            <div class="p-3 border-bottom" v-for="cusCartItem in cusCart.carts"
-              :key="cusCartItem.id">
+        <h3 class="card-header">購物車清單</h3>
+        <div class="card-lowerhalf mb-3 mb-md-4 text-center">
+          <div v-if="cusCart.length > 0">
+            <div
+              class="p-3 border-bottom"
+              v-for="cusCartItem in cusCart"
+              :key="cusCartItem.id"
+            >
               <div class="d-flex mb-3">
                 <div
-                  class="flex-shrink-0 cuscart_card_img rounded bg_cover"
-                  :style="{'background-image':`url(${cusCartItem.product.imageUrl})`}"
+                  class="flex-shrink-0 cuscart-card-img rounded bg-cover"
+                  :style="{'background-image':`url(${cusCartItem.product.imageUrl || cusCartItem.imageUrl})`}"
                 />
                 <div class="flex-fill d-flex flex-column justify-content-between">
                   <div class="d-flex align-items-start">
                     <div
-                      class="cuscart_card_text text-center flex-fill align-self-center"
-                    >{{ cusCartItem.product.title }}</div>
+                      class="cuscart-card-text text-center flex-fill align-self-center"
+                    >{{ cusCartItem.product.title || cusCartItem.title }}</div>
                     <button
                       type="button"
                       class="btn ml-auto"
@@ -38,67 +33,72 @@
                   </div>
                   <div class="input-group">
                     <button
-                      class="btn btn_setQty rounded-left border-right-0"
-                      :class="{'btn-tertiary': carting, 'btn-outline-tertiary': !carting}"
+                      type="button"
+                      class="btn btn-setQty rounded-left border-right-0"
+                      :class="{'btn-secondary': carting, 'btn-outline-secondary': !carting}"
                       :disabled="carting || cusCartItem.qty === 1"
-                      @click="setCartQty(cusCartItem, -1, 'operation')"
+                      @click="setCusCartQty(cusCartItem, -1, 'operation')"
                     >
-                      <span class="btn_setQty_word">－</span>
+                      <span class="btn-setQty-word">－</span>
                     </button>
                     <input
                       type="number"
-                      class="form-control border-tertiary text-center"
+                      class="form-control border-secondary text-center"
                       :value="cusCartItem.qty"
                       min="1"
-                      @change="setCartQty(cusCartItem, parseInt($event.target.value), 'non-operation')"
+                      @change="setCusCartQty(cusCartItem, parseInt($event.target.value), 'non-operation')"
                     />
                     <button
-                      class="btn btn_setQty rounded-right border-left-0"
-                      :class="{'btn-tertiary': carting, 'btn-outline-tertiary': !carting}"
+                      type="button"
+                      class="btn btn-setQty rounded-right border-left-0"
+                      :class="{'btn-secondary': carting, 'btn-outline-secondary': !carting}"
                       :disabled="carting"
-                      @click="setCartQty(cusCartItem, 1, 'operation')"
+                      @click="setCusCartQty(cusCartItem, 1, 'operation')"
                     >
-                      <span class="btn_setQty_word">＋</span>
+                      <span class="btn-setQty-word">＋</span>
                     </button>
                   </div>
                 </div>
               </div>
               <div class="d-flex justify-content-between">
-                <span v-if="!cusCartItem.coupon"></span>
-                <span class="cuscart_card_text text-success" v-if="cusCartItem.coupon">已套用優惠碼</span>
-                <span class="cuscart_card_text">{{ $displayCurrency(cusCartItem.total) }}</span>
+                <span class="cuscart-card-text text-secondary" v-if="cusCartItem.coupon">已套用優惠碼</span>
+                <span v-else></span>
+                <span class="cuscart-card-text">{{ cusCartItem.final_total|displayCurrency }}</span>
               </div>
             </div>
-            <div class="p-3 bg-card-footer">
-              <h5 class="text-right mb-3">總計 {{ $displayCurrency(cusCart.total) }}</h5>
-              <h5 class="text-right text-success">折扣價
-                {{ $displayCurrency(cusCart.final_total) }}</h5>
-            </div>
+            <!-- <div class="p-3 bg-card-footer">
+              <h5 class="text-right mb-3">總計 {{ cusCartTotal|displayCurrency }}</h5>
+              <h5 class="text-right text-secondary font-weight-bold">
+                折扣價
+                {{ cusCartFinalTotal|displayCurrency }}
+              </h5>
+            </div> -->
           </div>
-          <div v-else class="flex_center p-3 h3">目前尚無商品</div>
+          <div v-else class="flex-center p-3 h3">目前尚無商品</div>
         </div>
         <div class="input-group mb-3 mb-md-4">
-          <input type="text" class="form-control" placeholder="請輸入優惠碼" v-model.trim="coupon" />
+          <input type="text" class="form-control" placeholder="請先確認數量再輸入優惠碼" v-model.trim="coupon" />
           <div class="input-group-append">
             <button
               class="btn"
-              :class="{'btn-tertiary':carting,'btn-outline-tertiary': !carting}"
+              :class="{'btn-secondary':carting,'btn-outline-secondary-light': !carting}"
               type="button"
               :disabled="carting"
               @click="checkCusCoupon"
             >套用優惠碼</button>
           </div>
         </div>
-        <h6 class="error_msg" v-if="couponError">優惠券錯誤或過期，請重新輸入</h6>
-        <h6 class="error_msg" v-if="qtyError">商品數量錯誤，請重新輸入</h6>
+        <h6 class="error-msg" v-if="couponError">優惠券錯誤或過期，請重新輸入</h6>
+        <h6 class="error-msg" v-if="qtyError">商品數量錯誤，請重新輸入</h6>
         <router-link
           to="/info"
           class="btn btn-secondary btn-lg btn-block"
           :class="{ disabled: carting }"
+          @click="confirmCusCart"
         >確認並進入下一階段</router-link>
       </div>
       <div class="col-md-5 mb-4">
-        <h3 class="card_header">推薦商品</h3>
+        <h3 class="card-header">推薦商品</h3>
         <products-card :bases="adProducts" />
       </div>
     </div>
@@ -107,11 +107,12 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import productsCard from '../../components/productsCard';
 
 export default {
   data() {
     return {
+      tempCusCart: [],
+      // tempCusCart: JSON.parse(localStorage.getItem('tempCusCart')) || [],
       coupon: '',
       couponError: false,
       tempQty: 0,
@@ -119,16 +120,15 @@ export default {
       adProducts: [],
     };
   },
-  components: { productsCard },
   methods: {
     ...mapActions(['getCusProducts', 'getCusCart']),
     getAdproducts() {
       const stock = [...this.cusProducts];
       const stockL = stock.length;
-      const cartL = this.cusCart.carts.length;
+      const cartL = this.cusCart.length;
       for (let n = 0; n < cartL; n++) {
         for (let i = 0; i < stockL; i++) {
-          if (stock[i].id === this.cusCart.carts[n].product_id) {
+          if (stock[i].id === this.cusCart[n].product_id) {
             stock.splice(i, 1);
             break;
           }
@@ -155,54 +155,58 @@ export default {
         objectId: cusCartItem.id,
       });
     },
-    setCartQty(cusCartItem, qty, action) {
-      this.$store.commit('SET_CARTING', true);
-      const API = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
-      const API_D = `${API}/${cusCartItem.id}`;
-      this.axios.delete(API_D);
+    setCusCartQty(cusCartItem, newQty, action) {
+      const temp = JSON.parse(localStorage.getItem('tempCusCart'));
+      const tempCusCartL = this.tempCusCart.length;
+      console.log(temp, cusCartItem.product.title, newQty, action);
       switch (action) {
         default: {
-          this.axios
-            .post(API, {
-              data: {
-                product_id: cusCartItem.product.id,
-                qty: qty + cusCartItem.qty,
-              },
-            })
-            .then((response) => {
-              if (response.data.success) {
-                this.$store.dispatch('getCusCart');
+          for (let i = 0; i < tempCusCartL; i++) {
+            if (temp[i].product_id === cusCartItem.product_id) {
+              temp[i].qty += newQty;
+              temp[i].total = temp[i].qty * temp[i].product.price;
+              if (temp[i].coupon) {
+                temp[i].final_total = temp[i].qty
+                * temp[i].product.price * temp[i].coupon.percent * 0.01;
+              } else {
+                temp[i].final_total = temp[i].qty
+                * temp[i].product.price;
               }
-            });
+              localStorage.setItem('tempCusCart', JSON.stringify(temp));
+            }
+            break;
+          }
+          // this.renewCusCart();
           break;
         }
         case 'non-operation': {
-          // eslint-disable-next-line no-restricted-globals
-          if (qty < 1 || isNaN(qty) === true) {
+          if (newQty < 1 || Number.isNaN(newQty) === true) {
             this.qtyError = true;
             break;
           } else {
             this.qtyError = false;
-            this.axios
-              .post(API, {
-                data: {
-                  product_id: cusCartItem.product.id,
-                  qty,
-                },
-              })
-              .then((response) => {
-                if (response.data.success) {
-                  this.$store.dispatch('getCusCart');
+            for (let i = 0; i < tempCusCartL; i++) {
+              if (this.tempCusCart[i].product_id === cusCartItem.product_id) {
+                this.tempCusCart[i].qty = newQty;
+                this.tempCusCart[i].total = newQty * this.tempCusCart[i].product.price;
+                if (this.tempCusCart[i].coupon) {
+                  this.tempCusCart[i].final_total = newQty * this.tempCusCart[i].product.price
+                  * this.tempCusCart[i].coupon.percent * 0.01;
+                } else {
+                  this.tempCusCart[i].final_total = newQty * this.tempCusCart[i].product.price;
                 }
-              });
+              }
+              localStorage.setItem('tempCusCart', JSON.stringify(this.tempCusCart));
+              break;
+            }
             break;
           }
         }
       }
     },
     checkCusCoupon() {
-      const API = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/coupon`;
       const vm = this;
+      const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`;
       vm.axios.post(API, { data: { code: vm.coupon } }).then((response) => {
         if (response.data.success) {
           vm.couponError = false;
@@ -213,25 +217,47 @@ export default {
         }
       });
     },
+    // renewCusCart() {
+    //   this.tempCusCart = JSON.parse(localStorage.getItem('tempCusCart')) || [];
+    //   console.log('renew');
+    // },
+    confirmCusCart() {
+    // const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
+    // const API_D = `${API}/${cusCartItem.id}`;
+    // this.axios.delete(API_D);
+      console.log('haha');
+    },
   },
   computed: {
     ...mapState(['cusProducts', 'cusCart', 'carting']),
-    watched() {
-      const { cusProducts, cusCart } = this;
-      return { cusProducts, cusCart };
-    },
   },
   watch: {
-    watched() {
-      if (this.cusProducts.length > 1) {
-        this.getAdproducts();
+    cusProducts() {
+      if (this.cusProducts.length >= 1) {
+        this.getCusCart();
       }
     },
+    cusCart() {
+      console.log(this.cusCart);
+      this.getAdproducts();
+    },
+    // cusCart() {
+    //   localStorage.setItem('tempCusCart', JSON.stringify(this.cusCart));
+    //   this.renewCusCart();
+    // },
+    // cusCart: {
+    //   handler() {
+    //     localStorage.setItem('tempCusCart', JSON.stringify(this.cusCart));
+    //   },
+    //   deep: true,
+    // },
+    // tempCusCart() {
+    //   console.log(this.tempCusCart);
+    // },
   },
   created() {
     this.getCusProducts();
-    this.getCusCart();
-    this.$store.commit('SET_CUSACTIVE', 'cusCart');
+    this.$store.commit('SET_CUSACTIVE', 'CusCart');
   },
 };
 </script>

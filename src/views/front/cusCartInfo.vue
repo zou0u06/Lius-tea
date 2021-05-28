@@ -2,15 +2,15 @@
   <div>
     <div class="py-md-4 row justify-content-center">
       <validation-observer v-slot="{ invalid, handleSubmit }" tag="div"
-      class="col-md-8 bg_light_breakpoint">
-        <form @submit.prevent="handleSubmit(createOrder)" class="p-4 bg-light rounded_breakpoint">
+      class="col-md-8 bg-light-breakpoint">
+        <form @submit.prevent="handleSubmit(createOrder)" class="p-4 bg-light rounded-breakpoint">
           <!-- form header -->
-          <div class="d-flex justify-content-between align-cusCartItems-center mb-3">
+          <div class="d-flex justify-content-between align-items-center mb-3">
             <h2><strong>收件資訊</strong></h2>
             <div class="d-flex justify-content-between progress bg-primary">
-              <div class="progress_icon progress_chara1"></div>
-              <div class="progress_icon progress_icon_active"></div>
-              <div class="progress_icon"></div>
+              <div class="progress-icon progress-chara1"></div>
+              <div class="progress-icon progress-icon-active"></div>
+              <div class="progress-icon"></div>
             </div>
           </div>
 
@@ -106,35 +106,35 @@
       <div class="col-lg-4 d-none d-lg-block">
         <!-- side block of price -->
         <div class="mb-4">
-          <h3 class="card_header">訂單金額</h3>
-          <div class="card_lowerhalf p-3">
-            <div class="d-flex justify-content-between mb-1">
+          <h3 class="card-header">訂單金額</h3>
+          <div class="card-lowerhalf p-3">
+            <div class="d-flex justify-content-between mb-2">
               <span>小計</span>
-              <span>{{ $displayCurrency(cusCart.final_total) }}</span>
+              <span>{{ cusCart.final_total|displayCurrency }}</span>
             </div>
             <div class="d-flex justify-content-between mb-2">
               <span>運費</span>
-              <span>{{ $displayCurrency() }}</span>
+              <span>$0</span>
             </div>
             <div class="d-flex justify-content-between h5">
               <b>總計</b>
-              <b>{{ $displayCurrency(cusCart.final_total) }}</b>
+              <b>{{ cusCart.final_total|displayCurrency }}</b>
             </div>
           </div>
         </div>
         <!-- side block of order -->
         <div>
-          <h3 class="card_header">訂單內容</h3>
-          <div class="card_lowerhalf pt-3 px-3">
+          <h3 class="card-header">訂單內容</h3>
+          <div class="card-lowerhalf pt-3 px-3">
             <div class="d-flex pb-3" v-for="cusCartItem in cusCart.carts" :key="cusCartItem.id">
-              <div class="cuscartinfo_card_img bg_cover mr-3"
+              <div class="cuscartinfo-card-img bg-cover mr-3"
               :style="{'background-image':`url(${cusCartItem.product.imageUrl})`}"></div>
-              <div class="flex-fill d-flex flex-column justify-content-between">
-                <h6 class="text-center">{{ cusCartItem.product.title }}</h6>
-                <div class="text-center text-success" v-if="cusCartItem.coupon">已使用優惠券</div>
-                <div class="d-flex justify-content-between">
+              <div class="flex-fill d-flex flex-column justify-content-around">
+                <div class="text-center">{{ cusCartItem.product.title }}</div>
+                <div class="text-center text-secondary-dark" v-if="cusCartItem.coupon">已使用優惠券</div>
+                <div class="d-flex justify-content-around">
                   <span>{{ cusCartItem.qty }}{{ cusCartItem.product.unit }}</span>
-                  <span>{{ $displayCurrency(discountedPrice(cusCartItem)) }}</span>
+                  <span>{{ discountedPrice(cusCartItem)|displayCurrency }}</span>
                 </div>
               </div>
             </div>
@@ -152,11 +152,22 @@ export default {
       form: {
         user: {},
       },
+      cusCart: {},
     };
   },
   methods: {
     getCusCart() {
-      this.$store.dispatch('getCusCart');
+      this.$store.commit('SET_CARTING', true);
+      const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
+      this.axios.get(API).then((response) => {
+        if (response.data.success) {
+          this.cusCart = response.data.data;
+          this.$store.commit('SET_CARTING', false);
+        } else {
+          this.$store.commit('SET_CARTING', false);
+          this.$store.commit('SET_MSG', 'wrongServer');
+        }
+      });
     },
     discountedPrice(cusCartItem) {
       if (cusCartItem.coupon) {
@@ -165,18 +176,13 @@ export default {
       return cusCartItem.product.price * cusCartItem.qty;
     },
     createOrder() {
-      const API = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/order`;
       const vm = this;
+      const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`;
       vm.axios.post(API, { data: vm.form }).then((response) => {
         if (response.data.success) {
           vm.$router.push(`/payment/${response.data.orderId}`);
         }
       });
-    },
-  },
-  computed: {
-    cusCart() {
-      return this.$store.state.cusCart;
     },
   },
   created() {

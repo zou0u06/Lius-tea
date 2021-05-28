@@ -1,9 +1,9 @@
 <template>
-  <div class="card_lowerhalf px-3 pt-3">
+  <div class="card-lowerhalf px-3 pt-3">
     <div v-if="bases.length > 0">
       <div v-for="cusProduct in bases" :key="cusProduct.id" class="d-flex pb-3">
         <div
-          class="productscard_img rounded bg_cover mr-2"
+          class="productscard-img rounded bg-cover mr-2"
           :style="{'background-image':`url(${cusProduct.imageUrl})`}"
         >
           <router-link
@@ -22,13 +22,13 @@
           <div class="d-flex justify-content-around">
             <button
               type="button"
-              class="btn btn-outline-tertiary btn-sm btn_fav"
+              class="btn btn-outline-primary btn-sm btn-fav"
               @click.stop="addToCusFavs(cusProduct.id)"
               v-if="cusProduct.favored === false"
             >加入收藏</button>
             <button
               type="button"
-              class="btn btn-tertiary btn-sm"
+              class="btn btn-primary btn-sm"
               @click.stop="delCusFav(cusProduct.id)"
               v-if="cusProduct.favored === true"
             >取消收藏</button>
@@ -48,7 +48,7 @@
         </div>
       </div>
     </div>
-    <div v-else class="flex_center pb-3 h3">目前尚無商品</div>
+    <div v-else class="flex-center pb-3 h3">目前尚無商品</div>
   </div>
 </template>
 

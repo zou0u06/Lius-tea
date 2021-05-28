@@ -3,21 +3,21 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <router-link to="/index" class="text-tertiary">首頁</router-link>
+          <router-link to="/index" class="text-white">首頁</router-link>
         </li>
         <li class="breadcrumb-item">
-          <router-link to="/products" class="text-tertiary">商品</router-link>
+          <router-link to="/products" class="text-white">商品</router-link>
         </li>
         <li class="breadcrumb-item active" aria-current="page">{{ cusProduct.title }}</li>
       </ol>
     </nav>
     <div class="row no-gutters">
       <div class="col-md-7">
-        <div class="bg_cover cusproduct_header_img"
+        <div class="bg-cover cusproduct-header-img"
         :style="{'background-image': `url(${ cusProduct.imageUrl })`}"></div>
       </div>
       <div class="col-md-5 d-flex flex-column justify-content-between bg-light
-      p-4 cusproduct_header_text">
+      p-4 cusproduct-header-text">
         <h2 class="text-center font-weight-bold">{{ cusProduct.title }}</h2>
         <h6>{{ cusProduct.description }}</h6>
         <div class="d-flex flex-wrap justify-content-between align-items-baseline">
@@ -26,20 +26,20 @@
         </div>
         <div class="d-flex justify-content-between align-items-center">
           <span class="h4">購買數量</span>
-          <select class="cusproduct_select rounded pl-2" v-model="qty">
+          <select class="cusproduct-select rounded pl-2" v-model="qty">
             <option v-for="i in 10" :key="i" :value="i">{{ i }}</option>
           </select>
         </div>
         <div class="d-flex justify-content-between">
           <button
             type="button"
-            class="btn btn-outline-tertiary btn_fav"
+            class="btn btn-outline-primary btn-fav"
             @click="addToCusFavs(cusProductId)"
             v-if="cusProduct.favored === false"
           >加入收藏</button>
           <button
             type="button"
-            class="btn btn-tertiary"
+            class="btn btn-primary"
             @click="delCusFav(cusProductId)"
             v-if="cusProduct.favored === true"
           >取消收藏</button>
@@ -60,12 +60,12 @@
     </div>
     <div class="row no-gutters pt-4">
       <div class="col-md-7 px-md-3">
-        <h3 class="cusproduct_heading">商品介紹</h3>
-        <p class="cusproduct_content">{{ cusProduct.content }}</p>
-        <h3 class="cusproduct_heading">保存方式及期限</h3>
-        <p class="cusproduct_content">由於茶葉容易吸收濕氣及周邊氣味，故建議開封後放入密封罐，儲存於陰涼乾燥處，依此方式可保存兩年，製造日期印製於包裝上。</p>
-        <h3 class="cusproduct_heading">沖泡方法</h3>
-        <p class="cusproduct_content">
+        <h3 class="cusproduct-heading">商品介紹</h3>
+        <p class="cusproduct-content">{{ cusProduct.content }}</p>
+        <h3 class="cusproduct-heading">保存方式及期限</h3>
+        <p class="cusproduct-content">由於茶葉容易吸收濕氣及周邊氣味，故建議開封後放入密封罐，儲存於陰涼乾燥處，依此方式可保存兩年，製造日期印製於包裝上。</p>
+        <h3 class="cusproduct-heading">沖泡方法</h3>
+        <p class="cusproduct-content">
           <ul>
             <ol>＊熱水沖泡</ol>
             <ol>１、將茶葉或茶包放入杯中</ol>
@@ -82,7 +82,7 @@
         </p>
       </div>
       <div class="col-md-5 mb-4">
-        <h3 class="rounded-top card_header">推薦商品</h3>
+        <h3 class="rounded-top card-header">推薦商品</h3>
         <products-card :bases="adProducts" />
       </div>
     </div>
@@ -91,7 +91,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import productsCard from '../../components/productsCard';
 
 export default {
   data() {
@@ -102,7 +101,6 @@ export default {
       adProducts: [],
     };
   },
-  components: { productsCard },
   methods: {
     ...mapActions(['getCusProducts', 'addToCusFavs', 'delCusFav']),
     addToCusCart(cusProduct) {
@@ -149,7 +147,7 @@ export default {
   created() {
     this.getCusProducts();
     this.cusProductId = this.$route.params.cusProductId;
-    this.$store.commit('SET_CUSACTIVE', 'cusProducts');
+    this.$store.commit('SET_CUSACTIVE', 'CusProducts');
   },
   beforeRouteUpdate(to, from, next) {
     this.getCusProducts();

@@ -152,11 +152,6 @@ input[type="number"]{
   -moz-appearance: textfield;
 }
 
-//// pagination
-// .page-item {
-//   border: 1px solid black;
-// }
-
 //// 圖示類
 .icon-common {
   font-size: 30px;
@@ -168,11 +163,6 @@ input[type="number"]{
 
 //// 卡片類
 .card-header {
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
-  margin-bottom: 0;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
   background-color: $extra;
   color: white;
   text-align: center;
@@ -190,15 +180,6 @@ input[type="number"]{
   @media (min-width: 400px) and (max-width: 767.98px) {
     width: 90px;
   }
-}
-
-//// 輪播元件類
-.carousel-control {
-  width: 50px;
-}
-
-li.carousel-indicators {
-  width: 45px;
 }
 
 //// 進度條類

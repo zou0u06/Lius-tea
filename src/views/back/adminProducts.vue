@@ -1,37 +1,39 @@
 <template>
   <div>
-    <h3 class="admin_title">產品列表</h3>
+    <h3 class="admin-title">產品列表</h3>
     <div class="text-right mb-3 mr-3">
-      <button class="btn btn-primary" @click="openProductModal()">建立新的商品</button>
+      <button type="button" class="btn btn-primary" @click="openProductModal()">建立新的商品</button>
     </div>
     <div class="table-responsive mb-3">
       <table class="table">
         <thead>
           <tr class="text-center">
-            <th class="adminproducts_cat">分類</th>
-            <th class="admin_name">商品名稱</th>
-            <th class="adminproducts_oriprice">原價</th>
-            <th class="adminproducts_price">售價</th>
-            <th class="admin_enabled">是否啟用</th>
-            <th class="admin_edition">編輯</th>
+            <th class="adminproducts-cat">分類</th>
+            <th class="admin-name">商品名稱</th>
+            <th class="adminproducts-oriprice">原價</th>
+            <th class="adminproducts-price">售價</th>
+            <th class="admin-enabled">是否啟用</th>
+            <th class="admin-edition">編輯</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="adminProduct in adminProducts" :key="adminProduct.id">
             <td class="text-center">{{ adminProduct.category }}</td>
             <td class="text-center">{{ adminProduct.title }}</td>
-            <td class="text-right">{{ $displayCurrency(adminProduct.origin_price) }}</td>
-            <td class="text-right">{{ $displayCurrency(adminProduct.price) }}</td>
+            <td class="text-right">{{ adminProduct.origin_price|displayCurrency }}</td>
+            <td class="text-right">{{ adminProduct.price|displayCurrency }}</td>
             <td class="text-center">
-              <span v-if="adminProduct.is_enabled === 1" class="text-success">啟用</span>
+              <span v-if="adminProduct.is_enabled === 1" class="text-secondary">啟用</span>
               <span v-else>未啟用</span>
             </td>
             <td class="text-center">
               <button
+                type="button"
                 class="btn btn-outline-primary btn-sm"
                 @click="openProductModal(adminProduct)"
               >編輯</button>
               <button
+                type="button"
                 class="btn btn-outline-danger btn-sm"
                 @click="openDelModal(adminProduct)"
               >刪除</button>
@@ -144,10 +146,7 @@
 </template>
 
 <script>
-import pagination from '../../components/pagination';
-
 export default {
-  components: { pagination },
   data() {
     return {
       tempProduct: {},
@@ -173,7 +172,7 @@ export default {
     uploadProduct() {
       const vm = this;
       if (vm.addition) {
-        const API = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product`;
+        const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product`;
         vm.axios.post(API, { data: vm.tempProduct }).then((response) => {
           if (response.data.success) {
             $('#productModal').modal('hide');
@@ -181,7 +180,7 @@ export default {
           }
         });
       } else {
-        const API = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
+        const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
         vm.axios.put(API, { data: vm.tempProduct }).then((response) => {
           if (response.data.success) {
             $('#productModal').modal('hide');
@@ -191,8 +190,8 @@ export default {
       }
     },
     uploadPic() {
-      const API = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/upload`;
       const vm = this;
+      const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/upload`;
       vm.picUploading = true;
       const formData = new FormData();
       formData.append('file-to-upload', vm.$refs.files.files[0]);
@@ -229,7 +228,7 @@ export default {
   },
   created() {
     this.getAdminProducts();
-    this.$store.commit('SET_ADMINACTIVE', 'adminProducts');
+    this.$store.commit('SET_ADMINACTIVE', 'AdminProducts');
   },
 };
 </script>

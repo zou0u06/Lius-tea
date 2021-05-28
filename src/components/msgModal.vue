@@ -5,7 +5,7 @@
       <div class="modal-content">
         <div class="modal-header d-flex" :class="`bg-${theme}`">
           <h5 class="modal-title text-white" id="staticBackdropLabel">{{ title }}</h5>
-          <button type="button" class="close line_height_large"
+          <button type="button" class="close line-height-large"
             data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -16,7 +16,7 @@
           <h6 v-if="action !== ''">{{ action }}</h6>
           <div v-else class="text-center">
             <h6 class="mb-3">為慶祝本茶行開幕九周年</h6>
-            <h6 class="line_height_large">只要在結帳時輸入
+            <h6 class="line-height-large">只要在結帳時輸入
               <span :class="`text-${theme}`"> ninety </span>
               優惠碼即可取得九折優惠！
             </h6>
@@ -62,11 +62,7 @@ export default {
       const vm = this;
       let keyword1;
       let keyword2;
-      switch (this.msg.event) {
-        default:
-          keyword1 = 'cart';
-          keyword2 = 'getCusCart';
-          break;
+      switch (vm.msg.event) {
         case 'delAdminProduct':
           keyword1 = 'admin/product';
           keyword2 = 'getAdminProducts';
@@ -75,8 +71,12 @@ export default {
           keyword1 = 'admin/coupon';
           keyword2 = 'getAdminCoupons';
           break;
+        default:
+          keyword1 = 'cart';
+          keyword2 = 'getCusCart';
+          break;
       }
-      const API = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/${keyword1}/${objectId}`;
+      const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/${keyword1}/${objectId}`;
       vm.axios.delete(API).then((response) => {
         if (response.data.success) {
           vm.$store.dispatch(keyword2);

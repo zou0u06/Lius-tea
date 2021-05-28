@@ -1,37 +1,39 @@
 <template>
   <div>
-    <h3 class="admin_title">優惠券列表</h3>
+    <h3 class="admin-title">優惠券列表</h3>
     <div class="text-right mb-3 mr-3">
-      <button class="btn btn-primary" @click="openCouponModal()">建立新的優惠券</button>
+      <button type="button" class="btn btn-primary" @click="openCouponModal()">建立新的優惠券</button>
     </div>
     <div class="table-responsive mb-3">
       <table class="table text-center">
         <thead>
           <tr>
-            <th class="admin_name">優惠券名稱</th>
-            <th class="admincoupons_discount">折扣百分比</th>
-            <th class="admin_date">到期日</th>
-            <th class="admincoupons_code">使用代碼</th>
-            <th class="admin_enabled">是否啟用</th>
-            <th class="admin_edition">編輯</th>
+            <th class="admin-name">優惠券名稱</th>
+            <th class="admincoupons-discount">折扣百分比</th>
+            <th class="admin-date">到期日</th>
+            <th class="admincoupons-code">使用代碼</th>
+            <th class="admin-enabled">是否啟用</th>
+            <th class="admin-edition">編輯</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="adminCoupon in adminCoupons" :key="adminCoupon.id">
             <td>{{ adminCoupon.title }}</td>
             <td>{{ adminCoupon.percent }}%</td>
-            <td>{{ $displayDate(adminCoupon.due_date) }}</td>
+            <td>{{ adminCoupon.due_date|displayDate }}</td>
             <td>{{ adminCoupon.code }}</td>
             <td>
-              <span v-if="adminCoupon.is_enabled === 1" class="text-success">啟用</span>
+              <span v-if="adminCoupon.is_enabled === 1" class="text-secondary">啟用</span>
               <span v-else>未啟用</span>
             </td>
             <td>
               <button
+                type="button"
                 class="btn btn-outline-primary btn-sm"
                 @click="openCouponModal(adminCoupon)"
               >編輯</button>
               <button
+                type="button"
                 class="btn btn-outline-danger btn-sm"
                 @click="openDelCModal(adminCoupon)"
               >刪除</button>
@@ -72,7 +74,7 @@
                   <div class="form-group col-md-6">
                     <label>到期日</label>
                     <input class="form-control" id="cdd" @focus="pickDate" placeholder="請輸入到期日"
-                      :value="$displayDate(tempCoupon.due_date)"/>
+                      :value="tempCoupon.due_date|displayDate"/>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="code">使用代碼</label>
@@ -103,10 +105,7 @@
 </template>
 
 <script>
-import pagination from '../../components/pagination';
-
 export default {
-  components: { pagination },
   data() {
     return {
       tempCoupon: {},
@@ -134,7 +133,7 @@ export default {
     uploadCoupon() {
       const vm = this;
       if (vm.addition) {
-        const API = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/coupon`;
+        const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon`;
         vm.axios.post(API, { data: vm.tempCoupon }).then((response) => {
           if (response.data.success) {
             $('#couponModal').modal('hide');
@@ -142,7 +141,7 @@ export default {
           }
         });
       } else {
-        const API = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`;
+        const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`;
         vm.axios.put(API, { data: vm.tempCoupon }).then((response) => {
           if (response.data.success) {
             $('#couponModal').modal('hide');
@@ -169,7 +168,7 @@ export default {
   },
   created() {
     this.getAdminCoupons();
-    this.$store.commit('SET_ADMINACTIVE', 'adminCoupons');
+    this.$store.commit('SET_ADMINACTIVE', 'AdminCoupons');
   },
 };
 </script>

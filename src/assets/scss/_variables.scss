@@ -47,7 +47,7 @@ $cyan:    #17a2b8 !default;
 $primary:       hsl(356, 50%, 21%); //rgb(95, 10, 15);
 $primary-dark:    darken($primary, 10%);
 $secondary:     hsl(36, 70%, 32%); //rgb(255, 65, 0); #d43600
-$secondary-light: lighten($secondary, 15%);
+$secondary-light: lighten($secondary, 25%);
 $secondary-dark:  darken($secondary, 15%); //#c14f00;
 $danger:          $blue; //rgb(0, 125, 145); #008600;
 $extra:         #a66e61;
@@ -1097,12 +1097,12 @@ $breadcrumb-border-radius:          $border-radius !default;
 // Carousel
 
 $carousel-control-color:             $white !default;
-$carousel-control-width:             15% !default;
+$carousel-control-width:             50px; //15% !default;
 $carousel-control-opacity:           .5 !default;
 $carousel-control-hover-opacity:     .9 !default;
 $carousel-control-transition:        opacity .15s ease !default;
 
-$carousel-indicator-width:           30px !default;
+$carousel-indicator-width:           45px; //30px !default;
 $carousel-indicator-height:          3px !default;
 $carousel-indicator-hit-area-height: 10px !default;
 $carousel-indicator-spacer:          3px !default;

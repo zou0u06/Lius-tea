@@ -1,7 +1,7 @@
 <template>
   <div>
     <validation-observer v-slot="{ invalid, handleSubmit }" tag="div">
-      <form class="py-5 cuslogin_form text-center" @submit.prevent="handleSubmit(signin)">
+      <form class="py-5 cuslogin-form text-center" @submit.prevent="handleSubmit(signin)">
         <div class="h1 mb-4 font-weight-normal text-white">會員登入</div>
         <validation-provider
           class="form-group"
@@ -41,11 +41,11 @@
           />
         </validation-provider>
         <div class="checkbox mb-3">
-          <label class="text-white cuslogin_checkbox">
+          <label class="text-white cuslogin-checkbox">
             <input type="checkbox" class="mr-2" @click="rememberInfo()" />記住帳號
           </label>
         </div>
-        <div class="error_msg" v-if="errorMsg">帳號或密碼錯誤，請重新輸入</div>
+        <div class="error-msg" v-if="errorMsg">帳號或密碼錯誤，請重新輸入</div>
         <button class="btn btn-lg btn-secondary btn-block" type="submit"
           :disabled="invalid">登入</button>
       </form>
@@ -67,8 +67,8 @@ export default {
   },
   methods: {
     signin() {
-      const api = `${process.env.APIPATH}/admin/signin`;
       const vm = this;
+      const api = `${process.env.VUE_APP_APIPATH}/admin/signin`;
       vm.axios.post(api, vm.user).then((response) => {
         if (response.data.success) {
           const { token } = response.data;
@@ -106,7 +106,7 @@ export default {
   },
   created() {
     this.user.username = JSON.parse(localStorage.getItem('user')) || '';
-    this.$store.commit('SET_CUSACTIVE', 'cusLogin');
+    this.$store.commit('SET_CUSACTIVE', 'CusLogin');
   },
 };
 </script>

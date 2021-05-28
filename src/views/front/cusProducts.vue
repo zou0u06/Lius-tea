@@ -1,32 +1,24 @@
 <template>
   <div>
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <router-link to="/index" class="text-tertiary">首頁</router-link>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">商品</li>
-      </ol>
-    </nav>
-    <div class="header cusproducts_header mx_n15px">
-      <div class="header_text cusproducts_header_text h1">
+    <div class="header cusproducts-header mx-n15px">
+      <div class="header-text cusproducts-header-text h1">
         空持百千偈。
         <br />
         <span>不如喫茶去</span>
       </div>
     </div>
-    <div class="row justify-content-center cusproducts_content pt-4">
+    <div class="row justify-content-center cusproducts-content pt-4">
       <div class="col-md-3">
         <div class="card rounded border-0 mb-4">
-          <h3 class="card_header">商品列表</h3>
+          <h3 class="card-header">商品列表</h3>
           <ul class="list-group list-group-flush text-center" role="tablist">
             <a
               href="#"
               class="list-group-item list-group-item-action"
               data-toggle="list"
               role="tab"
-              @click.prevent="filterCusProducts(); isActive = 'all'"
-              :class="{ active: isActive === 'all' }"
+              @click.prevent="filterCusProducts(); isActive = ''"
+              :class="{ active: isActive === '' }"
             >所有茶品</a>
             <a
               href="#"
@@ -46,7 +38,7 @@
           <div class="col-md-6 mb-4" v-for="cusProduct in filterCusProducts()" :key="cusProduct.id">
             <div class="card border-0 rounded shadow-sm">
               <div
-                class="bg_cover rounded-top"
+                class="bg-cover rounded-top"
                 style="height: 200px"
                 :style="{'background-image': `url(${cusProduct.imageUrl})`}"
               >
@@ -54,7 +46,7 @@
               </div>
               <div class="card-body">
                 <span
-                  class="badge badge-primary cusproducts_badge float-right ml-2"
+                  class="badge badge-primary cusproducts-badge float-right ml-2"
                 >{{ cusProduct.category }}</span>
                 <h5 class="card-title">{{ cusProduct.title }}</h5>
                 <div class="d-flex justify-content-between align-items-baseline">
@@ -70,7 +62,7 @@
                 </router-link>
                 <button
                   type="button"
-                  class="btn btn-outline-tertiary btn-sm btn_fav"
+                  class="btn btn-outline-primary btn-sm btn-fav"
                   @click="addToCusFavs(cusProduct.id)"
                   v-if="cusProduct.favored === false"
                 >
@@ -79,7 +71,7 @@
                 </button>
                 <button
                   type="button"
-                  class="btn btn-tertiary btn-sm"
+                  class="btn btn-primary btn-sm"
                   @click="delCusFav(cusProduct.id)"
                   v-if="cusProduct.favored === true"
                 >
@@ -158,7 +150,7 @@ export default {
   computed: mapState(['cusProducts', 'cats', 'pagination', 'carting']),
   created() {
     this.getCusProducts();
-    this.$store.commit('SET_CUSACTIVE', 'cusProducts');
+    this.$store.commit('SET_CUSACTIVE', 'CusProducts');
   },
 };
 </script>

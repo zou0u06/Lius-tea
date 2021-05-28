@@ -11,7 +11,7 @@ export default {
   actions: {
     getAdminCoupons(context, page = 1) {
       context.commit('SET_LOADING', true);
-      const API = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/coupons?page=${page}`;
+      const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${page}`;
       axios.get(API).then((response) => {
         if (response.data.coupons) {
           context.commit('GET_ADMINCOUPONS', response.data.coupons);
@@ -23,7 +23,7 @@ export default {
     },
     getAdminProducts(context, page = 1) {
       context.commit('SET_LOADING', true);
-      const API = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products?page=${page}`;
+      const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`;
       axios.get(API).then((response) => {
         if (response.data.success) {
           context.commit('GET_ADMINPRODUCTS', response.data.products);

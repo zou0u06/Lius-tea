@@ -5,38 +5,38 @@
         <h2 class="mr-auto text-white">劉記茗茶管理後臺</h2>
 
         <button
-          class="navbar-toggler adminnavbar_toggler border-0"
+          class="navbar-toggler adminnavbar-toggler border-0"
           type="button"
           data-toggle="collapse"
-          data-target=".adminnavbar_collapse"
-          aria-controls="adminnavbar_collapse"
+          data-target=".adminnavbar-collapse"
+          aria-controls="adminnavbar-collapse"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse adminnavbar_collapse">
+        <div class="collapse navbar-collapse adminnavbar-collapse">
           <ul class="navbar-nav ml-auto text-center" @click.prevent="setAdminNavbar()">
             <li class="nav-item">
               <router-link
                 class="nav-link"
                 to="/admin"
-                :class="{active: adminActive === 'adminProducts'}"
+                :class="{active: adminActive === 'AdminProducts'}"
               >產品列表</router-link>
             </li>
             <li class="nav-item">
               <router-link
                 class="nav-link"
                 to="/admin/orders"
-                :class="{active: adminActive === 'adminOrders'}"
+                :class="{active: adminActive === 'AdminOrders'}"
               >訂單列表</router-link>
             </li>
             <li class="nav-item">
               <router-link
                 class="nav-link"
                 to="/admin/coupons"
-                :class="{active: adminActive === 'adminCoupons'}"
+                :class="{active: adminActive === 'AdminCoupons'}"
               >優惠券列表</router-link>
             </li>
             <li class="nav-item" @click.prevent="signout">
@@ -46,7 +46,7 @@
         </div>
       </div>
     </nav>
-    <div class="collapse adminnavbar_collapse mask adminnavbar_mask"/>
+    <div class="collapse adminnavbar-collapse mask adminnavbar-mask"/>
   </div>
 </template>
 
@@ -58,13 +58,13 @@ export default {
   methods: {
     setAdminNavbar() {
       if (document.body.clientWidth < 768) {
-        document.querySelector('.adminnavbar_toggler').click();
+        document.querySelector('.adminnavbar-toggler').click();
       }
     },
     signout() {
-      const api = `${process.env.APIPATH}/logout`;
       const vm = this;
-      this.axios.post(api).then((response) => {
+      const api = `${process.env.VUE_APP_APIPATH}/logout`;
+      vm.axios.post(api).then((response) => {
         if (response.data.success === true) {
           vm.$router.push('/login');
         }

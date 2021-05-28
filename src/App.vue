@@ -1,20 +1,17 @@
 <template>
   <div id="app">
     <msg-modal/>
-    <loading :active.sync="loading"/>
+    <!-- <loading :active.sync="loading"/> -->
     <router-view/>
-    <button class="totop button btn-extra" @click="goToTop()">
+    <button type="button" class="totop button btn-extra" @click="goToTop()">
       <i class="fas fa-arrow-up"></i>
     </button>
   </div>
 </template>
 
 <script>
-import msgModal from './components/msgModal';
-
 export default {
   name: 'App',
-  components: { msgModal },
   data() {
     return {
       scrollY: 0,
@@ -53,6 +50,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import './scss/all';
+@import './assets/scss/all';
 
 </style>

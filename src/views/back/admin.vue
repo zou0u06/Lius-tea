@@ -8,10 +8,10 @@
 </template>
 
 <script>
-import adminNavbar from '../../components/adminNavbar';
+import AdminNavbar from '@/components/AdminNavbar.vue';
 
 export default {
-  components: { adminNavbar },
+  components: { AdminNavbar },
   created() {
     const myCookie = document.cookie.replace(
       /(?:(?:^|.*;\s*)myToken\s*=\s*([^;]*).*$)|^.*$/,

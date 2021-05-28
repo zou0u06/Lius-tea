@@ -1,105 +1,89 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import admin from '@/views/back/admin';
-import adminCoupons from '@/views/back/adminCoupons';
-import adminOrders from '@/views/back/adminOrders';
-import adminProducts from '@/views/back/adminProducts';
-
-import cus from '@/views/front/cus';
-import cusFavs from '@/views/front/cusFavs';
-import cusIndex from '@/views/front/cusIndex';
-import cusLogin from '@/views/front/cusLogin';
-import cusProducts from '@/views/front/cusProducts';
-import cusProduct from '@/views/front/cusProduct';
-import cusCart from '@/views/front/cusCart';
-import cusCartInfo from '@/views/front/cusCartInfo';
-import cusCartPayment from '@/views/front/cusCartPayment';
-import cusCartFinished from '@/views/front/cusCartFinished';
-
 Vue.use(VueRouter);
 
 export default new VueRouter({
   routes: [
     {
-      path: '/index',
-      component: cus,
+      path: '/',
+      component: () => import('@/views/front/Cus.vue'),
       children: [
         {
-          name: 'cusIndex',
+          name: 'CusIndex',
           path: '/',
-          component: cusIndex,
+          component: () => import('@/views/front/CusIndex.vue'),
         },
         {
-          name: 'cusProducts',
+          name: 'CusProducts',
           path: '/products',
-          component: cusProducts,
+          component: () => import('@/views/front/CusProducts.vue'),
         },
         {
-          name: 'cusFavs',
+          name: 'CusFavs',
           path: '/favs',
-          component: cusFavs,
+          component: () => import('@/views/front/CusFavs.vue'),
         },
         {
-          name: 'cusProduct',
+          name: 'CusProduct',
           path: '/products/:cusProductId',
-          component: cusProduct,
+          component: () => import('@/views/front/CusProduct.vue'),
         },
         {
-          name: 'cusCart',
+          name: 'CusCart',
           path: '/Cart',
-          component: cusCart,
+          component: () => import('@/views/front/CusCart.vue'),
         },
         {
-          name: 'cusCartInfo',
+          name: 'CusCartInfo',
           path: '/info',
-          component: cusCartInfo,
+          component: () => import('@/views/front/CusCartInfo.vue'),
         },
         {
-          name: 'cusCartPayment',
+          name: 'CusCartPayment',
           path: '/payment/:cusOrderId',
-          component: cusCartPayment,
+          component: () => import('@/views/front/CusCartPayment.vue'),
         },
         {
-          name: 'cusCartFinished',
+          name: 'CusCartFinished',
           path: '/finished/:cusOrderId',
-          component: cusCartFinished,
+          component: () => import('@/views/front/CusCartFinished.vue'),
         },
         {
-          name: 'cusLogin',
+          name: 'CusLogin',
           path: '/login',
-          component: cusLogin,
+          component: () => import('@/views/front/CusLogin.vue'),
+        },
+      ],
+    },
+    {
+      path: '/admin',
+      component: () => import('@/views/back/Admin.vue'),
+      meta: { requiresAuth: true },
+      children: [
+        {
+          name: 'AdminProducts',
+          path: '/',
+          component: () => import('@/views/back/AdminProducts.vue'),
+          meta: { requiresAuth: true },
+        },
+        {
+          name: 'AdminOrders',
+          path: '/admin/orders',
+          component: () => import('@/views/back/AdminOrders.vue'),
+          meta: { requiresAuth: true },
+        },
+        {
+          name: 'AdminCoupons',
+          path: '/admin/coupons',
+          component: () => import('@/views/back/AdminCoupons.vue'),
+          meta: { requiresAuth: true },
         },
       ],
     },
     {
       path: '*',
-      redirect: '/index',
-    },
-    {
-      path: '/admin',
-      component: admin,
-      meta: { requiresAuth: true },
-      children: [
-        {
-          name: 'adminProducts',
-          path: '/',
-          component: adminProducts,
-          meta: { requiresAuth: true },
-        },
-        {
-          name: 'adminOrders',
-          path: '/admin/orders',
-          component: adminOrders,
-          meta: { requiresAuth: true },
-        },
-        {
-          name: 'adminCoupons',
-          path: '/admin/coupons',
-          component: adminCoupons,
-          meta: { requiresAuth: true },
-        },
-      ],
+      redirect: '/',
     },
   ],
   scrollBehavior(to, from, savedPosition) {

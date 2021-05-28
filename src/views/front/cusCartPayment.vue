@@ -7,7 +7,7 @@
     >
       <form
         @submit.prevent="handleSubmit(payOrder)"
-        class="col-md-8 p-4 bg-light rounded_breakpoint"
+        class="col-md-8 p-4 bg-light rounded-breakpoint"
       >
         <!-- form header -->
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -15,9 +15,9 @@
             <strong>付款資訊</strong>
           </h2>
           <div class="d-flex justify-content-between progress bg-primary">
-            <div class="progress_icon progress_chara1"></div>
-            <div class="progress_icon progress_chara2"></div>
-            <div class="progress_icon progress_icon_active"></div>
+            <div class="progress-icon progress-chara1"></div>
+            <div class="progress-icon progress-chara2"></div>
+            <div class="progress-icon progress-icon-active"></div>
           </div>
         </div>
 
@@ -235,7 +235,7 @@ export default {
   methods: {
     payOrder() {
       const vm = this;
-      const API = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/pay/${vm.cusOrderId}`;
+      const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.cusOrderId}`;
       vm.axios.post(API).then((response) => {
         if (response.data.success) {
           vm.$router.push(`/finished/${vm.cusOrderId}`);

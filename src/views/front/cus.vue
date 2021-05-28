@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import cusNavbar from '../../components/cusNavbar';
-import cusFooter from '../../components/cusFooter';
+import CusNavbar from '@/components/CusNavbar.vue';
+import CusFooter from '@/components/CusFooter.vue';
 
 export default {
-  components: { cusNavbar, cusFooter },
+  components: { CusNavbar, CusFooter },
 };
 </script>
 

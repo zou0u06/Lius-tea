@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-param-reassign */
 import Vue from 'vue';
 import Vuex from 'vuex';
@@ -16,11 +17,12 @@ export default new Vuex.Store({
       favored: '',
     }],
     cats: [],
-    cusCart: {
-      carts: [{
-        product: {},
-      }],
-    },
+    cusCart: [{
+      product: {
+        imageUrl: 'https://github.com/zou0u06/Lius-tea/blob/gh-pages/src/assets/images/favicon.png?raw=true',
+        title: '',
+      },
+    }],
     loading: false,
     carting: false,
     msg: {
@@ -32,7 +34,7 @@ export default new Vuex.Store({
   actions: {
     getCusProducts(context, page = 1) {
       context.commit('SET_LOADING', true);
-      const API = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products?page=${page}`;
+      const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products?page=${page}`;
       axios.get(API).then((response) => {
         if (response.data.success) {
           const tempCusProduct = response.data.products.filter((item) => item.is_enabled === 1);
@@ -42,6 +44,7 @@ export default new Vuex.Store({
           context.dispatch('setCusFavs');
         } else {
           context.commit('SET_LOADING', false);
+          context.commit('SET_MSG', 'wrongServer');
         }
       });
     },
@@ -99,32 +102,37 @@ export default new Vuex.Store({
     },
     getCusCart(context) {
       context.commit('SET_CARTING', true);
-      const API = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
-      axios.get(API).then((response) => {
-        if (response.data.success) {
-          const tempCart = response.data.data;
-          if (tempCart.carts.length > 0) {
-            tempCart.carts.sort((a, b) => {
-              if (a.product_id < b.product_id) {
-                return -1;
-              }
-              if (a.product_id > b.product_id) {
-                return 1;
-              }
-              return 0;
-            });
-          }
-          context.commit('GET_CUSCART', tempCart);
-          context.commit('SET_CARTING', false);
-        } else {
-          context.commit('SET_CARTING', false);
-        }
-      });
+      const tempCusCart = [];
+      const tempCusCartId = JSON.parse(localStorage.getItem('tempCusCart')) || [];
+      if (tempCusCartId.length > 0) {
+        context.state.cusProducts.forEach((item) => {
+          tempCusCartId.forEach((ite) => {
+            if (item.id === ite.product_id) {
+              console.log(item.id, ite.product_id);
+              tempCusCart.push(item);
+            }
+          });
+        });
+        console.log(tempCusCart);
+        context.commit('GET_CUSCART', tempCusCart);
+      }
+      // if (tempCart.length > 0) {
+      //   tempCart.sort((a, b) => {
+      //     if (a.product_id < b.product_id) {
+      //       return -1;
+      //     }
+      //     if (a.product_id > b.product_id) {
+      //       return 1;
+      //     }
+      //     return 0;
+      //   });
+      // }
+      context.commit('SET_CARTING', false);
     },
     addToCusCart(context, { cusProduct, qty }) {
       context.commit('SET_CARTING', true);
-      const API = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
-      const cartsL = context.state.cusCart.carts.length;
+      const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
+      const cartsL = context.state.cusCart.length;
       function notMatched() {
         axios.post(API, { data: { product_id: cusProduct.id, qty } }).then((response) => {
           if (response.data.success) {
@@ -139,14 +147,14 @@ export default new Vuex.Store({
       if (cartsL > 0) {
         let match;
         for (let i = 0; i < cartsL; i++) {
-          if (context.state.cusCart.carts[i].product.id === cusProduct.id) {
+          if (context.state.cusCart[i].product.id === cusProduct.id) {
             match = true;
-            const API_D = `${API}/${context.state.cusCart.carts[i].id}`;
+            const API_D = `${API}/${context.state.cusCart[i].id}`;
             axios.delete(API_D);
             axios.post(API, {
               data: {
                 product_id: cusProduct.id,
-                qty: qty + context.state.cusCart.carts[i].qty,
+                qty: qty + context.state.cusCart[i].qty,
               },
             }).then((response) => {
               if (response.data.success) {
@@ -167,15 +175,6 @@ export default new Vuex.Store({
         notMatched();
       }
     },
-    // setCarting(context, payload) {
-    //   context.commit('SET_CARTING', payload);
-    // },
-    // setLoading(context, payload) {
-    //   context.commit('SET_LOADING', payload);
-    // },
-    // openDelModal(context, payload) {
-    //   context.commit('SET_MSG', payload);
-    // },
   },
   mutations: {
     SET_LOADING(state, payload) {
@@ -202,7 +201,7 @@ export default new Vuex.Store({
       Vue.set(state.cusProducts[`${payload.i}`], 'favored', payload.boolean);
     },
     GET_CUSCART(state, payload) {
-      state.cusCart = payload;
+      Vue.set(state, 'cusCart', payload);
     },
   },
 });

@@ -4,13 +4,13 @@
       <div class="h1 mb-3">劉記茗茶 Liu's Tea</div>
       <div class="mb-3">
         <a href="#">
-          <i class="fab fa-github icon_common text-white mr-5"></i>
+          <i class="fab fa-github icon-common text-white mr-5"></i>
         </a>
         <a href="#">
-          <i class="fab fa-instagram icon_common text-white mr-5"></i>
+          <i class="fab fa-instagram icon-common text-white mr-5"></i>
         </a>
         <a href="#">
-          <i class="fab fa-facebook icon_common text-white"></i>
+          <i class="fab fa-facebook icon-common text-white"></i>
         </a>
       </div>
       <div class="row">

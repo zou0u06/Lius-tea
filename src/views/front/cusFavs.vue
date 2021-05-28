@@ -1,20 +1,12 @@
 <template>
   <div class="container-xl">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <router-link to="/index" class="text-tertiary">首頁</router-link>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">收藏</li>
-      </ol>
-    </nav>
     <div class="row">
       <div class="col-md-7 mb-4">
-        <h3 class="rounded-top card_header">收藏清單</h3>
+        <h3 class="rounded-top card-header">收藏清單</h3>
         <products-card :bases="favoredProducts" />
       </div>
       <div class="col-md-5 mb-4">
-        <h3 class="rounded-top card_header">推薦商品</h3>
+        <h3 class="rounded-top card-header">推薦商品</h3>
         <products-card :bases="adProducts" />
       </div>
     </div>
@@ -23,7 +15,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import productsCard from '../../components/productsCard';
 
 export default {
   data() {
@@ -32,7 +23,6 @@ export default {
       adProducts: [],
     };
   },
-  components: { productsCard },
   methods: {
     ...mapActions(['getCusProducts', 'addToCusFavs', 'delCusFav']),
     getAdproducts() {
@@ -79,7 +69,7 @@ export default {
   },
   created() {
     this.getCusProducts();
-    this.$store.commit('SET_CUSACTIVE', 'cusFavs');
+    this.$store.commit('SET_CUSACTIVE', 'CusFavs');
   },
 };
 </script>

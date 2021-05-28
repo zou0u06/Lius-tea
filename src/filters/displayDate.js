@@ -1,6 +1,4 @@
-import Vue from 'vue';
-
-Vue.prototype.$displayDate = (tempDate) => {
+export default (tempDate) => {
   if (tempDate) {
     const d = new Date(tempDate * 1000);
     const yyyy = d.getFullYear();
