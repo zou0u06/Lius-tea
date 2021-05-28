@@ -20,7 +20,6 @@ export default new Vuex.Store({
     cusCart: [{
       product: {
         imageUrl: 'https://github.com/zou0u06/Lius-tea/blob/gh-pages/src/assets/images/favicon.png?raw=true',
-        title: '',
       },
     }],
     loading: false,
@@ -103,10 +102,10 @@ export default new Vuex.Store({
     getCusCart(context) {
       context.commit('SET_CARTING', true);
       const tempCusCart = [];
-      const tempCusCartId = JSON.parse(localStorage.getItem('tempCusCart')) || [];
-      if (tempCusCartId.length > 0) {
+      const cusCartId = JSON.parse(localStorage.getItem('cusCart')) || [];
+      if (cusCartId.length > 0) {
         context.state.cusProducts.forEach((item) => {
-          tempCusCartId.forEach((ite) => {
+          cusCartId.forEach((ite) => {
             if (item.id === ite.product_id) {
               console.log(item.id, ite.product_id);
               tempCusCart.push(item);
@@ -131,40 +130,30 @@ export default new Vuex.Store({
     },
     addToCusCart(context, { cusProduct, qty }) {
       context.commit('SET_CARTING', true);
-      const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-      const cartsL = context.state.cusCart.length;
+      console.log(localStorage.getItem('cusCart'));
+      const tempCusCart = JSON.parse(localStorage.getItem('cusCart')) || [];
+      const tempCusCartL = tempCusCart.length;
       function notMatched() {
-        axios.post(API, { data: { product_id: cusProduct.id, qty } }).then((response) => {
-          if (response.data.success) {
+        tempCusCart.push({ product_id: cusProduct.id, qty });
+        localStorage.setItem('cusCart', JSON.stringify(tempCusCart));
+        context.dispatch('getCusCart');
+        context.commit('SET_MSG', {
+          event: 'addedToCusCart', object: `${cusProduct.title} ${qty} ${cusProduct.unit}`,
+        });
+        context.commit('SET_CARTING', false);
+      }
+      if (tempCusCartL > 0) {
+        let match;
+        for (let i = 0; i < tempCusCartL; i++) {
+          if (tempCusCart[i].product_id === cusProduct.id) {
+            match = true;
+            tempCusCart[i].qty += qty;
+            localStorage.setItem('cusCart', JSON.stringify(tempCusCart));
             context.dispatch('getCusCart');
             context.commit('SET_MSG', {
               event: 'addedToCusCart', object: `${cusProduct.title} ${qty} ${cusProduct.unit}`,
             });
             context.commit('SET_CARTING', false);
-          }
-        });
-      }
-      if (cartsL > 0) {
-        let match;
-        for (let i = 0; i < cartsL; i++) {
-          if (context.state.cusCart[i].product.id === cusProduct.id) {
-            match = true;
-            const API_D = `${API}/${context.state.cusCart[i].id}`;
-            axios.delete(API_D);
-            axios.post(API, {
-              data: {
-                product_id: cusProduct.id,
-                qty: qty + context.state.cusCart[i].qty,
-              },
-            }).then((response) => {
-              if (response.data.success) {
-                context.dispatch('getCusCart');
-                context.commit('SET_MSG', {
-                  event: 'addedToCusCart', object: `${cusProduct.title} ${qty} ${cusProduct.unit}`,
-                });
-                context.commit('SET_CARTING', false);
-              }
-            });
             break;
           }
         }

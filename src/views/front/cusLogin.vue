@@ -101,7 +101,7 @@ export default {
       }
     },
     clearInfo() {
-      localStorage.setItem('user', '');
+      localStorage.setItem('user', JSON.stringify(''));
     },
   },
   created() {

@@ -111,8 +111,7 @@ import { mapState, mapActions } from 'vuex';
 export default {
   data() {
     return {
-      tempCusCart: [],
-      // tempCusCart: JSON.parse(localStorage.getItem('tempCusCart')) || [],
+      // cusCart: JSON.parse(localStorage.getItem('cusCart')) || [],
       coupon: '',
       couponError: false,
       tempQty: 0,
@@ -156,12 +155,12 @@ export default {
       });
     },
     setCusCartQty(cusCartItem, newQty, action) {
-      const temp = JSON.parse(localStorage.getItem('tempCusCart'));
-      const tempCusCartL = this.tempCusCart.length;
+      const temp = JSON.parse(localStorage.getItem('cusCart'));
+      const cusCartL = this.cusCart.length;
       console.log(temp, cusCartItem.product.title, newQty, action);
       switch (action) {
         default: {
-          for (let i = 0; i < tempCusCartL; i++) {
+          for (let i = 0; i < cusCartL; i++) {
             if (temp[i].product_id === cusCartItem.product_id) {
               temp[i].qty += newQty;
               temp[i].total = temp[i].qty * temp[i].product.price;
@@ -172,7 +171,7 @@ export default {
                 temp[i].final_total = temp[i].qty
                 * temp[i].product.price;
               }
-              localStorage.setItem('tempCusCart', JSON.stringify(temp));
+              localStorage.setItem('cusCart', JSON.stringify(temp));
             }
             break;
           }
@@ -185,18 +184,18 @@ export default {
             break;
           } else {
             this.qtyError = false;
-            for (let i = 0; i < tempCusCartL; i++) {
-              if (this.tempCusCart[i].product_id === cusCartItem.product_id) {
-                this.tempCusCart[i].qty = newQty;
-                this.tempCusCart[i].total = newQty * this.tempCusCart[i].product.price;
-                if (this.tempCusCart[i].coupon) {
-                  this.tempCusCart[i].final_total = newQty * this.tempCusCart[i].product.price
-                  * this.tempCusCart[i].coupon.percent * 0.01;
+            for (let i = 0; i < cusCartL; i++) {
+              if (this.cusCart[i].product_id === cusCartItem.product_id) {
+                this.cusCart[i].qty = newQty;
+                this.cusCart[i].total = newQty * this.cusCart[i].product.price;
+                if (this.cusCart[i].coupon) {
+                  this.cusCart[i].final_total = newQty * this.cusCart[i].product.price
+                  * this.cusCart[i].coupon.percent * 0.01;
                 } else {
-                  this.tempCusCart[i].final_total = newQty * this.tempCusCart[i].product.price;
+                  this.cusCart[i].final_total = newQty * this.cusCart[i].product.price;
                 }
               }
-              localStorage.setItem('tempCusCart', JSON.stringify(this.tempCusCart));
+              localStorage.setItem('cusCart', JSON.stringify(this.cusCart));
               break;
             }
             break;
@@ -218,7 +217,7 @@ export default {
       });
     },
     // renewCusCart() {
-    //   this.tempCusCart = JSON.parse(localStorage.getItem('tempCusCart')) || [];
+    //   this.cusCart = JSON.parse(localStorage.getItem('cusCart')) || [];
     //   console.log('renew');
     // },
     confirmCusCart() {
@@ -242,17 +241,17 @@ export default {
       this.getAdproducts();
     },
     // cusCart() {
-    //   localStorage.setItem('tempCusCart', JSON.stringify(this.cusCart));
+    //   localStorage.setItem('cusCart', JSON.stringify(this.cusCart));
     //   this.renewCusCart();
     // },
     // cusCart: {
     //   handler() {
-    //     localStorage.setItem('tempCusCart', JSON.stringify(this.cusCart));
+    //     localStorage.setItem('cusCart', JSON.stringify(this.cusCart));
     //   },
     //   deep: true,
     // },
-    // tempCusCart() {
-    //   console.log(this.tempCusCart);
+    // cusCart() {
+    //   console.log(this.cusCart);
     // },
   },
   created() {
