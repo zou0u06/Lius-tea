@@ -155,6 +155,18 @@ export default {
       picErrorMsg: false,
     };
   },
+  computed: {
+    adminProducts() {
+      return this.$store.state.adminModule.adminProducts;
+    },
+    pagination() {
+      return this.$store.state.adminModule.pagination;
+    },
+  },
+  created() {
+    this.getAdminProducts();
+    this.$store.commit('SET_ADMINACTIVE', 'AdminProducts');
+  },
   methods: {
     getAdminProducts(page) {
       this.$store.dispatch('getAdminProducts', page);
@@ -217,18 +229,6 @@ export default {
         objectId: adminProduct.id,
       });
     },
-  },
-  computed: {
-    adminProducts() {
-      return this.$store.state.adminModule.adminProducts;
-    },
-    pagination() {
-      return this.$store.state.adminModule.pagination;
-    },
-  },
-  created() {
-    this.getAdminProducts();
-    this.$store.commit('SET_ADMINACTIVE', 'AdminProducts');
   },
 };
 </script>

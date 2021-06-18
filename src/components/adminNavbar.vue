@@ -55,6 +55,11 @@ export default {
   data() {
     return {};
   },
+  computed: {
+    adminActive() {
+      return this.$store.state.adminModule.adminActive;
+    },
+  },
   methods: {
     setAdminNavbar() {
       if (document.body.clientWidth < 768) {
@@ -69,11 +74,6 @@ export default {
           vm.$router.push('/login');
         }
       });
-    },
-  },
-  computed: {
-    adminActive() {
-      return this.$store.state.adminModule.adminActive;
     },
   },
 };

@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
       <div class="container-xl px-0 px-xl-3">
         <h1 class="brand">
-          <router-link class="w-100 h-100" to="/index"/>劉記茗茶
+          <router-link class="w-100 h-100" to="/"/>劉記茗茶
         </h1>
 
         <button
@@ -23,7 +23,7 @@
             <li class="nav-item">
               <router-link
                 class="nav-link"
-                to="/index"
+                to="/"
                 :class="{active: cusActive === 'CusIndex'}"
               >首頁</router-link>
             </li>
@@ -31,7 +31,7 @@
               <router-link
                 class="nav-link"
                 to="/products"
-                :class="{active: cusActive === 'CusProducts'}"
+                :class="{active: cusActive === 'CusProducts' || cusActive === 'CusProduct'}"
               >商品</router-link>
             </li>
             <li class="nav-item">
@@ -46,7 +46,7 @@
                 class="nav-link"
                 to="/cart"
                 :class="{active: cusActive === 'CusCart'}"
-              >購物車（{{ cusCart.length }}）</router-link>
+              >購物車（{{ cusCart.carts.length }}）</router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="/login"
@@ -67,6 +67,12 @@ export default {
   data() {
     return {};
   },
+  computed: {
+    ...mapState(['cusProducts', 'cusCart', 'cusActive']),
+  },
+  created() {
+    this.getCusProducts();
+  },
   methods: {
     ...mapActions(['getCusProducts', 'getCusCart']),
     setCusNavbar() {
@@ -74,12 +80,6 @@ export default {
         document.querySelector('.cusnavbar-toggler').click();
       }
     },
-  },
-  computed: {
-    ...mapState(['cusProducts', 'cusCart', 'cusActive']),
-  },
-  created() {
-    this.getCusProducts();
   },
 };
 </script>

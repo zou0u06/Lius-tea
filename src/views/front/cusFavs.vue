@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-7 mb-4">
         <h3 class="rounded-top card-header">收藏清單</h3>
-        <products-card :bases="favoredProducts" />
+        <products-card :bases="favoredProducts" :kind="'favoredProducts'"/>
       </div>
       <div class="col-md-5 mb-4">
         <h3 class="rounded-top card-header">推薦商品</h3>
@@ -22,6 +22,23 @@ export default {
       favoredProducts: [],
       adProducts: [],
     };
+  },
+  computed: {
+    ...mapState(['cusProducts', 'carting']),
+  },
+  watch: {
+    cusProducts: {
+      handler() {
+        if (this.cusProducts.length > 1) {
+          this.getAdproducts();
+        }
+      },
+      deep: true,
+    },
+  },
+  created() {
+    this.getCusProducts();
+    this.$store.commit('SET_CUSACTIVE', 'CusFavs');
   },
   methods: {
     ...mapActions(['getCusProducts', 'addToCusFavs', 'delCusFav']),
@@ -53,23 +70,6 @@ export default {
     addToCusCart(cusProduct, qty = 1) {
       this.$store.dispatch('addToCusCart', { cusProduct, qty });
     },
-  },
-  computed: {
-    ...mapState(['cusProducts', 'carting']),
-  },
-  watch: {
-    cusProducts: {
-      handler() {
-        if (this.cusProducts.length > 1) {
-          this.getAdproducts();
-        }
-      },
-      deep: true,
-    },
-  },
-  created() {
-    this.getCusProducts();
-    this.$store.commit('SET_CUSACTIVE', 'CusFavs');
   },
 };
 </script>

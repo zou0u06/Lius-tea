@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-xl">
     <div class="header cusproducts-header mx-n15px">
       <div class="header-text cusproducts-header-text h1">
         空持百千偈。
@@ -17,8 +17,8 @@
               class="list-group-item list-group-item-action"
               data-toggle="list"
               role="tab"
-              @click.prevent="filterCusProducts(); isActive = ''"
-              :class="{ active: isActive === '' }"
+              @click.prevent="SET_CUSPRODUCTSACTIVE('')"
+              :class="{ active: cusProductsActive === '' }"
             >所有茶品</a>
             <a
               href="#"
@@ -26,8 +26,8 @@
               data-toggle="list"
               role="tab"
               v-for="cat in cats"
-              @click.prevent="filterCusProducts(); isActive = cat"
-              :class="{ active: isActive === cat }"
+              @click.prevent="SET_CUSPRODUCTSACTIVE(cat)"
+              :class="{ active: cusProductsActive === cat }"
               :key="cat"
             >{{ cat }}</a>
           </ul>
@@ -35,18 +35,22 @@
       </div>
       <div class="col-md-9">
         <div class="row">
-          <div class="col-md-6 mb-4" v-for="cusProduct in filterCusProducts()" :key="cusProduct.id">
-            <div class="card border-0 rounded shadow-sm">
+          <div
+            class="col-sm-6 mb-4 cusproducts-content-card"
+            v-for="cusProduct in filterCusProducts"
+            :key="cusProduct.id"
+          >
+            <div
+              @click="jumpToCusProduct(cusProduct.id)"
+              class="card border-0 rounded shadow-sm"
+            >
               <div
-                class="bg-cover rounded-top"
-                style="height: 200px"
+                class="bg-cover rounded-top cusproducts-content-card-img"
                 :style="{'background-image': `url(${cusProduct.imageUrl})`}"
-              >
-                <router-link :to="`/products/${cusProduct.id}`" class="w-100 h-100" />
-              </div>
+              />
               <div class="card-body">
                 <span
-                  class="badge badge-primary cusproducts-badge float-right ml-2"
+                  class="badge badge-primary cusproducts-content-card-badge float-right ml-2"
                 >{{ cusProduct.category }}</span>
                 <h5 class="card-title">{{ cusProduct.title }}</h5>
                 <div class="d-flex justify-content-between align-items-baseline">
@@ -54,49 +58,10 @@
                   <div class="h5 text-secondary">現在只要 {{ cusProduct.price }} 元</div>
                 </div>
               </div>
-              <div class="card-footer d-flex justify-content-between">
-                <router-link class="btn btn-outline-primary btn-sm"
-                  :to="`/products/${cusProduct.id}`">
-                  商品
-                  <br />資訊
-                </router-link>
-                <button
-                  type="button"
-                  class="btn btn-outline-primary btn-sm btn-fav"
-                  @click="addToCusFavs(cusProduct.id)"
-                  v-if="cusProduct.favored === false"
-                >
-                  加入
-                  <br />收藏
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-primary btn-sm"
-                  @click="delCusFav(cusProduct.id)"
-                  v-if="cusProduct.favored === true"
-                >
-                  取消
-                  <br />收藏
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-secondary btn-sm"
-                  v-if="carting === false"
-                  @click="addToCusCart(cusProduct)"
-                >
-                  加入
-                  <br />購物車
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-secondary btn-sm"
-                  v-if="carting === true"
-                  disabled
-                >
-                  商品
-                  <br />處理中
-                </button>
-              </div>
+              <products-btns
+                class="card-footer d-flex justify-content-between"
+                :cusProduct="cusProduct"
+              />
             </div>
           </div>
         </div>
@@ -106,51 +71,35 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default {
-  data() {
-    return {
-      isActive: '',
-    };
-  },
-  methods: {
-    ...mapActions(['getCusProducts', 'addToCusFavs', 'delCusFav']),
+  computed: {
+    ...mapState(['cusProducts', 'cats', 'cusProductsActive']),
     filterCusProducts() {
-      switch (this.isActive) {
+      switch (this.cusProductsActive) {
         case '': {
           return this.cusProducts;
         }
-        case 'all': {
-          this.setScrollY();
-          return this.cusProducts;
-        }
         default: {
-          this.setScrollY();
           const filteredCusProducts = this.cusProducts.filter(
-            (item) => item.category === this.isActive,
+            (item) => item.category === this.cusProductsActive,
           );
           return filteredCusProducts;
         }
       }
     },
-    setScrollY() {
-      if (document.body.clientWidth < 768) {
-        window.scrollTo(0, 420);
-      } else if (document.body.clientWidth >= 768 && document.body.clientWidth < 992) {
-        window.scrollTo(0, 520);
-      } else if (document.body.clientWidth >= 992) {
-        window.scrollTo(0, 670);
-      }
-    },
-    addToCusCart(cusProduct, qty = 1) {
-      this.$store.dispatch('addToCusCart', { cusProduct, qty });
-    },
   },
-  computed: mapState(['cusProducts', 'cats', 'pagination', 'carting']),
   created() {
     this.getCusProducts();
-    this.$store.commit('SET_CUSACTIVE', 'CusProducts');
+    this.SET_CUSACTIVE('CusProducts');
+  },
+  methods: {
+    ...mapActions(['getCusProducts']),
+    ...mapMutations(['SET_CUSACTIVE', 'SET_CUSPRODUCTSACTIVE']),
+    jumpToCusProduct(cusProductId) {
+      this.$router.push(`/products/${cusProductId}`);
+    },
   },
 };
 </script>

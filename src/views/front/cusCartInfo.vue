@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-xl">
     <div class="py-md-4 row justify-content-center">
       <validation-observer v-slot="{ invalid, handleSubmit }" tag="div"
       class="col-md-8 bg-light-breakpoint">
@@ -110,7 +110,7 @@
           <div class="card-lowerhalf p-3">
             <div class="d-flex justify-content-between mb-2">
               <span>小計</span>
-              <span>{{ finalCusCart.final_total|displayCurrency }}</span>
+              <span>{{ cusCart.final_total|displayCurrency }}</span>
             </div>
             <div class="d-flex justify-content-between mb-2">
               <span>運費</span>
@@ -118,7 +118,7 @@
             </div>
             <div class="d-flex justify-content-between h5">
               <b>總計</b>
-              <b>{{ finalCusCart.final_total|displayCurrency }}</b>
+              <b>{{ cusCart.final_total|displayCurrency }}</b>
             </div>
           </div>
         </div>
@@ -127,7 +127,7 @@
           <h3 class="card-header">訂單內容</h3>
           <div class="card-lowerhalf pt-3 px-3">
             <div class="d-flex pb-3"
-            v-for="finalCusCartItem in finalCusCart.carts" :key="finalCusCartItem.id">
+            v-for="finalCusCartItem in cusCart.carts" :key="finalCusCartItem.id">
               <div class="cuscartinfo-card-img bg-cover mr-3"
               :style="{'background-image':`url(${finalCusCartItem.product.imageUrl})`}"></div>
               <div class="flex-fill d-flex flex-column justify-content-around">
@@ -148,29 +148,24 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
+
 export default {
   data() {
     return {
       form: {
         user: {},
       },
-      finalCusCart: {},
     };
   },
+  computed: {
+    ...mapState(['cusCart']),
+  },
+  created() {
+    this.getFinalCusCart();
+  },
   methods: {
-    getFinalCusCart() {
-      this.$store.commit('SET_CARTING', true);
-      const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-      this.axios.get(API).then((response) => {
-        if (response.data.success) {
-          this.finalCusCart = response.data.data;
-          this.$store.commit('SET_CARTING', false);
-        } else {
-          this.$store.commit('SET_CARTING', false);
-          this.$store.commit('SET_MSG', 'wrongServer');
-        }
-      });
-    },
+    ...mapActions(['getFinalCusCart']),
     createOrder() {
       const vm = this;
       const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`;
@@ -180,9 +175,6 @@ export default {
         }
       });
     },
-  },
-  created() {
-    this.getFinalCusCart();
   },
 };
 </script>

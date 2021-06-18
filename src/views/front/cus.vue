@@ -2,7 +2,7 @@
   <div>
     <cus-navbar/>
     <main class="cus bg-primary">
-      <router-view class="container-xl"/>
+      <router-view/>
     </main>
     <cus-footer/>
   </div>

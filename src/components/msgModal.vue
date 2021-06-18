@@ -1,38 +1,57 @@
 <template>
-  <div class="modal fade" id="msgModel" data-backdrop="static" data-keyboard="false"
-    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div
+    class="modal fade"
+    id="msgModel"
+    data-backdrop="static"
+    data-keyboard="false"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog" id="modalDialog">
       <div class="modal-content">
         <div class="modal-header d-flex" :class="`bg-${theme}`">
           <h5 class="modal-title text-white" id="staticBackdropLabel">{{ title }}</h5>
-          <button type="button" class="close line-height-large"
-            data-dismiss="modal" aria-label="Close">
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <h6 class="mb-3" :class="`text-${theme}`" v-if="msg.object">
-            {{ msg.object }}</h6>
-          <h6 v-if="action !== ''">{{ action }}</h6>
-          <div v-else class="text-center">
+          <h6 class="mb-3 line-height-lg"
+            :class="`text-${theme}`"
+            v-if="msg.object">{{ msg.object }}</h6>
+          <h6 v-if="action !== ''" class="line-height-lg">{{ action }}</h6>
+          <div v-else class="text-center line-height-lg">
             <h6 class="mb-3">為慶祝本茶行開幕九周年</h6>
-            <h6 class="line-height-large">只要在結帳時輸入
-              <span :class="`text-${theme}`"> ninety </span>
+            <h6>
+              只要在結帳時輸入
+              <span :class="`text-${theme}`">ninety</span>
               優惠碼即可取得九折優惠！
             </h6>
           </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer p-1">
           <!-- 依事件不同使用不同的按鍵及動作 -->
-          <button type="button" class="btn btn-outline-dark"
-            data-dismiss="modal">關閉</button>
-          <button type="button" class="btn" :class="`btn-${theme}`"
+          <button type="button" class="btn btn-outline-dark" data-dismiss="modal">關閉</button>
+          <button
+            type="button"
+            class="btn"
+            :class="`btn-${theme}`"
             @click="goToCusCart()"
-            v-if="msg.event === 'addedToCusCart'">查看購物車</button>
-          <button type="button" class="btn" :class="`btn-${theme}`"
+            v-if="msg.event === 'addedToCusCart'"
+          >查看購物車</button>
+          <button
+            type="button"
+            class="btn"
+            :class="`btn-${theme}`"
             v-if="msg.event === 'delCusCart' || msg.event === 'delAdminProduct'
               || msg.event === 'delAdminCoupon'"
-            @click="delObject(msg.objectId)">確認刪除</button>
+            @click="delObject(msg.objectId)"
+          >確認刪除</button>
         </div>
       </div>
     </div>
@@ -48,41 +67,9 @@ export default {
       action: '',
     };
   },
-  methods: {
-    dismissWithTiming() {
-      setTimeout(() => {
-        $('#msgModel').modal('hide');
-      }, 5000);
-    },
-    goToCusCart() {
-      $('#msgModel').modal('hide');
-      this.$router.push('/cart');
-    },
-    delObject(objectId) {
-      const vm = this;
-      let keyword1;
-      let keyword2;
-      switch (vm.msg.event) {
-        case 'delAdminProduct':
-          keyword1 = 'admin/product';
-          keyword2 = 'getAdminProducts';
-          break;
-        case 'delAdminCoupon':
-          keyword1 = 'admin/coupon';
-          keyword2 = 'getAdminCoupons';
-          break;
-        default:
-          keyword1 = 'cart';
-          keyword2 = 'getCusCart';
-          break;
-      }
-      const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/${keyword1}/${objectId}`;
-      vm.axios.delete(API).then((response) => {
-        if (response.data.success) {
-          vm.$store.dispatch(keyword2);
-          $('#msgModel').modal('hide');
-        }
-      });
+  computed: {
+    msg() {
+      return this.$store.state.msg;
     },
   },
   watch: {
@@ -118,14 +105,61 @@ export default {
             $('#msgModel').modal('show');
             this.dismissWithTiming();
             break;
+          case 'subscribed':
+            this.title = '成功訂閱電子報';
+            this.theme = 'secondary';
+            this.action = '您已成功訂閱電子報，將會每週獲得新品優惠、品茶知識等資訊';
+            $('#msgModel').modal('show');
+            break;
         }
       },
       deep: true,
     },
   },
-  computed: {
-    msg() {
-      return this.$store.state.msg;
+  methods: {
+    dismissWithTiming() {
+      setTimeout(() => {
+        $('#msgModel').modal('hide');
+      }, 5000);
+    },
+    goToCusCart() {
+      $('#msgModel').modal('hide');
+      this.$router.push('/cart');
+    },
+    delObject(objectId) {
+      const vm = this;
+      const tempCarts = JSON.parse(localStorage.getItem('cusCart'));
+      let API;
+      switch (vm.msg.event) {
+        case 'delAdminProduct':
+          API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/$admin/product/${objectId}`;
+          vm.axios.delete(API).then((response) => {
+            if (response.data.success) {
+              vm.$store.dispatch('getAdminProducts');
+              $('#msgModel').modal('hide');
+            }
+          });
+          break;
+        case 'delAdminCoupon':
+          API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${objectId}`;
+          vm.axios.delete(API).then((response) => {
+            if (response.data.success) {
+              vm.$store.dispatch('getAdminCoupons');
+              $('#msgModel').modal('hide');
+            }
+          });
+          break;
+        default:
+          for (let i = 0; i < tempCarts.length; i++) {
+            if (tempCarts[i].product_id === objectId) {
+              tempCarts.splice(i, 1);
+            }
+          }
+          localStorage.setItem('cusCart', JSON.stringify(tempCarts));
+          vm.$store.dispatch('getCusCart');
+          $('#msgModel').modal('hide');
+          break;
+      }
     },
   },
 };

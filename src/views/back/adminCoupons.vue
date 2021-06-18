@@ -112,6 +112,18 @@ export default {
       addition: false,
     };
   },
+  computed: {
+    adminCoupons() {
+      return this.$store.state.adminModule.adminCoupons;
+    },
+    pagination() {
+      return this.$store.state.adminModule.pagination;
+    },
+  },
+  created() {
+    this.getAdminCoupons();
+    this.$store.commit('SET_ADMINACTIVE', 'AdminCoupons');
+  },
   methods: {
     getAdminCoupons(page) {
       this.$store.dispatch('getAdminCoupons', page);
@@ -157,18 +169,6 @@ export default {
         objectId: adminCoupon.id,
       });
     },
-  },
-  computed: {
-    adminCoupons() {
-      return this.$store.state.adminModule.adminCoupons;
-    },
-    pagination() {
-      return this.$store.state.adminModule.pagination;
-    },
-  },
-  created() {
-    this.getAdminCoupons();
-    this.$store.commit('SET_ADMINACTIVE', 'AdminCoupons');
   },
 };
 </script>

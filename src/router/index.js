@@ -6,77 +6,77 @@ Vue.use(VueRouter);
 export default new VueRouter({
   routes: [
     {
-      path: '/',
       component: () => import('@/views/front/Cus.vue'),
+      path: '/',
       children: [
         {
           name: 'CusIndex',
-          path: '/',
           component: () => import('@/views/front/CusIndex.vue'),
+          path: '/',
         },
         {
           name: 'CusProducts',
-          path: '/products',
           component: () => import('@/views/front/CusProducts.vue'),
+          path: '/products',
         },
         {
           name: 'CusFavs',
-          path: '/favs',
           component: () => import('@/views/front/CusFavs.vue'),
+          path: '/favs',
         },
         {
           name: 'CusProduct',
-          path: '/products/:cusProductId',
           component: () => import('@/views/front/CusProduct.vue'),
+          path: '/products/:cusProductId',
         },
         {
           name: 'CusCart',
-          path: '/Cart',
           component: () => import('@/views/front/CusCart.vue'),
+          path: '/Cart',
         },
         {
           name: 'CusCartInfo',
-          path: '/info',
           component: () => import('@/views/front/CusCartInfo.vue'),
+          path: '/info',
         },
         {
           name: 'CusCartPayment',
-          path: '/payment/:cusOrderId',
           component: () => import('@/views/front/CusCartPayment.vue'),
+          path: '/payment/:cusOrderId',
         },
         {
           name: 'CusCartFinished',
-          path: '/finished/:cusOrderId',
           component: () => import('@/views/front/CusCartFinished.vue'),
+          path: '/finished/:cusOrderId',
         },
         {
           name: 'CusLogin',
-          path: '/login',
           component: () => import('@/views/front/CusLogin.vue'),
+          path: '/login',
         },
       ],
     },
     {
-      path: '/admin',
       component: () => import('@/views/back/Admin.vue'),
+      path: '/admin',
       meta: { requiresAuth: true },
       children: [
         {
           name: 'AdminProducts',
-          path: '/',
           component: () => import('@/views/back/AdminProducts.vue'),
+          path: '/',
           meta: { requiresAuth: true },
         },
         {
           name: 'AdminOrders',
-          path: '/admin/orders',
           component: () => import('@/views/back/AdminOrders.vue'),
+          path: '/admin/orders',
           meta: { requiresAuth: true },
         },
         {
           name: 'AdminCoupons',
-          path: '/admin/coupons',
           component: () => import('@/views/back/AdminCoupons.vue'),
+          path: '/admin/coupons',
           meta: { requiresAuth: true },
         },
       ],

@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-/* eslint-disable no-param-reassign */
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
@@ -15,19 +14,22 @@ export default new Vuex.Store({
     cusActive: '',
     cusProducts: [{
       favored: '',
+      favoredDate: '',
     }],
+    cusProductsActive: '',
     cats: [],
-    cusCart: [{
-      product: {
-        imageUrl: 'https://github.com/zou0u06/Lius-tea/blob/gh-pages/src/assets/images/favicon.png?raw=true',
-      },
-    }],
+    cusCart: {
+      carts: [{
+        product: {},
+      }],
+    },
     loading: false,
     carting: false,
     msg: {
       event: '',
       object: '',
       objectId: '',
+      times: 0,
     },
   },
   actions: {
@@ -61,8 +63,8 @@ export default new Vuex.Store({
       if (cusFavsL > 0) {
         for (let i = 0; i < productsL; i++) {
           for (let n = 0; n < cusFavsL; n++) {
-            if (context.state.cusProducts[i].id === cusFavs[n]) {
-              context.commit('SET_CUSFAVS', { i, boolean: true });
+            if (context.state.cusProducts[i].id === cusFavs[n].product_id) {
+              context.commit('SET_CUSFAVS', { i, boolean: true, favoredDate: cusFavs[n].favored_date });
               break;
             }
             context.commit('SET_CUSFAVS', { i, boolean: false });
@@ -78,59 +80,42 @@ export default new Vuex.Store({
     },
     addToCusFavs(context, cusProductId) {
       const cusFavs = JSON.parse(localStorage.getItem('cusFavs')) || [];
-      cusFavs.push(cusProductId);
+      const yyyy = new Date().getFullYear();
+      let mm;
+      const oriMm = new Date().getMonth() + 1;
+      if (oriMm >= 10) {
+        mm = new Date().getMonth() + 1;
+      } else {
+        mm = `0${new Date().getMonth() + 1}`;
+      }
+      const dd = new Date().getDate();
+      const favoredDate = `${yyyy}-${mm}-${dd}`;
+      cusFavs.push({ product_id: cusProductId, favored_date: favoredDate });
       localStorage.setItem('cusFavs', JSON.stringify(cusFavs));
       context.state.cusProducts.find((item, index) => {
         if (item.id === cusProductId) {
-          context.commit('SET_CUSFAVS', { i: index, boolean: true });
+          context.commit('SET_CUSFAVS', { i: index, boolean: true, favoredDate });
         } return false;
       });
     },
     delCusFav(context, cusProductId) {
       const cusFavs = JSON.parse(localStorage.getItem('cusFavs'));
-      cusFavs.find((fav, num) => {
-        context.state.cusProducts.find((item, index) => {
-          if (item.id === fav && cusProductId === fav) {
-            cusFavs.splice(num, 1);
+      const { cusProducts } = context.state;
+      for (let n = 0; n < cusFavs.length; n++) {
+        for (let i = 0; i < cusProducts.length; i++) {
+          if (
+            cusProducts[i].id === cusFavs[n].product_id
+            && cusProductId === cusFavs[n].product_id
+          ) {
+            cusFavs.splice(n, 1);
             localStorage.setItem('cusFavs', JSON.stringify(cusFavs));
-            context.commit('SET_CUSFAVS', { i: index, boolean: false });
-          } return false;
-        });
-        return false;
-      });
-    },
-    getCusCart(context) {
-      context.commit('SET_CARTING', true);
-      const tempCusCart = [];
-      const cusCartId = JSON.parse(localStorage.getItem('cusCart')) || [];
-      if (cusCartId.length > 0) {
-        context.state.cusProducts.forEach((item) => {
-          cusCartId.forEach((ite) => {
-            if (item.id === ite.product_id) {
-              console.log(item.id, ite.product_id);
-              tempCusCart.push(item);
-            }
-          });
-        });
-        console.log(tempCusCart);
-        context.commit('GET_CUSCART', tempCusCart);
+            context.commit('SET_CUSFAVS', { i, boolean: false });
+            break;
+          }
+        }
       }
-      // if (tempCart.length > 0) {
-      //   tempCart.sort((a, b) => {
-      //     if (a.product_id < b.product_id) {
-      //       return -1;
-      //     }
-      //     if (a.product_id > b.product_id) {
-      //       return 1;
-      //     }
-      //     return 0;
-      //   });
-      // }
-      context.commit('SET_CARTING', false);
     },
     addToCusCart(context, { cusProduct, qty }) {
-      context.commit('SET_CARTING', true);
-      console.log(localStorage.getItem('cusCart'));
       const tempCusCart = JSON.parse(localStorage.getItem('cusCart')) || [];
       const tempCusCartL = tempCusCart.length;
       function notMatched() {
@@ -140,29 +125,82 @@ export default new Vuex.Store({
         context.commit('SET_MSG', {
           event: 'addedToCusCart', object: `${cusProduct.title} ${qty} ${cusProduct.unit}`,
         });
-        context.commit('SET_CARTING', false);
       }
       if (tempCusCartL > 0) {
-        let match;
+        let matched;
         for (let i = 0; i < tempCusCartL; i++) {
           if (tempCusCart[i].product_id === cusProduct.id) {
-            match = true;
+            matched = true;
             tempCusCart[i].qty += qty;
             localStorage.setItem('cusCart', JSON.stringify(tempCusCart));
             context.dispatch('getCusCart');
             context.commit('SET_MSG', {
               event: 'addedToCusCart', object: `${cusProduct.title} ${qty} ${cusProduct.unit}`,
             });
-            context.commit('SET_CARTING', false);
             break;
           }
         }
-        if (!match) {
+        if (!matched) {
           notMatched();
         }
       } else {
         notMatched();
       }
+    },
+    getCusCart(context) {
+      context.commit('SET_LOADING', true);
+      const tempCusCart = JSON.parse(localStorage.getItem('cusCart')) || [];
+      if (tempCusCart.length > 0) {
+        const temp = [];
+        context.state.cusProducts.forEach((item) => {
+          tempCusCart.forEach((ite) => {
+            if (item.id === ite.product_id && ite.product) {
+              temp.push(ite);
+            } else if (item.id === ite.product_id && !ite.product) {
+              temp.push({ product: item, qty: ite.qty });
+            }
+          });
+        });
+        temp.sort((a, b) => {
+          if (a.product.id < b.product.id) {
+            return -1;
+          }
+          if (a.product.id > b.product.id) {
+            return 1;
+          }
+          return 0;
+        });
+        context.commit('GET_CUSCART', temp);
+        context.commit('SET_LOADING', false);
+      } else {
+        context.commit('GET_CUSCART', tempCusCart);
+        context.commit('SET_LOADING', false);
+      }
+    },
+    getFinalCusCart(context) {
+      const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
+      axios.get(API).then((response) => {
+        if (response.data.success) {
+          const finalCusCart = response.data.data;
+          finalCusCart.carts.sort((a, b) => {
+            if (a.product.id < b.product.id) {
+              return -1;
+            }
+            if (a.product.id > b.product.id) {
+              return 1;
+            }
+            return 0;
+          });
+          localStorage.setItem('cusCart', JSON.stringify(finalCusCart.carts));
+          context.commit('GET_FINALCUSCART', finalCusCart);
+          context.commit('SET_CARTING', false);
+          context.commit('SET_LOADING', false);
+        } else {
+          context.commit('SET_MSG', 'wrongServer');
+          context.commit('SET_CARTING', false);
+          context.commit('SET_LOADING', false);
+        }
+      });
     },
   },
   mutations: {
@@ -176,6 +214,7 @@ export default new Vuex.Store({
       state.msg.event = payload.event;
       state.msg.object = payload.object;
       state.msg.objectId = payload.objectId;
+      state.msg.times += 1;
     },
     SET_CUSACTIVE(state, payload) {
       state.cusActive = payload;
@@ -183,13 +222,20 @@ export default new Vuex.Store({
     GET_CUSPRODUCTS(state, payload) {
       state.cusProducts = payload;
     },
+    SET_CUSPRODUCTSACTIVE(state, payload) {
+      state.cusProductsActive = payload;
+    },
     GET_CATS(state, payload) {
       state.cats = payload;
     },
     SET_CUSFAVS(state, payload) {
       Vue.set(state.cusProducts[`${payload.i}`], 'favored', payload.boolean);
+      Vue.set(state.cusProducts[`${payload.i}`], 'favoredDate', payload.favoredDate);
     },
     GET_CUSCART(state, payload) {
+      state.cusCart.carts = payload;
+    },
+    GET_FINALCUSCART(state, payload) {
       Vue.set(state, 'cusCart', payload);
     },
   },

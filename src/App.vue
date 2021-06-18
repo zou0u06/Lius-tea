@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <msg-modal/>
-    <!-- <loading :active.sync="loading"/> -->
+    <loading :active.sync="loading"/>
     <router-view/>
     <button type="button" class="totop button btn-extra" @click="goToTop()">
       <i class="fas fa-arrow-up"></i>
@@ -13,17 +13,18 @@
 export default {
   name: 'App',
   data() {
-    return {
-      scrollY: 0,
-    };
+    return {};
   },
   computed: {
     loading() {
       return this.$store.state.loading;
     },
   },
+  created() {
+    this.setToTop();
+  },
   methods: {
-    getScrollY() {
+    setToTop() {
       window.addEventListener('scroll', () => {
         if (window.scrollY > 400) {
           document.querySelector('.totop').style.display = 'inline';
@@ -42,9 +43,6 @@ export default {
         }
       }, 5);
     },
-  },
-  created() {
-    this.getScrollY();
   },
 };
 </script>

@@ -41,6 +41,10 @@ export default {
       pagination: {},
     };
   },
+  created() {
+    this.getAdminOrders();
+    this.$store.commit('SET_ADMINACTIVE', 'AdminOrders');
+  },
   methods: {
     getAdminOrders(page = 1) {
       const vm = this;
@@ -55,10 +59,6 @@ export default {
         vm.$store.commit('SET_LOADING', false);
       });
     },
-  },
-  created() {
-    this.getAdminOrders();
-    this.$store.commit('SET_ADMINACTIVE', 'AdminOrders');
   },
 };
 </script>

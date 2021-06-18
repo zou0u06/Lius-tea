@@ -1,50 +1,45 @@
 <template>
-  <div class="card-lowerhalf px-3 pt-3">
-    <div v-if="bases.length > 0">
-      <div v-for="cusProduct in bases" :key="cusProduct.id" class="d-flex pb-3">
+  <div class="card-lowerhalf container-fluid pt-3">
+    <div v-if="bases.length > 0" class="row">
+      <div
+        v-for="cusProduct in bases"
+        class="d-flex pb-3 col-sm-6 col-md-12 productscard-block"
+        :key="cusProduct.id"
+        @click="jumpToCusProduct(cusProduct.id)"
+      >
         <div
           class="productscard-img rounded bg-cover mr-2"
           :style="{'background-image':`url(${cusProduct.imageUrl})`}"
-        >
-          <router-link
-            class="w-100 h-100"
-            :to="`/products/${cusProduct.id}`"
-          />
+        />
+        <div class="flex-fill d-flex flex-column justify-content-around">
+          <div class="h6 d-flex justify-content-around mb-2">
+            {{ cusProduct.title }}
+            <span class="badge badge-primary productscard-badge">{{ cusProduct.category }}</span>
+          </div>
+          <div class="d-flex align-items-center justify-content-around">
+            <div class="productscard-priceblock">
+              <del class="text-muted mr-2">原價 {{ cusProduct.origin_price }} 元</del>
+              <span class="text-secondary">特價 {{ cusProduct.price }} 元</span>
+            </div>
+            <div>
+              <i v-if="cusProduct.favored === false"
+                class="far fa-heart productscard-btn-fav"
+                @click.stop="addToCusFavs(cusProduct.id)"
+              />
+              <i v-if="cusProduct.favored === true"
+                class="fas fa-heart productscard-btn-fav"
+                @click.stop="delCusFav(cusProduct.id)"
+              />
+              <i class="fas fa-shopping-cart productscard-btn-cart"
+                :disabled="carting === false"
+                @click.stop="addToCusCart(cusProduct)"
+              />
+            </div>
+          </div>
         </div>
-        <div class="flex-fill d-flex flex-column justify-content-between">
-          <router-link
-            class="h6 text-center" :to="`/products/${cusProduct.id}`">{{ cusProduct.title }}
-          </router-link>
-          <div class="d-flex justify-content-around align-items-end">
-            <del class="text-muted"><small>原價 {{ cusProduct.origin_price }} 元</small></del>
-            <span class="text-secondary">特價 {{ cusProduct.price }} 元</span>
-          </div>
-          <div class="d-flex justify-content-around">
-            <button
-              type="button"
-              class="btn btn-outline-primary btn-sm btn-fav"
-              @click.stop="addToCusFavs(cusProduct.id)"
-              v-if="cusProduct.favored === false"
-            >加入收藏</button>
-            <button
-              type="button"
-              class="btn btn-primary btn-sm"
-              @click.stop="delCusFav(cusProduct.id)"
-              v-if="cusProduct.favored === true"
-            >取消收藏</button>
-            <button
-              type="button"
-              class="btn btn-secondary btn-sm"
-              v-if="carting === false"
-              @click.stop="addToCusCart(cusProduct)"
-            >加入購物車</button>
-            <button
-              type="button"
-              class="btn btn-secondary btn-sm"
-              v-if="carting === true"
-              disabled
-            >商品處理中</button>
-          </div>
+        <div v-if="kind === 'favoredProducts'" class="productscard-date">
+          收藏日期：<br/>
+          {{ cusProduct.favoredDate }}
         </div>
       </div>
     </div>
@@ -58,15 +53,19 @@ import { mapState, mapActions } from 'vuex';
 export default {
   props: {
     bases: Array,
+    kind: String,
+  },
+  computed: {
+    ...mapState(['carting']),
   },
   methods: {
     ...mapActions(['addToCusFavs', 'delCusFav']),
     addToCusCart(cusProduct, qty = 1) {
       this.$store.dispatch('addToCusCart', { cusProduct, qty });
     },
-  },
-  computed: {
-    ...mapState(['carting']),
+    jumpToCusProduct(cusProductId) {
+      this.$router.push(`/products/${cusProductId}`);
+    },
   },
 };
 </script>

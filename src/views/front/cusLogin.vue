@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="container-xl">
     <validation-observer v-slot="{ invalid, handleSubmit }" tag="div">
-      <form class="py-5 cuslogin-form text-center" @submit.prevent="handleSubmit(signin)">
-        <div class="h1 mb-4 font-weight-normal text-white">會員登入</div>
+      <form class="cuslogin-form" @submit.prevent="handleSubmit(signin)">
+        <h2 class="mb-3 font-weight-normal text-white">會員登入</h2>
         <validation-provider
           class="form-group"
           rules="required|email"
@@ -13,7 +13,7 @@
           <input
             type="email"
             id="inputEmail"
-            class="form-control"
+            class="form-control rounded-top mb-n3"
             :class="classes"
             placeholder="請輸入 Email"
             v-model="user.username"
@@ -33,20 +33,20 @@
           <input
             type="password"
             id="inputPassword"
-            class="form-control mb-3"
+            class="form-control rounded-bottom mb-1"
             placeholder="請輸入密碼"
             v-model="user.password"
             :class="classes"
             required
           />
         </validation-provider>
-        <div class="checkbox mb-3">
+        <div class="checkbox mb-2">
           <label class="text-white cuslogin-checkbox">
             <input type="checkbox" class="mr-2" @click="rememberInfo()" />記住帳號
           </label>
         </div>
         <div class="error-msg" v-if="errorMsg">帳號或密碼錯誤，請重新輸入</div>
-        <button class="btn btn-lg btn-secondary btn-block" type="submit"
+        <button class="btn btn-lg btn-secondary btn-block cuslogin-btn" type="submit"
           :disabled="invalid">登入</button>
       </form>
     </validation-observer>
@@ -64,6 +64,10 @@ export default {
       errorMsg: false,
       rememberSwitch: false,
     };
+  },
+  created() {
+    this.user.username = JSON.parse(localStorage.getItem('user')) || '';
+    this.$store.commit('SET_CUSACTIVE', 'CusLogin');
   },
   methods: {
     signin() {
@@ -103,10 +107,6 @@ export default {
     clearInfo() {
       localStorage.setItem('user', JSON.stringify(''));
     },
-  },
-  created() {
-    this.user.username = JSON.parse(localStorage.getItem('user')) || '';
-    this.$store.commit('SET_CUSACTIVE', 'CusLogin');
   },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-xl">
     <validation-observer
       v-slot="{ invalid, handleSubmit }"
       tag="div"
@@ -232,22 +232,6 @@ export default {
       },
     };
   },
-  methods: {
-    payOrder() {
-      const vm = this;
-      const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.cusOrderId}`;
-      vm.axios.post(API).then((response) => {
-        if (response.data.success) {
-          vm.$router.push(`/finished/${vm.cusOrderId}`);
-        }
-      });
-    },
-    jumpToNext(value, num) {
-      if (value.length === 4 && typeof parseInt(value, 10) === 'number' && value.indexOf('.') === -1) {
-        document.querySelector(`#tempNumPart${num + 1}`).focus();
-      }
-    },
-  },
   watch: {
     tempCreditNum: {
       deep: true,
@@ -260,6 +244,23 @@ export default {
   },
   created() {
     this.cusOrderId = this.$route.params.cusOrderId;
+  },
+  methods: {
+    payOrder() {
+      const vm = this;
+      const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.cusOrderId}`;
+      vm.axios.post(API).then((response) => {
+        if (response.data.success) {
+          vm.$router.push(`/finished/${vm.cusOrderId}`);
+          localStorage.setItem('cusCart', JSON.stringify([]));
+        }
+      });
+    },
+    jumpToNext(value, num) {
+      if (value.length === 4 && typeof parseInt(value, 10) === 'number' && value.indexOf('.') === -1) {
+        document.querySelector(`#tempNumPart${num + 1}`).focus();
+      }
+    },
   },
 };
 </script>

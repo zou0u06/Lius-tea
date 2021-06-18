@@ -1,60 +1,43 @@
 <template>
-  <div>
+  <div class="container-xl cusproduct">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <router-link to="/index" class="text-white">首頁</router-link>
+          <router-link class="breadcrumb-link" to="/">首頁</router-link>
         </li>
         <li class="breadcrumb-item">
-          <router-link to="/products" class="text-white">商品</router-link>
+          <router-link class="breadcrumb-link" to="/products">商品</router-link>
         </li>
         <li class="breadcrumb-item active" aria-current="page">{{ cusProduct.title }}</li>
       </ol>
     </nav>
     <div class="row no-gutters">
       <div class="col-md-7">
-        <div class="bg-cover cusproduct-header-img"
-        :style="{'background-image': `url(${ cusProduct.imageUrl })`}"></div>
+        <div
+          class="bg-cover cusproduct-header-img"
+          :style="{'background-image': `url(${ cusProduct.imageUrl })`}"
+        />
       </div>
-      <div class="col-md-5 d-flex flex-column justify-content-between bg-light
+      <div class="col-md-5 d-flex flex-column justify-content-around bg-light
       p-4 cusproduct-header-text">
         <h2 class="text-center font-weight-bold">{{ cusProduct.title }}</h2>
-        <h6>{{ cusProduct.description }}</h6>
-        <div class="d-flex flex-wrap justify-content-between align-items-baseline">
-          <del>原價 {{ cusProduct.origin_price }} 元</del>
-          <div class="h5 text-secondary font-weight-bold">特價 {{ cusProduct.price }} 元</div>
+        <p class="mb-0">{{ cusProduct.description }}</p>
+        <div class="d-flex flex-wrap justify-content-around align-items-baseline">
+          <del class="h5">原價 {{ cusProduct.origin_price }} 元</del>
+          <div class="h4 text-secondary font-weight-bold">特價 {{ cusProduct.price }} 元</div>
         </div>
-        <div class="d-flex justify-content-between align-items-center">
-          <span class="h4">購買數量</span>
-          <select class="cusproduct-select rounded pl-2" v-model="qty">
-            <option v-for="i in 10" :key="i" :value="i">{{ i }}</option>
-          </select>
-        </div>
-        <div class="d-flex justify-content-between">
-          <button
-            type="button"
-            class="btn btn-outline-primary btn-fav"
-            @click="addToCusFavs(cusProductId)"
-            v-if="cusProduct.favored === false"
-          >加入收藏</button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            @click="delCusFav(cusProductId)"
-            v-if="cusProduct.favored === true"
-          >取消收藏</button>
-          <button
-            type="button"
-            class="btn btn-secondary"
-            v-if="carting === false"
-            @click="addToCusCart(cusProduct)"
-          >加入購物車</button>
-          <button
-            type="button"
-            class="btn btn-secondary"
-            v-if="carting === true"
-            disabled
-          >商品處理中</button>
+        <div class="cusproduct-header-text-lowerhalf">
+          <div class="d-flex justify-content-around align-items-center">
+            <span class="h4">購買數量</span>
+            <select class="cusproduct-select rounded pl-2" v-model="qty">
+              <option v-for="i in 10" :key="i" :value="i">{{ i }}</option>
+            </select>
+          </div>
+            <products-btns
+              class="d-flex justify-content-around"
+              :cusProduct="cusProduct"
+              :qty="qty"
+            />
         </div>
       </div>
     </div>
@@ -67,17 +50,17 @@
         <h3 class="cusproduct-heading">沖泡方法</h3>
         <p class="cusproduct-content">
           <ul>
-            <ol>＊熱水沖泡</ol>
-            <ol>１、將茶葉或茶包放入杯中</ol>
-            <ol>２、加入約 250c.c. 的熱水</ol>
-            <ol>３、浸泡 2～3 分鐘</ol>
-            <ol>４、過濾茶葉或取出茶包後即可飲用</ol>
+            <li>＊熱水沖泡</li>
+            <li>１、將茶葉或茶包放入杯中</li>
+            <li>２、加入約 250c.c. 的熱水</li>
+            <li>３、浸泡 2～3 分鐘</li>
+            <li>４、過濾茶葉或取出茶包後即可飲用</li>
           </ul>
           <ul>
-            <ol>＊冷水沖泡</ol>
-            <ol>１、將茶葉或茶包放入 600c.c. 冷水中</ol>
-            <ol>２、將容器放入冰箱</ol>
-            <ol>３、浸泡 4～8 小時後即可飲用</ol>
+            <li>＊冷水沖泡</li>
+            <li>１、將茶葉或茶包放入 600c.c. 冷水中</li>
+            <li>２、將容器放入冰箱</li>
+            <li>３、浸泡 4～8 小時後即可飲用</li>
           </ul>
         </p>
       </div>
@@ -86,6 +69,13 @@
         <products-card :bases="adProducts" />
       </div>
     </div>
+    <products-btns
+      :cusProduct="cusProduct"
+      :favTheme="'light'"
+      :short="true"
+      :qty="qty"
+      class="cusproduct-feature"
+    />
   </div>
 </template>
 
@@ -101,8 +91,49 @@ export default {
       adProducts: [],
     };
   },
+  computed: {
+    ...mapState(['cusProducts']),
+    watched() {
+      const { cusProducts, cusProductId } = this;
+      return { cusProducts, cusProductId };
+    },
+  },
+  watch: {
+    watched: {
+      handler() {
+        if (this.cusProducts.length > 1) {
+          this.getCusProduct();
+        }
+      },
+    },
+  },
+  created() {
+    this.getCusProducts();
+    this.cusProductId = this.$route.params.cusProductId;
+    this.$store.commit('SET_CUSACTIVE', 'CusProduct');
+    this.setCusproductFeature();
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.getCusProducts();
+    this.cusProductId = to.params.cusProductId;
+    this.qty = 1;
+    next();
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.switchOfCusproductFeature);
+  },
   methods: {
-    ...mapActions(['getCusProducts', 'addToCusFavs', 'delCusFav']),
+    ...mapActions(['getCusProducts']),
+    setCusproductFeature() {
+      window.addEventListener('scroll', this.switchOfCusproductFeature);
+    },
+    switchOfCusproductFeature() {
+      if ((window.scrollY < 400 || window.scrollY > 700) && document.body.clientWidth >= 768) {
+        document.querySelector('.cusproduct-feature').style.display = 'none';
+      } else {
+        document.querySelector('.cusproduct-feature').style.display = 'flex';
+      }
+    },
     addToCusCart(cusProduct) {
       const { qty } = this;
       this.$store.dispatch('addToCusCart', { cusProduct, qty });
@@ -127,33 +158,6 @@ export default {
       }
       this.adProducts = stock.slice(min);
     },
-  },
-  computed: {
-    ...mapState(['cusProducts', 'carting']),
-    watched() {
-      const { cusProducts, cusProductId } = this;
-      return { cusProducts, cusProductId };
-    },
-  },
-  watch: {
-    watched: {
-      handler() {
-        if (this.cusProducts.length > 1) {
-          this.getCusProduct();
-        }
-      },
-    },
-  },
-  created() {
-    this.getCusProducts();
-    this.cusProductId = this.$route.params.cusProductId;
-    this.$store.commit('SET_CUSACTIVE', 'CusProducts');
-  },
-  beforeRouteUpdate(to, from, next) {
-    this.getCusProducts();
-    this.cusProductId = to.params.cusProductId;
-    this.qty = 1;
-    next();
   },
 };
 </script>

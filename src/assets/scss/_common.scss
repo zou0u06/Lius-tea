@@ -1,5 +1,5 @@
 // 整體布局、框架類
-body {
+#app {
   @include media-breakpoint-up(md) {
     overflow-y: auto;
   }
@@ -43,8 +43,17 @@ body {
 }
 
 // 文字、字型類
-.line-height-large {
+.line-height-lg {
   line-height: 1.5;
+}
+
+// 連結類
+a {
+  display: inline-block;
+  cursor: pointer;
+}
+.page-link {
+  color: black;
 }
 
 // 個別元件類
@@ -94,20 +103,19 @@ body {
   color: $danger;
 }
 
-// 連結類
-a {
-  display: inline-block;
-  cursor: pointer;
+//// breadcrumb
+.breadcrumb-link {
+  color: #fff;
 }
-.page-link {
-  color: black;
+.breadcrumb-link:hover {
+  color: $danger;
 }
 
 //// 按鈕、表單類
 button.btn-fav:hover {
   color: $primary;
   border-color: $primary;
-  background-color: #fff;
+  background-color: $light;
 }
 
 .btn-setQty {
@@ -124,17 +132,17 @@ button.btn-fav:hover {
   display: none;
   position: fixed;
   z-index: 5;
-  right: 10px;
-  bottom: 10px;
-  width: 46px;
-  height: 46px;
+  right: 8px;
+  bottom: 8px;
+  width: 45px;
+  height: 45px;
   border: 1px solid black;
   border-radius: 50%;
   font-size: 20px;
   color: #fff;
 }
 
-select{
+button, select, option, input:not([type="checkbox"]){
   height: 45px;
 }
 select, option, input[type="checkbox"] {
@@ -152,13 +160,31 @@ input[type="number"]{
   -moz-appearance: textfield;
 }
 
+////// ProductsBtns
+.productsbtns-back {
+  display: none;
+  @include media-breakpoint-only(sm) {
+    display: flex;
+    align-items: center;
+  }
+}
+.productsbtns-short {
+  display: none;
+  @media (min-width: 375px) {
+    display: inline;
+  }
+}
+
 //// 圖示類
 .icon-common {
   font-size: 30px;
 }
-.fa-envelope, .fa-phone-alt {
+.fa-phone-alt {
   position: relative;
   bottom: -1px;
+}
+.fa-heart {
+  color: $red;
 }
 
 //// 卡片類
@@ -173,12 +199,57 @@ input[type="number"]{
   background-color: $light;
 }
 
-////// productsCard
+////// ProductsCard
+.productscard-block {
+  cursor: pointer;
+}
 .productscard-img {
-  width: 75px;
-  height: 90px;
-  @media (min-width: 400px) and (max-width: 767.98px) {
-    width: 90px;
+  width: 65px;
+  height: 75px;
+  @media (min-width: 375px) and (max-width: 575.98px) {
+    width: 120px;
+  }
+  @media (min-width: 690px) and (max-width: 767.98px) {
+    width: 120px;
+  }
+  @media (min-width: 865px) {
+    width: 120px;
+  }
+}
+.productscard-priceblock {
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 450px) and (max-width: 575.98px) {
+    flex-direction: row;
+  }
+  @media (min-width: 1080px) {
+    flex-direction: row;
+  }
+}
+.productscard-badge {
+  display: none;
+  @media (min-width: 1080px) {
+    display: inline;
+  }
+}
+.productscard-btn-fav {
+  position: relative;
+  bottom: -1px;
+  margin-left: auto;
+  margin-right: 0.5rem;
+  font-size: 32px;
+}
+.productscard-btn-cart {
+  color: $secondary;
+  font-size: 30px;
+}
+.productscard-date {
+  display: none;
+  @include media-breakpoint-up(md) {
+    display: flex;
+    flex: 1.5 0 88px;
+    justify-content: center;
+    align-items: center;
   }
 }
 
