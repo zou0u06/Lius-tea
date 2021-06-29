@@ -63,16 +63,6 @@
     "globals": {
       "$": "writable",
       "flatpickr": "writable"
-    },
-    "settings": {
-      "alias": {
-        "map": [
-          [
-            "@",
-            "src"
-          ]
-        ]
-      }
     }
   },
   "browserslist": [

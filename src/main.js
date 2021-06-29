@@ -22,11 +22,11 @@ import MsgModal from '@/components/MsgModal.vue';
 import ProductsCard from '@/components/ProductsCard.vue';
 import ProductsBtns from '@/components/ProductsBtns.vue';
 import Pagination from '@/components/Pagination.vue';
-import App from './App.vue';
-import router from './router';
-import store from './store';
-import displayDate from './filters/displayDate';
-import displayCurrency from './filters/displayCurrency';
+import App from '@/App.vue';
+import router from '@/router';
+import store from '@/store';
+import displayDate from '@/filters/displayDate';
+import displayCurrency from '@/filters/displayCurrency';
 
 window.$ = $;
 
