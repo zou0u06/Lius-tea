@@ -1,0 +1,80 @@
+.admin {
+  padding-top: 54px;
+  font-size: 0.875rem;
+  @include media-breakpoint-up (md) {
+    font-size: 1rem;
+  }
+}
+
+.admin-title {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+// AdminNavbar
+.adminnavbar-mask {
+  top: 221px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+// table相關
+.table thead th {
+  vertical-align: middle;
+  border-top: 3px solid #dee2e6;
+}
+.admin-name {
+  min-width: 100px;
+}
+.admin-date {
+  min-width: 60px;
+}
+.admin-date div {
+  @include media-breakpoint-up(sm) {
+    display: inline;
+  }
+}
+.admin-enabled, .adminorders-paid {
+  min-width: 75px;
+}
+.admin-edition {
+  min-width: 115px;
+}
+
+.adminproducts-cat {
+  min-width: 70px;
+}
+.adminproducts-oriprice, .adminproducts-price{
+  min-width: 70px;
+}
+.adminproducts-oriprice {
+  display: none;
+  @include media-breakpoint-up(sm) {
+    display: table-cell;
+  }
+}
+
+.adminorders-email {
+  min-width: 90px;
+}
+.adminorders-bought {
+  min-width: 150px;
+}
+.adminorders-total {
+  min-width: 75px;
+}
+
+.admincoupons-discount {
+  min-width: 70px;
+}
+.admincoupons-code {
+  min-width: 70px;
+  display: none;
+  @include media-breakpoint-up(sm) {
+    display: table-cell;
+  }
+}
+

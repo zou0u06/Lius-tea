@@ -1,0 +1,344 @@
+.cus {
+  padding-top: 61px;
+  overflow-x: hidden;
+}
+
+// CusNavbar
+.brand {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 223px;
+  height: 45px;
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/main/src/assets/images/logo-w.png');
+}
+
+.cusnavbar-mask {
+  top: 261px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+// CusFooter
+.cusfooter-subscription-form {
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 450px;
+  @include media-breakpoint-up(md) {
+    margin-right: 0;
+    margin-left: 0;
+    width: 45%;
+    max-width: none;
+  }
+}
+.cusfooter-subscription-addon {
+  padding: $input-btn-padding-y $input-btn-padding-x;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  background-color: $secondary;
+  color: white;
+}
+.cusfooter-subscription-addon::before {
+  position: relative;
+  bottom: -10px;
+}
+.cusfooter-subscription-submit {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.cusfooter-info a {
+  color: white;
+}
+.cusfooter-info a:hover {
+  color: $danger;
+}
+
+.cusfooter-space {
+  height: 61px;
+  @include media-breakpoint-up(md) {
+    display: none;
+  }
+}
+
+// CusIndex
+.cusindex-header1 {
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/main/src/assets/images/cusindex-header-bg1.jpg');
+  background-position: center top;
+}
+.cusindex-header2 {
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/main/src/assets/images/cusindex-header-bg2.jpg');
+  background-position: center top;
+}
+.cusindex-header3 {
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/main/src/assets/images/cusindex-header-bg3.jpg');
+  background-position: right bottom;
+}
+.cusindex-header-text {
+  right: 15px;
+  margin-left: auto;
+  writing-mode: vertical-lr;
+}
+
+.cusindex-container-limit {
+  max-width: 1140px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.cusindex-btn {
+  padding: 0;
+  height: 250px;
+}
+.cusindex-btn-mask {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.cusindex-btn-mask:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.cusindex-btn1 {
+  background-image: url("https://storage.googleapis.com/vue-course-api.appspot.com/zou06%2F1609222728880.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=grUl%2FmxLXTG5iDpkpn1aNMcPlx%2FwPWCpeRBtQ%2FLTGMO%2FceChZRDvOIeiW71AbtRQySxEl2EMwvwXGD6ztbQEl7tdHqfzV948l1Ypvfzn6srcD1yEcHQ4qV%2FwhTDHedUPDHZ3iI5ZPqeNBPx%2B7DEkLp8R84P%2BZcF7U2azFRVc66Wn7PF31XV8dsS8kJ9YzQMzwqpbsxuNzo2%2Fn5Yi%2B%2FCozqcaWWyf7LW%2FT8bKhxdFVH55mONdg08PeBBXDHdr97TaCzA0lly4ZM4QOzfloE2UW6tYt9smNezTNwCZnG63Uh7jjG3QrajRYbdcUiOnM%2FRH3xE6fYsuRm%2BzgCehKP0zSw%3D%3D");
+}
+.cusindex-btn2 {
+  background-image: url("https://storage.googleapis.com/vue-course-api.appspot.com/zou06%2F1609752996378.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=ckHUG8SSiABaN9BJWFOahgaOkFQZvEMJSoeBzeZBtqLSRdb4Mr25n%2BHJDxcV6iNW%2B%2BApyXyZIr8eXs92rDER4yg%2B40L1xdeSKihxyOwYupDS9iVDrwYUEstkMPTfK%2B9zYLpzH%2B1KUgCma0h5Y%2FRgVt7O2sUUj5rS95%2FBqVSxf3DnjsqzM%2Btj11DtqdvK%2FvcgEQCXiOePTRxvY%2BB1j%2F%2Fa7wA7jSC9GUMuo072fQqGX4vqEnt75CWfRifCBIusC7YpQjzamMs%2FAEakuMj4%2FQ0qElGbNcCCmK6OmcZuOme1AAVJrthQm6GWCVc1aoPh3AV1aoDEV5mHwalran3Zw4bf1Q%3D%3D");
+}
+.cusindex-btn3 {
+  background-image: url("https://storage.googleapis.com/vue-course-api.appspot.com/zou06%2F1609220688811.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=meduOS5i%2BOtPbBZYO0je5CfLtUYOj1ESco7skGI%2FSZo8EIbbSgJECTC6258YWamF2loHXzHYEJeTfTHW2cAMM%2ByAotWaRh2ObLAhkfXaiJw4dDsf5zXMtWVQ7Zw%2B5nWCS0lqFvIlVRYdLL17hn1qHjh3vvJasBfhq4dZq29Jfjdv6HLPeuCfTqmAHuBSMJQRJ2KESVbVp3xDMnMJYVYwt0UTsOvhg5TBXPqH3WlGkRsItEb1mCD99XvXludUzrLe6tWoEiAF0l%2BscaFS8qFv7rLj57uydvAiVVS1nP82jQkvCRQCHGZ%2Fc%2BXlkYyqA%2F%2FKhPgS8YvFI4ocSvLoJzNUrw%3D%3D");
+}
+.cusindex-btn-text{
+  margin-right: auto;
+  margin-left: auto;
+  writing-mode: vertical-lr;
+  letter-spacing: 15px;
+  color: white;
+  font-weight: bolder;
+  z-index: 1;
+  position: absolute;
+}
+
+.cusindex-content {
+  height: 250px;
+  background-color: $primary-dark;
+  font-size: 18px;
+  color: white;
+}
+.cusindex-content-header {
+  height: 150px;
+  color: white;
+  font-weight: bold;
+}
+.cusindex-content-img {
+  width: 100%;
+  height: 250px;
+  @include media-breakpoint-up(md) {
+    margin-top: -25px;
+    margin-bottom: -25px;
+    height: 300px;
+  }
+}
+.cusindex-content-img1 {
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/main/src/assets/images/cusindex-content1.jpg');
+}
+.cusindex-content-img2 {
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/main/src/assets/images/cusindex-content2.jpg');
+}
+
+// CusProducts
+.cusproducts-header {
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/main/src/assets/images/cusproducts-header-bg.jpg');
+  background-position: center top;
+}
+.cusproducts-header-text {
+  margin-left: auto;
+  right: 15px;
+  writing-mode: vertical-lr;
+}
+
+.cusproducts-content {
+  @include media-breakpoint-up(xl) {
+    margin-right: -30px;
+    margin-left: -30px;
+  }
+}
+.cusproducts-content-card {
+  cursor: pointer;
+}
+.cusproducts-content-card-img {
+  height: 200px;
+}
+.cusproducts-content-card-img:hover {
+  background-size: 120%;
+}
+.cusproducts-content-card-badge {
+  position: relative;
+  top: 3px
+}
+
+// CusProduct
+.cusproduct-header-img {
+  height: 375px;
+}
+.cusproduct-header-text {
+  height: 260px;
+  @include media-breakpoint-up(md) {
+    height: 375px;
+  }
+}
+.cusproduct-header-text-lowerhalf {
+  display: none;
+  height: 115px;
+  @include media-breakpoint-up(md) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+.cusproduct-header-img {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  @include media-breakpoint-up(md) {
+    border-top-right-radius: 0rem;
+    border-bottom-left-radius: 0.25rem;
+  }
+}
+.cusproduct-header-text {
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  @include media-breakpoint-up(md) {
+    border-top-right-radius: 0.25rem;
+    border-bottom-left-radius: 0rem;
+  }
+}
+
+.cusproduct-select {
+  width: 80px;
+}
+
+.cusproduct-heading {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 1rem;  
+}
+.cusproduct-heading::before, .cusproduct-heading::after {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+}
+.cusproduct-heading::before {
+  margin-right: 15px;
+}
+.cusproduct-heading::after {
+  margin-left: 15px;
+}
+.cusproduct-content {
+  color: #fff;
+  margin-bottom: 1.5rem;  
+}
+
+.cusproduct-feature {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5rem 61px 0.5rem 15px;
+  background-color: $primary-dark;
+  @include media-breakpoint-up(md) {
+    display: none;
+    bottom: 0.5rem;
+    left: 15px;
+    width: 270px;
+    border: 1px solid black;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+  }
+}
+
+// CusLogin
+.cuslogin-form {
+  width: 100%;
+  max-width: 330px;
+  padding: 1.5rem 1rem;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}
+.cuslogin-checkbox {
+  font-size: 20px;
+  font-weight: 400;
+  cursor: pointer;
+}
+.cuslogin-checkbox input {
+  height: 15px;
+  width: 15px;
+}
+.cuslogin-btn {
+  line-height: 1.25;
+}
+
+// CusCart系列共用
+.progress-chara1 {
+  border-width: 1px;
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/main/src/assets/images/progress-chara1.png');
+}
+.progress-chara2 {
+  border-width: 1px;
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/main/src/assets/images/progress-chara2.png')
+}
+.progress-chara3 {
+  border-width: 1px;
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/main/src/assets/images/progress-chara3.png')
+}
+
+// CusCart
+.cuscart-card-img {
+  height: 100px;
+  width: 80px;
+  margin-right: 0.5rem;
+  @media (min-width: 375px) {
+    width: 120px;
+    margin-right: 1rem;
+  }
+}
+.cuscart-card-text {
+  margin-bottom: 0;
+  line-height: 1.2;
+  font-weight: 500;
+  font-size: 1.25rem;
+}
+
+// CusCartInfo
+.cuscartinfo-card-img {
+  width: 80px;
+  height: 80px;
+}
+
+// CusCartPayment
+.dashes {
+  font-size: 20px;
+  position: relative;
+  top: 7px;
+}
+
+// CusCartFinished
+.cuscartfinished {
+  background-position: center bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/main/src/assets/images/cuscartfinished-bg.jpg');
+}
+
+.cuscartfinished-cell-sm {
+  width: 30%;
+}
+.cuscartfinished-cell-lg {
+  width: 60%;
+}
