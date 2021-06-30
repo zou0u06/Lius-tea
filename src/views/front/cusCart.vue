@@ -324,7 +324,7 @@ export default {
             }
           }
         } else {
-          vm.SET_MSG('wrongServer');
+          vm.SET_MSG({ event: 'cusServerError' });
           vm.SET_CARTING(false);
           vm.SET_LOADING(false);
         }

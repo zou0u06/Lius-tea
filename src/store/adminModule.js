@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import axios from 'axios';
 
 export default {
@@ -6,6 +5,7 @@ export default {
     adminActive: '',
     adminCoupons: [],
     adminProducts: [],
+    adminOrders: [],
     pagination: {},
   },
   actions: {
@@ -17,8 +17,10 @@ export default {
           context.commit('GET_ADMINCOUPONS', response.data.coupons);
           context.commit('GET_PAGINATION', response.data.pagination);
           context.commit('SET_LOADING', false);
+        } else {
+          context.commit('SET_MSG', { event: 'adminServerError' });
+          context.commit('SET_LOADING', false);
         }
-        context.commit('SET_LOADING', false);
       });
     },
     getAdminProducts(context, page = 1) {
@@ -30,6 +32,21 @@ export default {
           context.commit('GET_PAGINATION', response.data.pagination);
           context.commit('SET_LOADING', false);
         } else {
+          context.commit('SET_MSG', { event: 'adminServerError' });
+          context.commit('SET_LOADING', false);
+        }
+      });
+    },
+    getAdminOrders(context, page = 1) {
+      const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`;
+      context.commit('SET_LOADING', true);
+      axios.get(API).then((response) => {
+        if (response.data.success) {
+          context.commit('GET_ADMINORDERS', response.data.orders);
+          context.commit('GET_PAGINATION', response.data.pagination);
+          context.commit('SET_LOADING', false);
+        } else {
+          context.commit('SET_MSG', { event: 'adminServerError' });
           context.commit('SET_LOADING', false);
         }
       });
@@ -44,6 +61,9 @@ export default {
     },
     GET_ADMINPRODUCTS(state, payload) {
       state.adminProducts = payload;
+    },
+    GET_ADMINORDERS(state, payload) {
+      state.adminOrders = payload;
     },
     GET_PAGINATION(state, payload) {
       state.pagination = payload;

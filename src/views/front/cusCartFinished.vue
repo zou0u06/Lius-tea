@@ -102,7 +102,7 @@ export default {
         if (response.data.success) {
           vm.cusOrder = response.data.order;
         } else {
-          vm.$store.commit('SET_MSG', { event: 'wrongServer' });
+          vm.$store.commit('SET_MSG', { event: 'cusServerError' });
         }
       });
     },

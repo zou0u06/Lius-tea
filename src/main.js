@@ -18,15 +18,15 @@ import TW from 'vee-validate/dist/locale/zh_TW';
 import * as rules from 'vee-validate/dist/rules';
 
 // 以下為自定
-import MsgModal from '@/components/MsgModal.vue';
-import ProductsCard from '@/components/ProductsCard.vue';
-import ProductsBtns from '@/components/ProductsBtns.vue';
-import Pagination from '@/components/Pagination.vue';
-import App from '@/App.vue';
-import router from '@/router';
-import store from '@/store';
-import displayDate from '@/filters/displayDate';
-import displayCurrency from '@/filters/displayCurrency';
+import MsgModal from './components/MsgModal.vue';
+import ProductsCard from './components/ProductsCard.vue';
+import ProductsBtns from './components/ProductsBtns.vue';
+import Pagination from './components/Pagination.vue';
+import App from './App.vue';
+import router from './router';
+import store from './store';
+import displayDate from './filters/displayDate';
+import displayCurrency from './filters/displayCurrency';
 
 window.$ = $;
 
