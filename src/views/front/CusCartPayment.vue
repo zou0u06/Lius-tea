@@ -2,12 +2,12 @@
   <div class="container-xl">
     <validation-observer
       v-slot="{ invalid, handleSubmit }"
-      tag="div"
       class="py-md-4 row justify-content-center"
+      tag="div"
     >
       <form
-        @submit.prevent="handleSubmit(payOrder)"
         class="col-md-8 p-4 bg-light rounded-breakpoint"
+        @submit.prevent="handleSubmit(payOrder)"
       >
         <!-- form header -->
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -23,19 +23,25 @@
 
         <!-- form body -->
         <div class="form-group">
-          <label title="必填" for="tempNumPart1">
+          <label
+            for="tempNumPart1"
+            title="必填"
+          >
             信用卡號
             <sup class="text-danger">*</sup>
           </label>
           <div class="d-block d-sm-flex">
           <div class="d-flex mb-2">
-            <validation-provider rules="digits:4|required"
-              v-slot="{ errors, classes }" tag="div">
+            <validation-provider
+              v-slot="{ errors, classes }"
+              rules="digits:4|required"
+              tag="div"
+            >
               <input
-                id="tempNumPart1"
                 type="number"
-                name="卡號"
+                id="tempNumPart1"
                 v-model="tempCreditNum.part1"
+                name="卡號"
                 placeholder="1234"
                 class="form-control"
                 :class="classes"
@@ -61,13 +67,16 @@
             <div class="dashes d-none d-sm-inline">－</div>
           </div>
           <div class="d-flex">
-            <validation-provider rules="digits:4|required"
-              v-slot="{ errors, classes }" tag="div">
+            <validation-provider
+              v-slot="{ errors, classes }"
+              rules="digits:4|required"
+              tag="div"
+            >
               <input
-                id="tempNumPart3"
                 type="number"
-                name="卡號"
+                id="tempNumPart3"
                 v-model="tempCreditNum.part3"
+                name="卡號"
                 placeholder="1234"
                 class="form-control"
                 :class="classes"
@@ -77,15 +86,15 @@
             </validation-provider>
             <div class="dashes">－</div>
             <validation-provider
-              rules="numeric|required"
               v-slot="{ errors, classes }"
+              rules="numeric|required"
               tag="div"
             >
               <input
-                id="tempNumPart4"
                 type="number"
-                name="卡號"
+                id="tempNumPart4"
                 v-model="tempCreditNum.part4"
+                name="卡號"
                 placeholder="1234"
                 class="form-control"
                 :class="classes"
@@ -97,22 +106,25 @@
         </div>
 
         <div class="form-group">
-          <label title="必填" for="creditMM">
+          <label
+            title="必填"
+            for="creditMM"
+          >
             有效期限
             <sup class="text-danger">*</sup>
           </label>
           <div class="form-row">
             <validation-provider
+              v-slot="{ errors, classes }"
               rules="digits:2|required"
               class="col"
-              v-slot="{ errors, classes }"
               tag="div"
             >
               <input
-                id="creditMM"
                 type="number"
-                name="月份"
+                id="creditMM"
                 v-model="card.creditMM"
+                name="月份"
                 placeholder="00"
                 class="form-control"
                 :class="classes"
@@ -121,16 +133,16 @@
             </validation-provider>
 
             <validation-provider
+              v-slot="{ errors, classes }"
               rules="digits:2|required"
               class="col"
-              v-slot="{ errors, classes }"
               tag="div"
             >
               <input
-                id="creditYY"
                 type="number"
-                name="年份"
+                id="creditYY"
                 v-model="card.creditYY"
+                name="年份"
                 placeholder="01"
                 class="form-control"
                 :class="classes"
@@ -141,22 +153,25 @@
         </div>
 
         <div class="form-group">
-          <label title="必填" for="creditLN">
+          <label
+            title="必填"
+            for="creditLN"
+          >
             持卡人姓名
             <sup class="text-danger">*</sup>
           </label>
           <div class="form-row">
             <validation-provider
+              v-slot="{ errors, classes }"
               rules="required"
               class="col"
-              v-slot="{ errors, classes }"
               tag="div"
             >
               <input
-                id="creditLN"
                 type="text"
-                name="持卡人姓氏"
+                id="creditLN"
                 v-model="card.creditLN"
+                name="持卡人姓氏"
                 placeholder="劉"
                 class="form-control"
                 :class="classes"
@@ -165,16 +180,16 @@
             </validation-provider>
 
             <validation-provider
+              v-slot="{ errors, classes }"
               rules="required"
               class="col"
-              v-slot="{ errors, classes }"
               tag="div"
             >
               <input
-                id="creditFN"
                 type="text"
-                name="持卡人名字"
+                id="creditFN"
                 v-model="card.creditFN"
+                name="持卡人名字"
                 placeholder="好茶"
                 class="form-control"
                 :class="classes"
@@ -185,27 +200,34 @@
         </div>
 
         <validation-provider
-          class="form-group mb-4"
-          rules="digits:3|required"
           v-slot="{ errors, classes }"
+          rules="digits:3|required"
+          class="form-group mb-4"
           tag="div"
         >
-          <label title="必填" for="creditSC">
+          <label
+            title="必填"
+            for="creditSC"
+          >
             安全碼
             <sup class="text-danger">*</sup>
           </label>
           <input
-            id="creditSC"
             type="number"
-            name="安全碼"
+            id="creditSC"
             v-model="card.creditSC"
+            name="安全碼"
             placeholder="123"
             class="form-control"
             :class="classes"
           />
           <div class="invalid-feedback">{{ errors[0] }}</div>
         </validation-provider>
-        <button type="submit" class="btn btn-secondary btn-block" :disabled="invalid">確認付款</button>
+        <button
+          type="submit"
+          class="btn btn-secondary btn-block"
+          :disabled="invalid"
+        >確認付款</button>
       </form>
     </validation-observer>
   </div>
@@ -257,7 +279,11 @@ export default {
       });
     },
     jumpToNext(value, num) {
-      if (value.length === 4 && typeof parseInt(value, 10) === 'number' && value.indexOf('.') === -1) {
+      if (
+        value.length === 4
+        && typeof parseInt(value, 10) === 'number'
+        && value.indexOf('.') === -1
+      ) {
         document.querySelector(`#tempNumPart${num + 1}`).focus();
       }
     },

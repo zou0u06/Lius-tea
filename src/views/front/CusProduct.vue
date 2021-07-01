@@ -3,12 +3,21 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <router-link class="breadcrumb-link" to="/">首頁</router-link>
+          <router-link
+            to="/"
+            class="breadcrumb-link"
+          >首頁</router-link>
         </li>
         <li class="breadcrumb-item">
-          <router-link class="breadcrumb-link" to="/products">商品</router-link>
+          <router-link
+            to="/products"
+            class="breadcrumb-link"
+          >商品</router-link>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">{{ cusProduct.title }}</li>
+        <li
+          class="breadcrumb-item active"
+          aria-current="page"
+        >{{ cusProduct.title }}</li>
       </ol>
     </nav>
     <div class="row no-gutters">
@@ -29,8 +38,15 @@
         <div class="cusproduct-header-text-lowerhalf">
           <div class="d-flex justify-content-around align-items-center">
             <span class="h4">購買數量</span>
-            <select class="cusproduct-select rounded pl-2" v-model="qty">
-              <option v-for="i in 10" :key="i" :value="i">{{ i }}</option>
+            <select
+              v-model="qty"
+              class="cusproduct-select rounded pl-2"
+            >
+              <option
+                v-for="i in 10"
+                :key="i"
+                :value="i"
+              >{{ i }}</option>
             </select>
           </div>
             <products-btns
@@ -128,7 +144,11 @@ export default {
       window.addEventListener('scroll', this.switchOfCusproductFeature);
     },
     switchOfCusproductFeature() {
-      if ((window.scrollY < 400 || window.scrollY > 700) && document.body.clientWidth >= 768) {
+      if ((
+        window.scrollY < 400
+        || window.scrollY > 700)
+        && document.body.clientWidth >= 768
+      ) {
         document.querySelector('.cusproduct-feature').style.display = 'none';
       } else {
         document.querySelector('.cusproduct-feature').style.display = 'flex';

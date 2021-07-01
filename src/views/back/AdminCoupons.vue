@@ -5,7 +5,7 @@
       <button
         type="button"
         class="btn btn-primary"
-        @click="openCouponModal()"
+        @click="openAdminCouponsModal()"
       >建立新的優惠券</button>
     </div>
     <div class="table-responsive mb-3">
@@ -40,12 +40,12 @@
               <button
                 type="button"
                 class="btn btn-outline-primary btn-sm"
-                @click="openCouponModal(adminCoupon)"
+                @click="openAdminCouponsModal(adminCoupon)"
               >編輯</button>
               <button
                 type="button"
                 class="btn btn-outline-danger btn-sm"
-                @click="openDelCModal(adminCoupon)"
+                @click="openDelModal(adminCoupon)"
               >刪除</button>
             </td>
           </tr>
@@ -57,9 +57,9 @@
       class="ml-3"
       @click-page="getAdminCoupons"
     />
-    <!-- coupon Modal -->
+    <!-- adminCoupons Modal -->
     <div
-      id="couponModal"
+      id="adminCouponsModal"
       class="modal fade"
       data-backdrop="static"
       data-keyboard="false"
@@ -68,7 +68,8 @@
       aria-hidden="true"
     >
       <div
-        class="modal-dialog modal-lg"
+        id="adminCouponsModalDialog"
+        class="modal-dialog"
         role="document"
       >
         <div class="modal-content border-0">
@@ -90,63 +91,65 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="row">
-              <div class="col-sm-8">
-                <div class="form-group">
-                  <label for="title">標題</label>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="adminCouponTitle">標題</label>
                   <input
                     type="text"
-                    id="title"
+                    id="adminCouponTitle"
                     v-model="tempCoupon.title"
                     class="form-control"
                     placeholder="請輸入標題"
                   />
                 </div>
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="percent">折扣百分比</label>
-                    <input
-                      type="number"
-                      id="percent"
-                      v-model="tempCoupon.percent"
-                      class="form-control"
-                      placeholder="請輸入折扣百分比"
-                    />
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label>到期日</label>
-                    <input
-                      id="cdd"
-                      class="form-control"
-                      placeholder="請輸入到期日"
-                      :value="tempCoupon.due_date|displayDate"
-                      @click="pickDate"
-                    />
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="code">使用代碼</label>
-                    <input
-                      type="text"
-                      id="code"
-                      v-model="tempCoupon.code"
-                      class="form-control"
-                      placeholder="請輸入使用代碼"
-                    />
-                  </div>
+                <div class="form-group col-md-6">
+                  <label for="adminCouponPercent">折扣百分比（1-3 位數字）</label>
+                  <input
+                    type="number"
+                    id="adminCouponPercent"
+                    v-model="tempCoupon.percent"
+                    class="form-control"
+                    placeholder="不需輸入百分比符號"
+                  />
                 </div>
-
-                <div class="form-group">
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label>到期日（+0800 台北時間）</label>
+                  <input
+                    type="date"
+                    id="cdd"
+                    class="form-control"
+                    placeholder="請輸入到期日"
+                    :value="tempCoupon.due_date|displayDate"
+                    @change="pickDate"
+                  />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="adminCouponCode">使用代碼</label>
+                  <input
+                    type="text"
+                    id="adminCouponCode"
+                    v-model="tempCoupon.code"
+                    class="form-control"
+                    placeholder="請輸入使用代碼"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col">
                   <div class="form-check">
                     <input
                       type="checkbox"
-                      id="is_enabled"
+                      id="adminCouponIsEnabled"
                       v-model="tempCoupon.is_enabled"
                       class="form-check-input"
                       :true-value=1
                       :false-value=0
                     />
                     <label
-                      for="is_enabled"
+                      for="adminCouponIsEnabled"
                       class="form-check-label"
                     >是否啟用</label>
                   </div>
@@ -154,7 +157,6 @@
               </div>
             </div>
           </div>
-
           <div class="modal-footer">
             <button
               type="button"
@@ -197,7 +199,7 @@ export default {
     getAdminCoupons(page) {
       this.$store.dispatch('getAdminCoupons', page);
     },
-    openCouponModal(adminCoupon) {
+    openAdminCouponsModal(adminCoupon) {
       if (adminCoupon) {
         this.tempCoupon = { ...adminCoupon };
         this.addition = false;
@@ -205,7 +207,7 @@ export default {
         this.tempCoupon = {};
         this.addition = true;
       }
-      $('#couponModal').modal('show');
+      $('#adminCouponsModal').modal('show');
     },
     pickDate() {
       const fp = flatpickr('#cdd', {});
@@ -217,7 +219,7 @@ export default {
         const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon`;
         vm.axios.post(API, { data: vm.tempCoupon }).then((response) => {
           if (response.data.success) {
-            $('#couponModal').modal('hide');
+            $('#adminCouponsModal').modal('hide');
             vm.getAdminCoupons();
           }
         });
@@ -225,13 +227,13 @@ export default {
         const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`;
         vm.axios.put(API, { data: vm.tempCoupon }).then((response) => {
           if (response.data.success) {
-            $('#couponModal').modal('hide');
+            $('#adminCouponsModal').modal('hide');
             vm.getAdminCoupons();
           }
         });
       }
     },
-    openDelCModal(adminCoupon) {
+    openDelModal(adminCoupon) {
       this.$store.commit('SET_MSG', {
         event: 'delAdminCoupon',
         object: adminCoupon.title,

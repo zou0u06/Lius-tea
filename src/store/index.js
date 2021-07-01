@@ -123,7 +123,7 @@ export default new Vuex.Store({
         localStorage.setItem('cusCart', JSON.stringify(tempCusCart));
         context.dispatch('getCusCart');
         context.commit('SET_MSG', {
-          event: 'addedToCusCart', object: `${cusProduct.title} ${qty} ${cusProduct.unit}`,
+          event: 'additionToCusCart', object: `${cusProduct.title} ${qty} ${cusProduct.unit}`,
         });
       }
       if (tempCusCartL > 0) {
@@ -135,7 +135,7 @@ export default new Vuex.Store({
             localStorage.setItem('cusCart', JSON.stringify(tempCusCart));
             context.dispatch('getCusCart');
             context.commit('SET_MSG', {
-              event: 'addedToCusCart', object: `${cusProduct.title} ${qty} ${cusProduct.unit}`,
+              event: 'additionToCusCart', object: `${cusProduct.title} ${qty} ${cusProduct.unit}`,
             });
             break;
           }

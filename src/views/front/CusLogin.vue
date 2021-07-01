@@ -1,53 +1,75 @@
 <template>
   <div class="container-xl">
-    <validation-observer v-slot="{ invalid, handleSubmit }" tag="div">
-      <form class="cuslogin-form" @submit.prevent="handleSubmit(signin)">
+    <validation-observer
+      v-slot="{ invalid, handleSubmit }"
+      tag="div"
+    >
+      <form
+        class="cuslogin-form"
+        @submit.prevent="handleSubmit(signIn)"
+      >
         <h2 class="mb-3 font-weight-normal text-white">會員登入</h2>
         <validation-provider
-          class="form-group"
           rules="required|email"
           v-slot="{ classes }"
+          class="form-group"
           tag="div"
         >
-          <label for="inputEmail" class="sr-only">請輸入 Email</label>
+          <label
+            for="inputEmail"
+            class="sr-only"
+          >請輸入 Email</label>
           <input
             type="email"
             id="inputEmail"
+            v-model="user.username"
             class="form-control rounded-top mb-n3"
             :class="classes"
             placeholder="請輸入 Email"
-            v-model="user.username"
-            @change="saveInfo()"
             required
             autofocus
+            @change="saveInfo()"
           />
         </validation-provider>
 
         <validation-provider
-          class="form-group"
           rules="required"
           v-slot="{ classes }"
+          class="form-group"
           tag="div"
         >
-          <label for="inputPassword" class="sr-only">請輸入密碼</label>
+          <label
+            for="inputPassword"
+            class="sr-only"
+          >請輸入密碼</label>
           <input
             type="password"
             id="inputPassword"
-            class="form-control rounded-bottom mb-1"
-            placeholder="請輸入密碼"
             v-model="user.password"
+            placeholder="請輸入密碼"
+            class="form-control rounded-bottom mb-1"
             :class="classes"
             required
           />
         </validation-provider>
         <div class="checkbox mb-2">
           <label class="text-white cuslogin-checkbox">
-            <input type="checkbox" class="mr-2" @click="rememberInfo()" />記住帳號
+            <input
+              type="checkbox"
+              class="mr-2"
+              @click="rememberInfo()"
+            />記住帳號
           </label>
         </div>
-        <div class="error-msg" v-if="errorMsg">帳號或密碼錯誤，請重新輸入</div>
-        <button class="btn btn-lg btn-secondary btn-block cuslogin-btn" type="submit"
-          :disabled="invalid">登入</button>
+        <div
+          v-if="errorMsg"
+          class="error-msg"
+        >帳號或密碼錯誤，請重新輸入</div>
+        <button
+          type="submit"
+          class="btn btn-lg btn-secondary btn-block cuslogin-btn"
+          :disabled="invalid"
+        >登入</button>
       </form>
     </validation-observer>
   </div>
@@ -70,7 +92,7 @@ export default {
     this.$store.commit('SET_CUSACTIVE', 'CusLogin');
   },
   methods: {
-    signin() {
+    signIn() {
       const vm = this;
       const api = `${process.env.VUE_APP_APIPATH}/admin/signin`;
       vm.axios.post(api, vm.user).then((response) => {

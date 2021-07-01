@@ -5,7 +5,7 @@
       <button
         type="button"
         class="btn btn-primary"
-        @click="openProductModal()"
+        @click="openAdminProductsModel()"
       >建立新的商品</button>
     </div>
     <div class="table-responsive mb-3">
@@ -42,7 +42,7 @@
               <button
                 type="button"
                 class="btn btn-outline-primary btn-sm"
-                @click="openProductModal(adminProduct)"
+                @click="openAdminProductsModel(adminProduct)"
               >編輯</button>
               <button
                 type="button"
@@ -59,9 +59,9 @@
       class="ml-3"
       @click-page="getAdminProducts"
     />
-    <!-- product Modal -->
+    <!-- adminProducts Modal -->
     <div
-      id="productModal"
+      id="adminProductsModel"
       class="modal fade"
       data-backdrop="static"
       data-keyboard="false"
@@ -94,7 +94,7 @@
           <div class="modal-body">
             <div class="row">
               <!-- 上傳圖片欄位 -->
-              <div class="col-sm-4 mb-3">
+              <div class="col-sm-5 mb-3">
                 <div class="form-group">
                   <label for="image">輸入圖片網址</label>
                   <input
@@ -115,8 +115,8 @@
                   </label>
                   <input
                     type="file"
-                    ref="files"
                     id="adminProductsPic"
+                    ref="files"
                     class="form-control"
                     @change="uploadPic"
                   />
@@ -133,7 +133,7 @@
                 />
               </div>
 
-              <div class="col-sm-8">
+              <div class="col-sm-7">
                 <div class="form-group">
                   <label for="title">標題</label>
                   <input
@@ -146,7 +146,7 @@
                 </div>
 
                 <div class="form-row">
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-sm-6">
                     <label for="category">分類</label>
                     <input
                       type="text"
@@ -156,7 +156,7 @@
                       placeholder="請輸入分類"
                     />
                   </div>
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-sm-6">
                     <label for="price">單位</label>
                     <input
                       type="unit"
@@ -169,7 +169,7 @@
                 </div>
 
                 <div class="form-row">
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-sm-6">
                     <label for="origin_price">原價</label>
                     <input
                       type="number"
@@ -179,7 +179,7 @@
                       placeholder="請輸入原價"
                     />
                   </div>
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-sm-6">
                     <label for="price">售價</label>
                     <input
                       type="number"
@@ -276,7 +276,7 @@ export default {
     getAdminProducts(page) {
       this.$store.dispatch('getAdminProducts', page);
     },
-    openProductModal(adminProduct) {
+    openAdminProductsModel(adminProduct) {
       if (adminProduct) {
         this.tempProduct = { ...adminProduct };
         this.addition = false;
@@ -284,7 +284,7 @@ export default {
         this.tempProduct = {};
         this.addition = true;
       }
-      $('#productModal').modal('show');
+      $('#adminProductsModel').modal('show');
     },
     uploadProduct() {
       const vm = this;
@@ -293,7 +293,7 @@ export default {
         vm.axios.post(API, { data: vm.tempProduct }).then((response) => {
           if (response.data.success) {
             this.clearPic();
-            $('#productModal').modal('hide');
+            $('#adminProductsModel').modal('hide');
             vm.getAdminProducts();
           }
         });
@@ -302,7 +302,7 @@ export default {
         vm.axios.put(API, { data: vm.tempProduct }).then((response) => {
           if (response.data.success) {
             this.clearPic();
-            $('#productModal').modal('hide');
+            $('#adminProductsModel').modal('hide');
             vm.getAdminProducts();
           }
         });

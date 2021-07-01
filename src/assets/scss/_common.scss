@@ -85,12 +85,10 @@ a {
 .nav-item:hover {
   background-color: $primary-dark;
 }
-.nav-item:active {
-  background-color: $primary-dark;
-}
 
 //// 對話框、訊息類
-#modalDialog {
+#msgModelDialog,
+#adminCouponsModalDialog {
   top: 50%;
   transform: translateY(-50%);
 }

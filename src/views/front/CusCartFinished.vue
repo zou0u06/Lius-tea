@@ -8,9 +8,9 @@
             <strong>訂購已完成</strong>
           </h2>
           <div class="d-flex justify-content-between mx-auto progress bg-primary mb-5">
-            <div class="progress-icon progress-chara1"></div>
-            <div class="progress-icon progress-chara2"></div>
-            <div class="progress-icon progress-chara3"></div>
+            <div class="progress-icon progress-chara1"/>
+            <div class="progress-icon progress-chara2"/>
+            <div class="progress-icon progress-chara3"/>
           </div>
           <button
             type="button"
@@ -27,7 +27,10 @@
               <th class="text-center cuscartfinished-cell-sm">單價</th>
             </thead>
             <tbody>
-              <tr v-for="orderedProduct in cusOrder.products" :key="orderedProduct.id">
+              <tr
+                v-for="orderedProduct in cusOrder.products"
+                :key="orderedProduct.id"
+              >
                 <td>{{ orderedProduct.product.title }}</td>
                 <td class="text-center">
                   {{ orderedProduct.qty }}{{ orderedProduct.product.unit }}
@@ -37,7 +40,10 @@
             </tbody>
             <tfoot>
               <tr>
-                <td colspan="2" class="text-right">
+                <td
+                  colspan="2"
+                  class="text-right"
+                >
                   <strong>總計</strong>
                 </td>
                 <td class="text-right">{{ cusOrder.total|displayCurrency }}</td>

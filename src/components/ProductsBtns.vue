@@ -5,7 +5,7 @@
       v-if="short"
       class="btn btn-extra productsbtns-back"
     >
-      <i class="fas fa-mug-hot mr-1"></i>
+      <i class="fas fa-mug-hot mr-1"/>
       回到商品一覽頁
     </router-link>
     <button
@@ -14,7 +14,7 @@
       :class="`btn btn-outline-${favTheme} btn-fav`"
       @click.stop="addToCusFavs(cusProduct.id)"
     >
-      <i class="far fa-heart mr-1"></i>
+      <i class="far fa-heart mr-1"/>
       <span :class="{ 'productsbtns-short': short }">加入</span>收藏
     </button>
     <button
@@ -23,7 +23,7 @@
       :class="`btn btn-${favTheme}`"
       @click.stop="delCusFav(cusProduct.id)"
     >
-      <i class="fas fa-heart mr-1"></i>
+      <i class="fas fa-heart mr-1"/>
       <span :class="{ 'productsbtns-short': short }">取消</span>收藏
     </button>
     <button
@@ -31,7 +31,7 @@
       class="btn btn-secondary"
       @click.stop="addToCusCart(cusProduct)"
     >
-      <i class="fas fa-shopping-cart"></i>
+      <i class="fas fa-shopping-cart"/>
       加入購物車
     </button>
   </div>

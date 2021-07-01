@@ -4,11 +4,11 @@
     id="msgModel"
     data-backdrop="static"
     data-keyboard="false"
-    aria-labelledby="staticBackdropLabel"
+    aria-labelledby="msgModelLabel"
     aria-hidden="true"
   >
     <div
-      id="modalDialog"
+      id="msgModelDialog"
       class="modal-dialog"
     >
       <div class="modal-content">
@@ -17,7 +17,7 @@
           :class="`bg-${theme}`"
         >
           <h5
-            id="staticBackdropLabel"
+            id="msgModelLabel"
             class="modal-title text-white"
           >{{ title }}</h5>
           <button
@@ -60,7 +60,7 @@
           >關閉</button>
           <button
             type="button"
-            v-if="msg.event === 'addedToCusCart'"
+            v-if="msg.event === 'additionToCusCart'"
             class="btn"
             :class="`btn-${theme}`"
             @click="goToCusCart()"
@@ -120,14 +120,14 @@ export default {
             this.dismissWithTiming();
             break;
           }
-          case 'addedToCusCart':
+          case 'additionToCusCart':
             this.title = '商品已加入購物車';
             this.theme = 'secondary';
             this.action = '已加入您的購物車';
             $('#msgModel').modal('show');
             this.dismissWithTiming();
             break;
-          case 'subscribed':
+          case 'subscription':
             this.title = '成功訂閱電子報';
             this.theme = 'secondary';
             this.action = '您已成功訂閱電子報，將會每週獲得新品優惠、品茶知識等資訊';

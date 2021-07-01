@@ -5,41 +5,47 @@
         <h2 class="mr-auto text-white">劉記茗茶管理後臺</h2>
 
         <button
-          class="navbar-toggler adminnavbar-toggler border-0"
           type="button"
+          class="navbar-toggler adminnavbar-toggler border-0"
           data-toggle="collapse"
           data-target=".adminnavbar-collapse"
           aria-controls="adminnavbar-collapse"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"/>
         </button>
 
         <div class="collapse navbar-collapse adminnavbar-collapse">
-          <ul class="navbar-nav ml-auto text-center" @click.prevent="setAdminNavbar()">
+          <ul
+            class="navbar-nav ml-auto text-center"
+            @click.prevent="setAdminNavbar()"
+          >
             <li class="nav-item">
               <router-link
-                class="nav-link"
                 to="/admin"
+                class="nav-link"
                 :class="{active: adminActive === 'AdminProducts'}"
               >產品列表</router-link>
             </li>
             <li class="nav-item">
               <router-link
-                class="nav-link"
                 to="/admin/orders"
+                class="nav-link"
                 :class="{active: adminActive === 'AdminOrders'}"
               >訂單列表</router-link>
             </li>
             <li class="nav-item">
               <router-link
-                class="nav-link"
                 to="/admin/coupons"
+                class="nav-link"
                 :class="{active: adminActive === 'AdminCoupons'}"
               >優惠券列表</router-link>
             </li>
-            <li class="nav-item" @click.prevent="signout">
+            <li
+              class="nav-item"
+              @click.prevent="signOut"
+            >
               <a class="nav-link">登出</a>
             </li>
           </ul>
@@ -66,7 +72,7 @@ export default {
         document.querySelector('.adminnavbar-toggler').click();
       }
     },
-    signout() {
+    signOut() {
       const vm = this;
       const api = `${process.env.VUE_APP_APIPATH}/logout`;
       vm.axios.post(api).then((response) => {

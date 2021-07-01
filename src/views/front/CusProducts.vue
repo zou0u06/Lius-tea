@@ -11,24 +11,27 @@
       <div class="col-md-3">
         <div class="card rounded border-0 mb-4">
           <h3 class="card-header">商品列表</h3>
-          <ul class="list-group list-group-flush text-center" role="tablist">
+          <ul
+            class="list-group list-group-flush text-center"
+            role="tablist"
+          >
             <a
               href="#"
               class="list-group-item list-group-item-action"
+              :class="{ active: cusProductsActive === '' }"
               data-toggle="list"
               role="tab"
               @click.prevent="SET_CUSPRODUCTSACTIVE('')"
-              :class="{ active: cusProductsActive === '' }"
             >所有茶品</a>
             <a
               href="#"
+              v-for="cat in cats"
+              :key="cat"
               class="list-group-item list-group-item-action"
+              :class="{ active: cusProductsActive === cat }"
               data-toggle="list"
               role="tab"
-              v-for="cat in cats"
               @click.prevent="SET_CUSPRODUCTSACTIVE(cat)"
-              :class="{ active: cusProductsActive === cat }"
-              :key="cat"
             >{{ cat }}</a>
           </ul>
         </div>
@@ -36,13 +39,13 @@
       <div class="col-md-9">
         <div class="row">
           <div
-            class="col-sm-6 mb-4 cusproducts-content-card"
             v-for="cusProduct in filterCusProducts"
             :key="cusProduct.id"
+            class="col-sm-6 mb-4 cusproducts-content-card"
           >
             <div
-              @click="jumpToCusProduct(cusProduct.id)"
               class="card border-0 rounded shadow-sm"
+              @click="jumpToCusProduct(cusProduct.id)"
             >
               <div
                 class="bg-cover rounded-top cusproducts-content-card-img"

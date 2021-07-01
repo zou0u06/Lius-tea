@@ -1,20 +1,33 @@
 <template>
   <div>
-    <validation-observer v-slot="{ invalid, handleSubmit }" tag="div" class="bg-primary-dark">
+    <validation-observer
+      v-slot="{ invalid, handleSubmit }"
+      tag="div"
+      class="bg-primary-dark"
+    >
       <div class="container-xl d-md-flex justify-content-around align-items-center py-3">
         <div class="h2 text-white text-center mb-3 mb-md-0">
           <i class="fas fa-mug-hot mr-2"></i>
-          <label for="cusfooter-subscription" class="mb-0">訂閱每週樂活鮮茶報</label>
+          <label
+            for="cusfooter-subscription"
+            class="mb-0"
+          >訂閱每週樂活鮮茶報</label>
         </div>
-        <form class="cusfooter-subscription-form" @submit.prevent="handleSubmit(subscribe)">
-          <div id="basic-addon"
-            class="far fa-envelope cusfooter-subscription-addon"/>
+        <form
+          class="cusfooter-subscription-form"
+          @submit.prevent="handleSubmit(subscribe)"
+        >
+          <div
+            id="basic-addon"
+            class="far fa-envelope cusfooter-subscription-addon"
+          />
           <validation-provider
             rules="required|email"
             class="flex-fill"
             tag="div"
           >
-            <input type="text"
+            <input
+              type="text"
               class="form-control rounded-0 border-0"
               id="cusfooter-subscription"
               aria-describedby="basic-addon"
@@ -22,9 +35,11 @@
               v-model="subscriptionEmail"
             />
           </validation-provider>
-          <button type="submit"
+          <button
+            type="submit"
             class="btn btn-secondary cusfooter-subscription-submit"
-            :disabled="invalid">
+            :disabled="invalid"
+          >
             <i class="fas fa-arrow-right"></i>
           </button>
         </form>
@@ -46,12 +61,20 @@
         </div>
         <div class="row">
           <div class="col-sm-6 mb-3">
-            <a href="tel:+886-2-26000000" class="h6 mb-3" target="_blank">
+            <a
+              href="tel:+886-2-26000000"
+              class="h6 mb-3"
+              target="_blank"
+            >
               <i class="fas fa-phone-alt"></i>
               +886-2-2600-0000
             </a>
             <br />
-            <a href="mailto:goodtea@mmmmail.com" class="h6" target="_blank">
+            <a
+              href="mailto:goodtea@mmmmail.com"
+              class="h6"
+              target="_blank"
+            >
               <i class="far fa-envelope mr-1"></i>
               goodtea@mmmmail.com
             </a>
@@ -72,13 +95,14 @@
         <h6>本網站僅為練習用，所有資訊均屬虛構，如有雷同純屬巧合</h6>
       </div>
     </div>
-    <div class="cusfooter-space" v-if="cusActive === 'CusProduct'"></div>
+    <div
+      v-if="cusActive === 'CusProduct'"
+      class="cusfooter-space"
+    />
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
 export default {
   data() {
     return {
@@ -86,11 +110,13 @@ export default {
     };
   },
   computed: {
-    ...mapState(['cusActive']),
+    cusActive() {
+      return this.$store.state.cusActive;
+    },
   },
   methods: {
     subscribe() {
-      this.$store.commit('SET_MSG', { event: 'subscribed' });
+      this.$store.commit('SET_MSG', { event: 'subscription' });
     },
   },
 };

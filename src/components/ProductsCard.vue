@@ -1,6 +1,9 @@
 <template>
   <div class="card-lowerhalf container-fluid pt-3">
-    <div v-if="bases.length > 0" class="row">
+    <div
+      v-if="bases.length > 0"
+      class="row"
+    >
       <div
         v-for="cusProduct in bases"
         class="d-flex pb-3 col-sm-6 col-md-12 productscard-block"
@@ -22,28 +25,37 @@
               <span class="text-secondary">特價 {{ cusProduct.price }} 元</span>
             </div>
             <div>
-              <i v-if="cusProduct.favored === false"
+              <i
+                v-if="cusProduct.favored === false"
                 class="far fa-heart productscard-btn-fav"
                 @click.stop="addToCusFavs(cusProduct.id)"
               />
-              <i v-if="cusProduct.favored === true"
+              <i
+                v-if="cusProduct.favored === true"
                 class="fas fa-heart productscard-btn-fav"
                 @click.stop="delCusFav(cusProduct.id)"
               />
-              <i class="fas fa-shopping-cart productscard-btn-cart"
+              <i
+                class="fas fa-shopping-cart productscard-btn-cart"
                 :disabled="carting === false"
                 @click.stop="addToCusCart(cusProduct)"
               />
             </div>
           </div>
         </div>
-        <div v-if="kind === 'favoredProducts'" class="productscard-date">
+        <div
+          v-if="kind === 'favoredProducts'"
+          class="productscard-date"
+        >
           收藏日期：<br/>
           {{ cusProduct.favoredDate }}
         </div>
       </div>
     </div>
-    <div v-else class="flex-center pb-3 h3">目前尚無商品</div>
+    <div
+      v-else
+      class="flex-center pb-3 h3"
+    >目前尚無商品</div>
   </div>
 </template>
 
@@ -59,7 +71,7 @@ export default {
     ...mapState(['carting']),
   },
   methods: {
-    ...mapActions(['addToCusFavs', 'delCusFav']),
+    ...mapActions(['addToCusFavs', 'delCusFav', 'jumpToCusProduct']),
     addToCusCart(cusProduct, qty = 1) {
       this.$store.dispatch('addToCusCart', { cusProduct, qty });
     },

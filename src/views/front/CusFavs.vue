@@ -3,11 +3,14 @@
     <div class="row">
       <div class="col-md-7 mb-4">
         <h3 class="rounded-top card-header">收藏清單</h3>
-        <products-card :bases="favoredProducts" :kind="'favoredProducts'"/>
+        <products-card
+          :bases="favoredProducts"
+          :kind="'favoredProducts'"
+        />
       </div>
       <div class="col-md-5 mb-4">
         <h3 class="rounded-top card-header">推薦商品</h3>
-        <products-card :bases="adProducts" />
+        <products-card :bases="adProducts"/>
       </div>
     </div>
   </div>

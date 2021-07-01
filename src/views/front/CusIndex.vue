@@ -8,7 +8,7 @@
     >
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <div class="w-100 header cusindex-header1" alt="#">
+          <div class="w-100 header cusindex-header1">
             <h2 class="header-text cusindex-header-text">
               <span>生於臺灣純淨山林</span><br/>
               <span>聚天地精華而成</span>
@@ -16,7 +16,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <div class="w-100 header cusindex-header2" alt="#">
+          <div class="w-100 header cusindex-header2">
             <h2 class="header-text cusindex-header-text">
               <span>堅持有機農法</span><br/>
               <span>不使用化學藥劑</span>
@@ -24,7 +24,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <div class="w-100 header cusindex-header3" alt="#">
+          <div class="w-100 header cusindex-header3">
             <h2 class="header-text cusindex-header-text">
               <span>採取小農契作</span><br/>
               <span>兼顧品質與農民利益</span>
@@ -38,7 +38,10 @@
         role="button"
         data-slide="prev"
       >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span
+          class="carousel-control-prev-icon"
+          aria-hidden="true"
+        />
         <span class="sr-only">Previous</span>
       </a>
       <a
@@ -47,21 +50,33 @@
         role="button"
         data-slide="next"
       >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span
+          class="carousel-control-next-icon"
+          aria-hidden="true"
+        />
         <span class="sr-only">Next</span>
       </a>
     </div>
       <div class="row cusindex-container-limit">
-        <a @click.prevent="jumpToCusProducts('')" class="col cusindex-btn cusindex-btn1 bg-cover flex-center">
-          <span class="cusindex-btn-mask"></span>
+        <a
+          class="col cusindex-btn cusindex-btn1 bg-cover flex-center"
+          @click.prevent="jumpToCusProducts('')"
+        >
+          <span class="cusindex-btn-mask"/>
           <span class="h2 cusindex-btn-text">所有茶品</span>
         </a>
-        <a @click.prevent="jumpToCusProducts('精選烏龍茶')" class="col cusindex-btn cusindex-btn2 flex-center bg-cover">
-          <span class="cusindex-btn-mask"></span>
+        <a
+          @click.prevent="jumpToCusProducts('精選烏龍茶')"
+          class="col cusindex-btn cusindex-btn2 flex-center bg-cover"
+        >
+          <span class="cusindex-btn-mask"/>
           <span class="h2 cusindex-btn-text">精選烏龍茶</span>
         </a>
-        <a @click.prevent="jumpToCusProducts('精選紅茶')" class="col cusindex-btn cusindex-btn3 flex-center bg-cover">
-          <span class="cusindex-btn-mask"></span>
+        <a
+          @click.prevent="jumpToCusProducts('精選紅茶')"
+          class="col cusindex-btn cusindex-btn3 flex-center bg-cover"
+        >
+          <span class="cusindex-btn-mask"/>
           <span class="h2 cusindex-btn-text">精選紅茶</span>
         </a>
       </div>
@@ -73,8 +88,9 @@
       <div class="row cusindex-content-header flex-center h2">為何選擇劉記茗茶？</div>
       <div class="row d-flex cusindex-container-limit">
         <p class="flex-center cusindex-content col-md-6 order-2 order-md-1">劉記販售的所有茶葉均為臺灣生產，生長環境純淨，以有機方式栽培不使用任何化學藥劑，採小農契作方式收購同時保障品質及農民權益，採收後即交由資歷豐富之茶師製茶。唯有堅持，才能產出得獎無數的精品茶葉。</p>
-        <div class="col-md-6 bg-cover cusindex-content-img
-        cusindex-content-img2 order-1 order-md-2"></div>
+        <div
+          class="col-md-6 bg-cover cusindex-content-img cusindex-content-img2 order-1 order-md-2"
+        />
       </div>
     <div class="row cusindex-content-header flex-center h2">
       <div class="d-md-inline-block">劉記茗茶，</div>

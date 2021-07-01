@@ -6,9 +6,9 @@
         <div class="card-lowerhalf mb-3 mb-md-4 text-center">
           <div v-if="cusCart.carts.length > 0">
             <div
-              class="p-3 border-bottom"
               v-for="cusCartItem in cusCart.carts"
               :key="cusCartItem.product.id"
+              class="p-3 border-bottom"
             >
               <div class="d-flex mb-3">
                 <div
@@ -27,7 +27,7 @@
                       :disabled="carting"
                       @click="openDelModal(cusCartItem)"
                     >
-                      <i class="far fa-trash-alt"></i>
+                      <i class="far fa-trash-alt"/>
                     </button>
                   </div>
                   <div class="input-group">
@@ -62,8 +62,8 @@
               </div>
               <div class="d-flex justify-content-between">
                 <span
-                  class="cuscart-card-text text-secondary"
                   v-if="cusCartItem.hasOwnProperty('coupon')"
+                  class="cuscart-card-text text-secondary"
                 >已套用優惠碼</span>
                 <span v-else></span>
                 <span
@@ -85,24 +85,40 @@
               </h5>
             </div>
           </div>
-          <div v-else class="flex-center p-3 h3">目前尚無商品</div>
+          <div
+            v-else
+            class="flex-center p-3 h3"
+          >目前尚無商品</div>
         </div>
         <div class="input-group mb-3 mb-md-4">
-          <input type="text" class="form-control" placeholder="請先確認數量再輸入優惠碼"
-            v-model.trim="coupon" />
+          <input
+            type="text"
+            v-model.trim="coupon"
+            class="form-control"
+            placeholder="請先確認數量再輸入優惠碼"
+          />
           <div class="input-group-append">
             <button
+              type="button"
               class="btn"
               :class="{'btn-secondary':carting,'btn-outline-secondary-light': !carting}"
-              type="button"
               :disabled="carting || cusCart.carts.length === 0 || coupon === ''"
               @click="addToFinalCusCart('coupon')"
             >套用優惠碼</button>
           </div>
         </div>
-        <h6 class="error-msg" v-if="couponExisted">套用優惠碼成功，如需調整商品數量，調整後請再次套用優惠碼，否則將會以較高價格計算</h6>
-        <h6 class="error-msg" v-if="couponError">優惠券錯誤或過期，請重新輸入</h6>
-        <h6 class="error-msg" v-if="qtyError">商品數量錯誤，請重新輸入</h6>
+        <h6
+          v-if="couponOK"
+          class="error-msg"
+        >套用優惠碼成功，如需調整商品數量，調整後請再次套用優惠碼，否則將會以較高價格計算</h6>
+        <h6
+          v-if="couponError"
+          class="error-msg"
+        >優惠券錯誤或過期，請重新輸入</h6>
+        <h6
+          v-if="qtyError"
+          class="error-msg"
+        >商品數量錯誤，請重新輸入</h6>
         <button
           type="button"
           class="btn btn-secondary btn-lg btn-block p-0"
@@ -126,7 +142,7 @@ export default {
     return {
       coupon: '',
       couponError: false,
-      couponExisted: false,
+      couponOK: false,
       tempQty: 0,
       qtyError: false,
       adProducts: [],
@@ -174,16 +190,9 @@ export default {
     ...mapActions(['getCusProducts', 'getCusCart', 'getFinalCusCart']),
     ...mapMutations(['SET_CUSACTIVE', 'SET_MSG', 'SET_LOADING', 'SET_CARTING']),
     getAdproducts() {
-      const stock = [...this.cusProducts];
-      const cartsL = this.cusCart.carts.length;
-      for (let i = 0; i < stock.length; i++) {
-        for (let n = 0; n < cartsL; n++) {
-          if (stock[i].id === this.cusCart.carts[n].product.id) {
-            stock.splice(i, 1);
-            break;
-          }
-        }
-      }
+      let stock = [...this.cusProducts];
+      const cusCartIndex = this.cusCart.carts.map((item) => item.product.num);
+      stock = stock.filter((item) => !cusCartIndex.includes(item.num));
       let j = stock.length;
       let index;
       if (j >= 4) {
@@ -274,16 +283,16 @@ export default {
               });
             });
             // 此段處理完成加入 finalCusCart 後新加入購物車的商品
-            tempCusCart = tempCusCart.filter((item, index) => delTempCusCartIndex
-              .indexOf(index) === -1);
+            tempCusCart = tempCusCart.filter((item, index) => !delTempCusCartIndex
+              .includes(index));
             if (tempCusCart.length > 0) {
               tempCusCart.forEach((item) => {
                 vm.axios.post(cusCartAPI, { data: item });
               });
             }
             // 此段處理加入 finalCusCart 後又刪除的商品
-            finalCusCart = finalCusCart.filter((item, index) => delFinalCusCartIndex
-              .indexOf(index) === -1);
+            finalCusCart = finalCusCart.filter((item, index) => !delFinalCusCartIndex
+              .includes(index));
             if (finalCusCart.length > 0) {
               finalCusCart.forEach((item) => {
                 vm.axios.delete(`${cusCartAPI}/${item.id}`);
@@ -304,12 +313,12 @@ export default {
                   if (response.data.success) {
                     vm.coupon = '';
                     vm.couponError = false;
-                    vm.couponExisted = true;
+                    vm.couponOK = true;
                     vm.getFinalCusCart();
                     vm.SET_LOADING(false);
                   } else {
                     vm.couponError = true;
-                    vm.couponExisted = false;
+                    vm.couponOK = false;
                     vm.getFinalCusCart();
                     vm.SET_CARTING(false);
                     vm.SET_LOADING(false);
