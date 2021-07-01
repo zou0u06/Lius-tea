@@ -6,7 +6,7 @@
           <router-link
             to="/"
             class="w-100 h-100"
-          >劉記茗茶</router-link>
+          />劉記茗茶
         </h1>
 
         <button
