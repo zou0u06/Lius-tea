@@ -4,7 +4,7 @@
     <loading :active.sync="loading"/>
     <router-view/>
     <button type="button" class="totop button btn-extra" @click="goToTop()">
-      <i class="fas fa-arrow-up"></i>
+      <i class="fas fa-arrow-up"/>
     </button>
   </div>
 </template>

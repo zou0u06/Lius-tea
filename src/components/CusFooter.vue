@@ -7,7 +7,7 @@
     >
       <div class="container-xl d-md-flex justify-content-around align-items-center py-3">
         <div class="h2 text-white text-center mb-3 mb-md-0">
-          <i class="fas fa-mug-hot mr-2"></i>
+          <i class="fas fa-mug-hot mr-2"/>
           <label
             for="cusfooter-subscription"
             class="mb-0"
@@ -40,7 +40,7 @@
             class="btn btn-secondary cusfooter-subscription-submit"
             :disabled="invalid"
           >
-            <i class="fas fa-arrow-right"></i>
+            <i class="fas fa-arrow-right"/>
           </button>
         </form>
       </div>
@@ -50,13 +50,13 @@
         <h2 class="mb-3 font-weight-bold">劉記茗茶 Lius' Tea</h2>
         <div class="mb-3">
           <a href="#">
-            <i class="fab fa-github icon-common mr-5"></i>
+            <i class="fab fa-github icon-common mr-5"/>
           </a>
           <a href="#">
-            <i class="fab fa-instagram icon-common mr-5"></i>
+            <i class="fab fa-instagram icon-common mr-5"/>
           </a>
           <a href="#">
-            <i class="fab fa-facebook icon-common"></i>
+            <i class="fab fa-facebook icon-common"/>
           </a>
         </div>
         <div class="row">
@@ -66,7 +66,7 @@
               class="h6 mb-3"
               target="_blank"
             >
-              <i class="fas fa-phone-alt"></i>
+              <i class="fas fa-phone-alt"/>
               +886-2-2600-0000
             </a>
             <br />
@@ -75,7 +75,7 @@
               class="h6"
               target="_blank"
             >
-              <i class="far fa-envelope mr-1"></i>
+              <i class="far fa-envelope mr-1"/>
               goodtea@mmmmail.com
             </a>
           </div>
@@ -85,7 +85,7 @@
               class="h6 mb-3"
               target="_blank"
             >
-              <i class="fas fa-map-pin mr-1"></i>
+              <i class="fas fa-map-pin mr-1"/>
               244 新北市林口區竹林路27號
             </a>
             <br/>
