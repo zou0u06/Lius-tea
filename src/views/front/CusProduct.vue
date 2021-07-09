@@ -102,7 +102,9 @@ export default {
   data() {
     return {
       cusProductId: '',
-      cusProduct: {},
+      cusProduct: {
+        imageUrl: '',
+      },
       qty: 1,
       adProducts: [],
     };

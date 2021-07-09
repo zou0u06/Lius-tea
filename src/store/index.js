@@ -21,7 +21,9 @@ export default new Vuex.Store({
     cats: [],
     cusCart: {
       carts: [{
-        product: {},
+        product: {
+          imageUrl: '',
+        },
       }],
     },
     loading: false,
