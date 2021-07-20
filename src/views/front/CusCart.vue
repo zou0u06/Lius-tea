@@ -135,9 +135,11 @@
 </template>
 
 <script>
+import ProductsCard from '@/components/ProductsCard.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default {
+  components: { ProductsCard },
   data() {
     return {
       coupon: '',

@@ -17,9 +17,11 @@
 </template>
 
 <script>
+import ProductsCard from '@/components/ProductsCard.vue';
 import { mapState, mapActions } from 'vuex';
 
 export default {
+  components: { ProductsCard },
   data() {
     return {
       favoredProducts: [],

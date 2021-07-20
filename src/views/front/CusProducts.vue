@@ -74,9 +74,11 @@
 </template>
 
 <script>
+import ProductsBtns from '@/components/ProductsBtns.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default {
+  components: { ProductsBtns },
   computed: {
     ...mapState(['cusProducts', 'cats', 'cusProductsActive']),
     filterCusProducts() {

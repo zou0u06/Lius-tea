@@ -96,9 +96,12 @@
 </template>
 
 <script>
+import ProductsCard from '@/components/ProductsCard.vue';
+import ProductsBtns from '@/components/ProductsBtns.vue';
 import { mapState, mapActions } from 'vuex';
 
 export default {
+  components: { ProductsCard, ProductsBtns },
   data() {
     return {
       cusProductId: '',

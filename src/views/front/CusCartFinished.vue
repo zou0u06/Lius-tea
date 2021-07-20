@@ -7,7 +7,7 @@
           <h2 class="text-center mb-4">
             <strong>訂購已完成</strong>
           </h2>
-          <div class="d-flex justify-content-between mx-auto progress bg-primary mb-5">
+          <div class="d-flex justify-content-between mx-auto progress bg-primary mb-4">
             <div class="progress-icon progress-chara1"/>
             <div class="progress-icon progress-chara2"/>
             <div class="progress-icon progress-chara3"/>

@@ -10,8 +10,12 @@
 </template>
 
 <script>
+import loading from 'vue-loading-overlay';
+import MsgModal from './components/MsgModal.vue';
+
 export default {
   name: 'App',
+  components: { loading, MsgModal },
   data() {
     return {};
   },
