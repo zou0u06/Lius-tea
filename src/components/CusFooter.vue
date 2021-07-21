@@ -49,7 +49,10 @@
       <div class="container-xl py-3 text-white text-center">
         <h2 class="mb-3 font-weight-bold">劉記茗茶 Lius' Tea</h2>
         <div class="mb-3">
-          <a href="#">
+          <a
+            href="https://github.com/zou0u06"
+            target="_blank"
+          >
             <i class="fab fa-github icon-common mr-5"/>
           </a>
           <a href="#">
@@ -82,8 +85,8 @@
           <div class="col-sm-6 mb-3">
             <a
               href="https://www.google.com.tw/maps/place/244%E6%96%B0%E5%8C%97%E5%B8%82%E6%9E%97%E5%8F%A3%E5%8D%80%E7%AB%B9%E6%9E%97%E8%B7%AF27%E8%99%9F/"
-              class="h6 mb-3"
               target="_blank"
+              class="h6 mb-3"
             >
               <i class="fas fa-map-pin mr-1"/>
               244 新北市林口區竹林路27號

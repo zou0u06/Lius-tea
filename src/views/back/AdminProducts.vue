@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="admin-title">產品列表</h3>
+    <h2 class="admin-title">產品列表</h2>
     <div class="text-right mb-3 mr-3">
       <button
         type="button"
@@ -334,8 +334,7 @@ export default {
     },
     clearPic() {
       const adminProductsPic = document.getElementById('adminProductsPic');
-      // eslint-disable-next-line no-self-assign
-      adminProductsPic.outerHTML = adminProductsPic.outerHTML;
+      adminProductsPic.value = '';
     },
     openDelModal(adminProduct) {
       this.$store.commit('SET_MSG', {

@@ -109,16 +109,14 @@ export default {
     },
     rememberInfo() {
       switch (this.rememberSwitch) {
-        case true: {
+        case true:
           this.rememberSwitch = false;
           this.clearInfo();
           break;
-        }
-        default: {
+        default:
           this.rememberSwitch = true;
           this.saveInfo();
           break;
-        }
       }
     },
     saveInfo() {

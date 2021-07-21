@@ -220,7 +220,7 @@ export default {
       const tempCusCart = JSON.parse(localStorage.getItem('cusCart'));
       const tempCusCartL = tempCusCart.length;
       switch (action) {
-        default: {
+        default:
           for (let i = 0; i < tempCusCartL; i++) {
             if (tempCusCart[i].product_id === cusCartItem.product.id) {
               tempCusCart[i].qty += newQty;
@@ -230,8 +230,7 @@ export default {
           localStorage.setItem('cusCart', JSON.stringify(tempCusCart));
           this.getCusCart();
           break;
-        }
-        case 'non-operation': {
+        case 'non-operation':
           if (newQty < 1 || Number.isNaN(newQty) === true) {
             this.qtyError = true;
             break;
@@ -247,7 +246,6 @@ export default {
             this.getCusCart();
             break;
           }
-        }
       }
     },
     addToFinalCusCart(action) {
@@ -328,11 +326,10 @@ export default {
                 });
               break;
             }
-            default: {
+            default:
               vm.getFinalCusCart();
               vm.$router.push('/info');
               break;
-            }
           }
         } else {
           vm.SET_MSG({ event: 'cusServerError' });

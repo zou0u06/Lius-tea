@@ -83,9 +83,8 @@ export default {
     ...mapState(['cusProducts', 'cats', 'cusProductsActive']),
     filterCusProducts() {
       switch (this.cusProductsActive) {
-        case '': {
+        case '':
           return this.cusProducts;
-        }
         default: {
           const filteredCusProducts = this.cusProducts.filter(
             (item) => item.category === this.cusProductsActive,

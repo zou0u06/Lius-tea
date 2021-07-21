@@ -86,7 +86,9 @@
   margin-right: auto;
   margin-left: auto;
 }
-.cusindex-btn {
+.cusindex-btn1,
+.cusindex-btn2,
+.cusindex-btn3 {
   padding: 0;
   height: 250px;
 }
@@ -120,6 +122,7 @@
 
 .cusindex-content {
   height: 250px;
+  margin-bottom: 0;
   background-color: $primary-dark;
   font-size: 18px;
   color: white;
@@ -129,7 +132,8 @@
   color: white;
   font-weight: bold;
 }
-.cusindex-content-img {
+.cusindex-content-img1,
+.cusindex-content-img2 {
   width: 100%;
   height: 250px;
   @include media-breakpoint-up(md) {

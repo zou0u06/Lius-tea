@@ -46,7 +46,10 @@
               class="nav-item"
               @click.prevent="signOut"
             >
-              <a class="nav-link">登出</a>
+              <a
+                href="#"
+                class="nav-link"
+              >登出</a>
             </li>
           </ul>
         </div>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="admin-title">訂單列表</h3>
+    <h2 class="admin-title">訂單列表</h2>
     <div class="table-responsive mb-3">
       <table class="table">
         <thead>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="admin-title">優惠券列表</h3>
+    <h2 class="admin-title">優惠券列表</h2>
     <div class="text-right mb-3 mr-3">
       <button
         type="button"

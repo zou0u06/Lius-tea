@@ -97,29 +97,26 @@ export default {
     msg: {
       handler() {
         switch (this.msg.event) {
-          case 'showingCoupon': {
+          case 'showingCoupon':
             this.title = '最新優惠';
             this.theme = 'secondary';
             this.action = '';
             $('#msgModel').modal('show');
             break;
-          }
-          case 'cusServerError': {
+          case 'cusServerError':
             this.title = '伺服器錯誤';
             this.theme = 'danger';
             this.action = '網站伺服器錯誤，請直接來電洽詢，將有專人為您服務';
             $('#msgModel').modal('show');
             this.dismissWithTiming();
             break;
-          }
-          case 'adminServerError': {
+          case 'adminServerError':
             this.title = '伺服器錯誤';
             this.theme = 'danger';
             this.action = '網站伺服器錯誤，請洽網路供應商或網站設計者';
             $('#msgModel').modal('show');
             this.dismissWithTiming();
             break;
-          }
           case 'additionToCusCart':
             this.title = '商品已加入購物車';
             this.theme = 'secondary';
@@ -133,13 +130,12 @@ export default {
             this.action = '您已成功訂閱電子報，將會每週獲得新品優惠、品茶知識等資訊';
             $('#msgModel').modal('show');
             break;
-          default: {
+          default:
             this.title = '確認刪除';
             this.theme = 'danger';
             this.action = '確認要刪除以上商品／折價券？';
             $('#msgModel').modal('show');
             break;
-          }
         }
       },
       deep: true,
@@ -159,10 +155,9 @@ export default {
       const vm = this;
       const tempCusCart = JSON.parse(localStorage.getItem('cusCart')) || [];
       const tempCusCartL = tempCusCart.length;
-      let API;
       switch (vm.msg.event) {
-        case 'delAdminProduct':
-          API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${objectId}`;
+        case 'delAdminProduct': {
+          const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${objectId}`;
           vm.axios.delete(API).then((response) => {
             if (response.data.success) {
               vm.$store.dispatch('getAdminProducts');
@@ -170,8 +165,9 @@ export default {
             }
           });
           break;
-        case 'delAdminCoupon':
-          API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${objectId}`;
+        }
+        case 'delAdminCoupon': {
+          const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${objectId}`;
           vm.axios.delete(API).then((response) => {
             if (response.data.success) {
               vm.$store.dispatch('getAdminCoupons');
@@ -179,6 +175,7 @@ export default {
             }
           });
           break;
+        }
         default:
           for (let i = 0; i < tempCusCartL; i++) {
             if (tempCusCart[i].product_id === objectId) {
