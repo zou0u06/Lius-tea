@@ -2,7 +2,7 @@
   <div class="container-xl">
     <div class="row">
       <div class="col-md-7 mb-4">
-        <h3 class="rounded-top card-header">收藏清單</h3>
+        <h2 class="rounded-top card-header h3">收藏清單</h2>
         <products-card
           :bases="favoredProducts"
           :kind="'favoredProducts'"
@@ -51,7 +51,7 @@ export default {
       this.favoredProducts = [];
       const stock = [];
       const productsL = this.cusProducts.length;
-      for (let i = 0; i < productsL; i++) {
+      for (let i = 0; i < productsL; i += 1) {
         if (this.cusProducts[i].favored) {
           this.favoredProducts.push(this.cusProducts[i]);
         } else {
@@ -62,6 +62,7 @@ export default {
       let index;
       if (j >= 4) {
         const min = j - 4;
+        // eslint-disable-next-line no-plusplus
         while (j-- > min) {
           index = Math.floor((j + 1) * Math.random());
           [stock[j], stock[index]] = [stock[index], stock[j]];

@@ -176,6 +176,7 @@
 </template>
 
 <script>
+/* global flatpickr, $ */
 import Pagination from '@/components/Pagination.vue';
 
 export default {
@@ -225,6 +226,10 @@ export default {
             $('#adminCouponsModal').modal('hide');
             vm.getAdminCoupons();
           }
+        }).catch((error) => {
+          if (error) {
+            vm.$store.commit('SET_MSG', { event: 'adminServerError' });
+          }
         });
       } else {
         const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`;
@@ -232,6 +237,10 @@ export default {
           if (response.data.success) {
             $('#adminCouponsModal').modal('hide');
             vm.getAdminCoupons();
+          }
+        }).catch((error) => {
+          if (error) {
+            vm.$store.commit('SET_MSG', { event: 'adminServerError' });
           }
         });
       }

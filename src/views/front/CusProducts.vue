@@ -10,7 +10,7 @@
     <div class="row justify-content-center cusproducts-content pt-4">
       <div class="col-md-3">
         <div class="card rounded border-0 mb-4">
-          <h3 class="card-header">商品列表</h3>
+          <h2 class="card-header h3">商品列表</h2>
           <ul
             class="list-group list-group-flush text-center"
             role="tablist"

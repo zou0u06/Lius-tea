@@ -31,77 +31,77 @@
             <sup class="text-danger">*</sup>
           </label>
           <div class="d-block d-sm-flex">
-          <div class="d-flex mb-2">
-            <validation-provider
-              v-slot="{ errors, classes }"
-              rules="digits:4|required"
-              tag="div"
-            >
-              <input
-                type="number"
-                id="tempNumPart1"
-                v-model="tempCreditNum.part1"
-                name="卡號"
-                placeholder="1234"
-                class="form-control"
-                :class="classes"
-                @input="jumpToNext($event.target.value, 1)"
-              />
-              <div class="invalid-feedback">{{ errors[0] }}</div>
-            </validation-provider>
-            <div class="dashes">－</div>
-            <validation-provider rules="digits:4|required"
-              v-slot="{ errors, classes }" tag="div">
-              <input
-                id="tempNumPart2"
-                type="number"
-                name="卡號"
-                v-model="tempCreditNum.part2"
-                placeholder="1234"
-                class="form-control"
-                :class="classes"
-                @input="jumpToNext($event.target.value, 2)"
-              />
-              <div class="invalid-feedback">{{ errors[0] }}</div>
-            </validation-provider>
-            <div class="dashes d-none d-sm-inline">－</div>
-          </div>
-          <div class="d-flex">
-            <validation-provider
-              v-slot="{ errors, classes }"
-              rules="digits:4|required"
-              tag="div"
-            >
-              <input
-                type="number"
-                id="tempNumPart3"
-                v-model="tempCreditNum.part3"
-                name="卡號"
-                placeholder="1234"
-                class="form-control"
-                :class="classes"
-                @input="jumpToNext($event.target.value, 3)"
-              />
-              <div class="invalid-feedback">{{ errors[0] }}</div>
-            </validation-provider>
-            <div class="dashes">－</div>
-            <validation-provider
-              v-slot="{ errors, classes }"
-              rules="numeric|required"
-              tag="div"
-            >
-              <input
-                type="number"
-                id="tempNumPart4"
-                v-model="tempCreditNum.part4"
-                name="卡號"
-                placeholder="1234"
-                class="form-control"
-                :class="classes"
-              />
-              <div class="invalid-feedback">{{ errors[0] }}</div>
-            </validation-provider>
-          </div>
+            <div class="d-flex mb-2">
+              <validation-provider
+                v-slot="{ errors, classes }"
+                rules="digits:4|required"
+                tag="div"
+              >
+                <input
+                  type="number"
+                  id="tempNumPart1"
+                  v-model="tempCreditNum.part1"
+                  name="卡號"
+                  placeholder="1234"
+                  class="form-control"
+                  :class="classes"
+                  @input="jumpToNext($event.target.value, 1)"
+                />
+                <div class="invalid-feedback">{{ errors[0] }}</div>
+              </validation-provider>
+              <div class="dashes">－</div>
+              <validation-provider rules="digits:4|required"
+                v-slot="{ errors, classes }" tag="div">
+                <input
+                  id="tempNumPart2"
+                  type="number"
+                  name="卡號"
+                  v-model="tempCreditNum.part2"
+                  placeholder="1234"
+                  class="form-control"
+                  :class="classes"
+                  @input="jumpToNext($event.target.value, 2)"
+                />
+                <div class="invalid-feedback">{{ errors[0] }}</div>
+              </validation-provider>
+              <div class="dashes d-none d-sm-inline">－</div>
+            </div>
+            <div class="d-flex">
+              <validation-provider
+                v-slot="{ errors, classes }"
+                rules="digits:4|required"
+                tag="div"
+              >
+                <input
+                  type="number"
+                  id="tempNumPart3"
+                  v-model="tempCreditNum.part3"
+                  name="卡號"
+                  placeholder="1234"
+                  class="form-control"
+                  :class="classes"
+                  @input="jumpToNext($event.target.value, 3)"
+                />
+                <div class="invalid-feedback">{{ errors[0] }}</div>
+              </validation-provider>
+              <div class="dashes">－</div>
+              <validation-provider
+                v-slot="{ errors, classes }"
+                rules="numeric|required"
+                tag="div"
+              >
+                <input
+                  type="number"
+                  id="tempNumPart4"
+                  v-model="tempCreditNum.part4"
+                  name="卡號"
+                  placeholder="1234"
+                  class="form-control"
+                  :class="classes"
+                />
+                <div class="invalid-feedback">{{ errors[0] }}</div>
+              </validation-provider>
+            </div>
           </div>
         </div>
 
@@ -275,6 +275,10 @@ export default {
         if (response.data.success) {
           vm.$router.push(`/finished/${vm.cusOrderId}`);
           localStorage.setItem('cusCart', JSON.stringify([]));
+        }
+      }).catch((error) => {
+        if (error) {
+          vm.$store.commit('SET_MSG', { event: 'cusServerError' });
         }
       });
     },

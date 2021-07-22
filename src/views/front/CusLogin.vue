@@ -105,6 +105,10 @@ export default {
           vm.user.password = '';
           vm.errorMsg = true;
         }
+      }).catch((error) => {
+        if (error) {
+          vm.$store.commit('SET_MSG', { event: 'cusServerError' });
+        }
       });
     },
     rememberInfo() {

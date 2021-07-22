@@ -1,14 +1,14 @@
 <template>
   <div
     class="modal fade"
-    id="msgModel"
+    id="msgModal"
     data-backdrop="static"
     data-keyboard="false"
-    aria-labelledby="msgModelLabel"
+    aria-labelledby="msgModalLabel"
     aria-hidden="true"
   >
     <div
-      id="msgModelDialog"
+      id="msgModalDialog"
       class="modal-dialog"
     >
       <div class="modal-content">
@@ -17,7 +17,7 @@
           :class="`bg-${theme}`"
         >
           <h5
-            id="msgModelLabel"
+            id="msgModalLabel"
             class="modal-title text-white"
           >{{ title }}</h5>
           <button
@@ -80,6 +80,8 @@
 </template>
 
 <script>
+/* global $ */
+
 export default {
   data() {
     return {
@@ -101,40 +103,40 @@ export default {
             this.title = '最新優惠';
             this.theme = 'secondary';
             this.action = '';
-            $('#msgModel').modal('show');
+            $('#msgModal').modal('show');
             break;
           case 'cusServerError':
-            this.title = '伺服器錯誤';
+            this.title = '網路錯誤';
             this.theme = 'danger';
-            this.action = '網站伺服器錯誤，請直接來電洽詢，將有專人為您服務';
-            $('#msgModel').modal('show');
+            this.action = '網路發生錯誤，請直接來電洽詢，將有專人為您服務';
+            $('#msgModal').modal('show');
             this.dismissWithTiming();
             break;
           case 'adminServerError':
-            this.title = '伺服器錯誤';
+            this.title = '網路錯誤';
             this.theme = 'danger';
-            this.action = '網站伺服器錯誤，請洽網路供應商或網站設計者';
-            $('#msgModel').modal('show');
+            this.action = '網路發生錯誤，請洽網路供應商或網站設計者';
+            $('#msgModal').modal('show');
             this.dismissWithTiming();
             break;
           case 'additionToCusCart':
             this.title = '商品已加入購物車';
             this.theme = 'secondary';
             this.action = '已加入您的購物車';
-            $('#msgModel').modal('show');
+            $('#msgModal').modal('show');
             this.dismissWithTiming();
             break;
           case 'subscription':
             this.title = '成功訂閱電子報';
             this.theme = 'secondary';
             this.action = '您已成功訂閱電子報，將會每週獲得新品優惠、品茶知識等資訊';
-            $('#msgModel').modal('show');
+            $('#msgModal').modal('show');
             break;
           default:
             this.title = '確認刪除';
             this.theme = 'danger';
             this.action = '確認要刪除以上商品／折價券？';
-            $('#msgModel').modal('show');
+            $('#msgModal').modal('show');
             break;
         }
       },
@@ -144,11 +146,11 @@ export default {
   methods: {
     dismissWithTiming() {
       setTimeout(() => {
-        $('#msgModel').modal('hide');
+        $('#msgModal').modal('hide');
       }, 5000);
     },
     goToCusCart() {
-      $('#msgModel').modal('hide');
+      $('#msgModal').modal('hide');
       this.$router.push('/cart');
     },
     delObject(objectId) {
@@ -161,7 +163,11 @@ export default {
           vm.axios.delete(API).then((response) => {
             if (response.data.success) {
               vm.$store.dispatch('getAdminProducts');
-              $('#msgModel').modal('hide');
+              $('#msgModal').modal('hide');
+            }
+          }).catch((error) => {
+            if (error) {
+              vm.$store.commit('SET_MSG', { event: 'adminServerError' });
             }
           });
           break;
@@ -171,13 +177,17 @@ export default {
           vm.axios.delete(API).then((response) => {
             if (response.data.success) {
               vm.$store.dispatch('getAdminCoupons');
-              $('#msgModel').modal('hide');
+              $('#msgModal').modal('hide');
+            }
+          }).catch((error) => {
+            if (error) {
+              vm.$store.commit('SET_MSG', { event: 'adminServerError' });
             }
           });
           break;
         }
         default:
-          for (let i = 0; i < tempCusCartL; i++) {
+          for (let i = 0; i < tempCusCartL; i += 1) {
             if (tempCusCart[i].product_id === objectId) {
               tempCusCart.splice(i, 1);
               break;
@@ -185,7 +195,7 @@ export default {
           }
           localStorage.setItem('cusCart', JSON.stringify(tempCusCart));
           vm.$store.dispatch('getCusCart');
-          $('#msgModel').modal('hide');
+          $('#msgModal').modal('hide');
           break;
       }
     },

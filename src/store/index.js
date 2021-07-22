@@ -50,6 +50,10 @@ export default new Vuex.Store({
           context.commit('SET_LOADING', false);
           context.commit('SET_MSG', 'wrongServer');
         }
+      }).catch((error) => {
+        if (error) {
+          context.$store.commit('SET_MSG', { event: 'cusServerError' });
+        }
       });
     },
     getCats(context) {
@@ -64,8 +68,8 @@ export default new Vuex.Store({
       const productsL = context.state.cusProducts.length;
       const cusFavsL = cusFavs.length;
       if (cusFavsL > 0) {
-        for (let i = 0; i < productsL; i++) {
-          for (let n = 0; n < cusFavsL; n++) {
+        for (let i = 0; i < productsL; i += 1) {
+          for (let n = 0; n < cusFavsL; n += 1) {
             if (context.state.cusProducts[i].id === cusFavs[n].product_id) {
               context.commit('SET_CUSFAVS', { i, boolean: true, favoredDate: cusFavs[n].favored_date });
               break;
@@ -75,7 +79,7 @@ export default new Vuex.Store({
         }
         context.commit('SET_LOADING', false);
       } else {
-        for (let i = 0; i < productsL; i++) {
+        for (let i = 0; i < productsL; i += 1) {
           context.commit('SET_CUSFAVS', { i, boolean: false });
         }
         context.commit('SET_LOADING', false);
@@ -104,8 +108,8 @@ export default new Vuex.Store({
     delCusFav(context, cusProductId) {
       const cusFavs = JSON.parse(localStorage.getItem('cusFavs'));
       const { cusProducts } = context.state;
-      for (let n = 0; n < cusFavs.length; n++) {
-        for (let i = 0; i < cusProducts.length; i++) {
+      for (let n = 0; n < cusFavs.length; n += 1) {
+        for (let i = 0; i < cusProducts.length; i += 1) {
           if (
             cusProducts[i].id === cusFavs[n].product_id
             && cusProductId === cusFavs[n].product_id
@@ -131,7 +135,7 @@ export default new Vuex.Store({
       }
       if (tempCusCartL > 0) {
         let matched;
-        for (let i = 0; i < tempCusCartL; i++) {
+        for (let i = 0; i < tempCusCartL; i += 1) {
           if (tempCusCart[i].product_id === cusProduct.id) {
             matched = true;
             tempCusCart[i].qty += qty;
@@ -202,6 +206,10 @@ export default new Vuex.Store({
           context.commit('SET_MSG', 'wrongServer');
           context.commit('SET_CARTING', false);
           context.commit('SET_LOADING', false);
+        }
+      }).catch((error) => {
+        if (error) {
+          context.$store.commit('SET_MSG', { event: 'cusServerError' });
         }
       });
     },

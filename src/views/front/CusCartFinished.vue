@@ -110,6 +110,10 @@ export default {
         } else {
           vm.$store.commit('SET_MSG', { event: 'cusServerError' });
         }
+      }).catch((error) => {
+        if (error) {
+          vm.$store.commit('SET_MSG', { event: 'cusServerError' });
+        }
       });
     },
     goToCusProducts() {

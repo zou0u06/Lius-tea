@@ -21,6 +21,10 @@ export default {
           context.commit('SET_MSG', { event: 'adminServerError' });
           context.commit('SET_LOADING', false);
         }
+      }).catch((error) => {
+        if (error) {
+          context.$store.commit('SET_MSG', { event: 'adminServerError' });
+        }
       });
     },
     getAdminProducts(context, page = 1) {
@@ -35,6 +39,10 @@ export default {
           context.commit('SET_MSG', { event: 'adminServerError' });
           context.commit('SET_LOADING', false);
         }
+      }).catch((error) => {
+        if (error) {
+          context.$store.commit('SET_MSG', { event: 'adminServerError' });
+        }
       });
     },
     getAdminOrders(context, page = 1) {
@@ -48,6 +56,10 @@ export default {
         } else {
           context.commit('SET_MSG', { event: 'adminServerError' });
           context.commit('SET_LOADING', false);
+        }
+      }).catch((error) => {
+        if (error) {
+          context.$store.commit('SET_MSG', { event: 'adminServerError' });
         }
       });
     },

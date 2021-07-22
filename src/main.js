@@ -62,6 +62,10 @@ router.beforeEach((to, from, next) => {
           path: '/',
         });
       }
+    }).catch((error) => {
+      if (error) {
+        this.$store.commit('SET_MSG', { event: 'adminServerError' });
+      }
     });
   } else {
     next();

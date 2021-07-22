@@ -127,7 +127,7 @@
                 >圖片檔案過大或格式錯誤，請重新上傳</div>
                 <img
                   v-else
-                  alt
+                  alt="商品圖片"
                   class="img-fluid"
                   :src="tempProduct.imageUrl"
                 />
@@ -251,6 +251,7 @@
 </template>
 
 <script>
+/* global $ */
 import Pagination from '@/components/Pagination.vue';
 
 export default {
@@ -299,6 +300,10 @@ export default {
             $('#adminProductsModel').modal('hide');
             vm.getAdminProducts();
           }
+        }).catch((error) => {
+          if (error) {
+            vm.$store.commit('SET_MSG', { event: 'adminServerError' });
+          }
         });
       } else {
         const API = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
@@ -307,6 +312,10 @@ export default {
             this.clearPic();
             $('#adminProductsModel').modal('hide');
             vm.getAdminProducts();
+          }
+        }).catch((error) => {
+          if (error) {
+            vm.$store.commit('SET_MSG', { event: 'adminServerError' });
           }
         });
       }
@@ -329,6 +338,10 @@ export default {
         } else {
           vm.picUploading = false;
           vm.picErrorMsg = true;
+        }
+      }).catch((error) => {
+        if (error) {
+          vm.$store.commit('SET_MSG', { event: 'adminServerError' });
         }
       });
     },

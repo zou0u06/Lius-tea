@@ -167,7 +167,7 @@ export default {
       this.adProducts = [];
       const productsL = this.cusProducts.length;
       const stock = [];
-      for (let i = 0; i < productsL; i++) {
+      for (let i = 0; i < productsL; i += 1) {
         if (this.cusProducts[i].id === this.cusProductId) {
           this.cusProduct = this.cusProducts[i];
         } else {

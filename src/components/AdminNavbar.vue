@@ -19,7 +19,7 @@
         <div class="collapse navbar-collapse adminnavbar-collapse">
           <ul
             class="navbar-nav ml-auto text-center"
-            @click.prevent="setAdminNavbar()"
+            @click="setAdminNavbar()"
           >
             <li class="nav-item">
               <router-link
@@ -44,7 +44,7 @@
             </li>
             <li
               class="nav-item"
-              @click.prevent="signOut"
+              @click="signOut"
             >
               <a
                 href="#"
@@ -81,6 +81,10 @@ export default {
       vm.axios.post(api).then((response) => {
         if (response.data.success === true) {
           vm.$router.push('/login');
+        }
+      }).catch((error) => {
+        if (error) {
+          vm.$store.commit('SET_MSG', { event: 'adminServerError' });
         }
       });
     },

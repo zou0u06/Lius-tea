@@ -2,7 +2,7 @@
   <div class="container-xl">
     <div class="row">
       <div class="col-md-7 mb-4">
-        <h3 class="card-header">購物車清單</h3>
+        <h2 class="card-header h3">購物車清單</h2>
         <div class="card-lowerhalf mb-3 mb-md-4 text-center">
           <div v-if="cusCart.carts.length > 0">
             <div
@@ -199,6 +199,7 @@ export default {
       let index;
       if (j >= 4) {
         const min = j - 4;
+        // eslint-disable-next-line no-plusplus
         while (j-- > min) {
           index = Math.floor((j + 1) * Math.random());
           [stock[j], stock[index]] = [stock[index], stock[j]];
@@ -221,7 +222,7 @@ export default {
       const tempCusCartL = tempCusCart.length;
       switch (action) {
         default:
-          for (let i = 0; i < tempCusCartL; i++) {
+          for (let i = 0; i < tempCusCartL; i += 1) {
             if (tempCusCart[i].product_id === cusCartItem.product.id) {
               tempCusCart[i].qty += newQty;
               break;
@@ -236,7 +237,7 @@ export default {
             break;
           } else {
             this.qtyError = false;
-            for (let i = 0; i < tempCusCartL; i++) {
+            for (let i = 0; i < tempCusCartL; i += 1) {
               if (tempCusCart[i].product_id === cusCartItem.product.id) {
                 tempCusCart[i].qty = newQty;
                 break;
@@ -287,7 +288,11 @@ export default {
               .includes(index));
             if (tempCusCart.length > 0) {
               tempCusCart.forEach((item) => {
-                vm.axios.post(cusCartAPI, { data: item });
+                vm.axios.post(cusCartAPI, { data: item }).catch((error) => {
+                  if (error) {
+                    vm.$store.commit('SET_MSG', { event: 'cusServerError' });
+                  }
+                });
               });
             }
             // 此段處理加入 finalCusCart 後又刪除的商品
@@ -295,12 +300,20 @@ export default {
               .includes(index));
             if (finalCusCart.length > 0) {
               finalCusCart.forEach((item) => {
-                vm.axios.delete(`${cusCartAPI}/${item.id}`);
+                vm.axios.delete(`${cusCartAPI}/${item.id}`).catch((error) => {
+                  if (error) {
+                    vm.$store.commit('SET_MSG', { event: 'cusServerError' });
+                  }
+                });
               });
             }
           } else {
             tempCusCart.forEach((item) => {
-              vm.axios.post(cusCartAPI, { data: item });
+              vm.axios.post(cusCartAPI, { data: item }).catch((error) => {
+                if (error) {
+                  vm.$store.commit('SET_MSG', { event: 'cusServerError' });
+                }
+              });
             });
           }
 
@@ -323,6 +336,11 @@ export default {
                     vm.SET_CARTING(false);
                     vm.SET_LOADING(false);
                   }
+                })
+                .catch((error) => {
+                  if (error) {
+                    vm.$store.commit('SET_MSG', { event: 'cusServerError' });
+                  }
                 });
               break;
             }
@@ -335,6 +353,10 @@ export default {
           vm.SET_MSG({ event: 'cusServerError' });
           vm.SET_CARTING(false);
           vm.SET_LOADING(false);
+        }
+      }).catch((error) => {
+        if (error) {
+          vm.$store.commit('SET_MSG', { event: 'cusServerError' });
         }
       });
     },

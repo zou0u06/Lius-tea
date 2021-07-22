@@ -218,6 +218,10 @@ export default {
         if (response.data.success) {
           vm.$router.push(`/payment/${response.data.orderId}`);
         }
+      }).catch((error) => {
+        if (error) {
+          vm.$store.commit('SET_MSG', { event: 'cusServerError' });
+        }
       });
     },
   },

@@ -57,12 +57,7 @@
         {
           "vue": "always"
         }
-      ],
-      "no-plusplus": 0
-    },
-    "globals": {
-      "$": "writable",
-      "flatpickr": "writable"
+      ]
     }
   },
   "browserslist": [
