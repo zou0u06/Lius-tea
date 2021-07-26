@@ -87,7 +87,7 @@ a {
 }
 
 //// 對話框、訊息類
-#msgModelDialog,
+#msgModalDialog,
 #adminCouponsModalDialog {
   top: 50%;
   transform: translateY(-50%);
@@ -197,11 +197,26 @@ input[type="number"]{
   background-color: $light;
 }
 
-////// ProductsCard
-.productscard-block {
+////// ProductsCardLg
+.productscardlg {
   cursor: pointer;
 }
-.productscard-img {
+.productscardlg-img {
+  height: 200px;
+}
+.productscardlg-img:hover {
+  background-size: 120%;
+}
+.productscardlg-badge {
+  position: relative;
+  top: 3px
+}
+
+////// ProductsCardSm
+.productscardsm-block {
+  cursor: pointer;
+}
+.productscardsm-img {
   width: 65px;
   height: 75px;
   @media (min-width: 375px) and (max-width: 575.98px) {
@@ -214,7 +229,7 @@ input[type="number"]{
     width: 120px;
   }
 }
-.productscard-priceblock {
+.productscardsm-priceblock {
   display: flex;
   flex-direction: column;
   @media (min-width: 450px) and (max-width: 575.98px) {
@@ -224,24 +239,24 @@ input[type="number"]{
     flex-direction: row;
   }
 }
-.productscard-badge {
+.productscardsm-badge {
   display: none;
   @media (min-width: 1080px) {
     display: inline;
   }
 }
-.productscard-btn-fav {
+.productscardsm-btn-fav {
   position: relative;
   bottom: -1px;
   margin-left: auto;
   margin-right: 0.5rem;
   font-size: 32px;
 }
-.productscard-btn-cart {
+.productscardsm-btn-cart {
   color: $secondary;
   font-size: 30px;
 }
-.productscard-date {
+.productscardsm-date {
   display: none;
   @include media-breakpoint-up(md) {
     display: flex;

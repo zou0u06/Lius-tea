@@ -128,18 +128,18 @@
       </div>
       <div class="col-md-5 mb-4">
         <h3 class="card-header">推薦商品</h3>
-        <products-card :bases="adProducts" />
+        <products-card-sm :bases="adProducts" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ProductsCard from '@/components/ProductsCard.vue';
+import ProductsCardSm from '@/components/ProductsCardSm.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default {
-  components: { ProductsCard },
+  components: { ProductsCardSm },
   data() {
     return {
       coupon: '',

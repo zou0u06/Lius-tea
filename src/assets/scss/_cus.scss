@@ -1,6 +1,7 @@
 .cus {
   padding-top: 61px;
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 // CusNavbar
@@ -167,19 +168,6 @@
     margin-left: -30px;
   }
 }
-.cusproducts-content-card {
-  cursor: pointer;
-}
-.cusproducts-content-card-img {
-  height: 200px;
-}
-.cusproducts-content-card-img:hover {
-  background-size: 120%;
-}
-.cusproducts-content-card-badge {
-  position: relative;
-  top: 3px
-}
 
 // CusProduct
 .cusproduct-header-img {
@@ -339,6 +327,14 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-image: url('https://raw.githubusercontent.com/zou0u06/Lius-tea/main/src/assets/images/cuscartfinished-bg.jpg');
+}
+
+.cuscartfinished-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
 .cuscartfinished-cell-sm {

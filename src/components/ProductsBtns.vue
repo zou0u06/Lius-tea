@@ -14,7 +14,10 @@
       :class="`btn btn-outline-${favTheme} btn-fav`"
       @click.stop="addToCusFavs(cusProduct.id)"
     >
-      <i class="far fa-heart mr-1"/>
+      <i
+        class="far fa-heart mr-1"
+        :class="{ 'd-none': hideIcon }"
+      />
       <span :class="{ 'productsbtns-short': short }">加入</span>收藏
     </button>
     <button
@@ -23,7 +26,10 @@
       :class="`btn btn-${favTheme}`"
       @click.stop="delCusFav(cusProduct.id)"
     >
-      <i class="fas fa-heart mr-1"/>
+      <i
+        class="fas fa-heart mr-1"
+        :class="{ 'd-none': hideIcon }"
+      />
       <span :class="{ 'productsbtns-short': short }">取消</span>收藏
     </button>
     <button
@@ -31,7 +37,10 @@
       class="btn btn-secondary"
       @click.stop="addToCusCart(cusProduct)"
     >
-      <i class="fas fa-shopping-cart"/>
+      <i
+        class="fas fa-shopping-cart"
+        :class="{ 'd-none': hideIcon }"
+      />
       加入購物車
     </button>
   </div>
@@ -48,6 +57,10 @@ export default {
       default: 'primary',
     },
     short: {
+      type: Boolean,
+      default: false,
+    },
+    hideIcon: {
       type: Boolean,
       default: false,
     },

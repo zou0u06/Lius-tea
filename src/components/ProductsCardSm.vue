@@ -6,38 +6,37 @@
     >
       <div
         v-for="cusProduct in bases"
-        class="d-flex pb-3 col-sm-6 col-md-12 productscard-block"
+        class="d-flex pb-3 col-sm-6 col-md-12 productscardsm-block"
         :key="cusProduct.id"
         @click="jumpToCusProduct(cusProduct.id)"
       >
         <div
-          class="productscard-img rounded bg-cover mr-2"
+          class="productscardsm-img rounded bg-cover mr-2"
           :style="{'background-image':`url(${cusProduct.imageUrl})`}"
         />
         <div class="flex-fill d-flex flex-column justify-content-around">
           <div class="h6 d-flex justify-content-around mb-2">
             {{ cusProduct.title }}
-            <span class="badge badge-primary productscard-badge">{{ cusProduct.category }}</span>
+            <span class="badge badge-primary productscardsm-badge">{{ cusProduct.category }}</span>
           </div>
           <div class="d-flex align-items-center justify-content-around">
-            <div class="productscard-priceblock">
+            <div class="productscardsm-priceblock">
               <del class="text-muted mr-2">原價 {{ cusProduct.origin_price }} 元</del>
               <span class="text-secondary">特價 {{ cusProduct.price }} 元</span>
             </div>
             <div>
               <i
                 v-if="cusProduct.favored === false"
-                class="far fa-heart productscard-btn-fav"
+                class="far fa-heart productscardsm-btn-fav"
                 @click.stop="addToCusFavs(cusProduct.id)"
               />
               <i
                 v-if="cusProduct.favored === true"
-                class="fas fa-heart productscard-btn-fav"
+                class="fas fa-heart productscardsm-btn-fav"
                 @click.stop="delCusFav(cusProduct.id)"
               />
               <i
-                class="fas fa-shopping-cart productscard-btn-cart"
-                :disabled="carting === false"
+                class="fas fa-shopping-cart productscardsm-btn-cart"
                 @click.stop="addToCusCart(cusProduct)"
               />
             </div>
@@ -45,7 +44,7 @@
         </div>
         <div
           v-if="kind === 'favoredProducts'"
-          class="productscard-date"
+          class="productscardsm-date"
         >
           收藏日期：<br/>
           {{ cusProduct.favoredDate }}
@@ -60,18 +59,15 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   props: {
     bases: Array,
     kind: String,
   },
-  computed: {
-    ...mapState(['carting']),
-  },
   methods: {
-    ...mapActions(['addToCusFavs', 'delCusFav', 'jumpToCusProduct']),
+    ...mapActions(['addToCusFavs', 'delCusFav']),
     addToCusCart(cusProduct, qty = 1) {
       this.$store.dispatch('addToCusCart', { cusProduct, qty });
     },

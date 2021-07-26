@@ -82,7 +82,7 @@
       </div>
       <div class="col-md-5 mb-4">
         <h3 class="rounded-top card-header">推薦商品</h3>
-        <products-card :bases="adProducts" />
+        <products-card-sm :bases="adProducts" />
       </div>
     </div>
     <products-btns
@@ -96,12 +96,12 @@
 </template>
 
 <script>
-import ProductsCard from '@/components/ProductsCard.vue';
+import ProductsCardSm from '@/components/ProductsCardSm.vue';
 import ProductsBtns from '@/components/ProductsBtns.vue';
 import { mapState, mapActions } from 'vuex';
 
 export default {
-  components: { ProductsCard, ProductsBtns },
+  components: { ProductsCardSm, ProductsBtns },
   data() {
     return {
       cusProductId: '',
@@ -177,6 +177,7 @@ export default {
       let i = stock.length;
       let index;
       const min = i - 4;
+      // eslint-disable-next-line no-plusplus
       while (i-- > min) {
         index = Math.floor((i + 1) * Math.random());
         [stock[i], stock[index]] = [stock[index], stock[i]];

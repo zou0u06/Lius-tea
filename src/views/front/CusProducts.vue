@@ -37,48 +37,21 @@
         </div>
       </div>
       <div class="col-md-9">
-        <div class="row">
-          <div
-            v-for="cusProduct in filterCusProducts"
-            :key="cusProduct.id"
-            class="col-sm-6 mb-4 cusproducts-content-card"
-          >
-            <div
-              class="card border-0 rounded shadow-sm"
-              @click="jumpToCusProduct(cusProduct.id)"
-            >
-              <div
-                class="bg-cover rounded-top cusproducts-content-card-img"
-                :style="{'background-image': `url(${cusProduct.imageUrl})`}"
-              />
-              <div class="card-body">
-                <span
-                  class="badge badge-primary cusproducts-content-card-badge float-right ml-2"
-                >{{ cusProduct.category }}</span>
-                <h5 class="card-title">{{ cusProduct.title }}</h5>
-                <div class="d-flex justify-content-between align-items-baseline">
-                  <del class="h6">原價 {{ cusProduct.origin_price }} 元</del>
-                  <div class="h5 text-secondary">現在只要 {{ cusProduct.price }} 元</div>
-                </div>
-              </div>
-              <products-btns
-                class="card-footer d-flex justify-content-between"
-                :cusProduct="cusProduct"
-              />
-            </div>
-          </div>
-        </div>
+        <products-card-lg
+          :bases="filterCusProducts"
+          class="row"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ProductsBtns from '@/components/ProductsBtns.vue';
+import ProductsCardLg from '@/components/ProductsCardLg.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default {
-  components: { ProductsBtns },
+  components: { ProductsCardLg },
   computed: {
     ...mapState(['cusProducts', 'cats', 'cusProductsActive']),
     filterCusProducts() {

@@ -12,6 +12,11 @@
             <div class="progress-icon progress-chara2"/>
             <div class="progress-icon progress-chara3"/>
           </div>
+          <img
+            src="https://raw.githubusercontent.com/zou0u06/Lius-tea/main/src/assets/images/cuscartfinished-img.jpg"
+            alt="經典茗茶即將送到"
+            class="cuscartfinished-img"
+          >
           <button
             type="button"
             class="btn btn-secondary d-block w-50 mx-auto mb-5"

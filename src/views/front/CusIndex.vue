@@ -57,55 +57,102 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
-      <div class="row cusindex-container-limit">
-        <a
-          href="#"
-          class="col cusindex-btn1 bg-cover flex-center"
-          @click.prevent="jumpToCusProducts('')"
-        >
-          <span class="cusindex-btn-mask"/>
-          <span class="h2 cusindex-btn-text">所有茶品</span>
-        </a>
-        <a
-          href="#"
-          class="col cusindex-btn2 flex-center bg-cover"
-          @click.prevent="jumpToCusProducts('精選烏龍茶')"
-        >
-          <span class="cusindex-btn-mask"/>
-          <span class="h2 cusindex-btn-text">精選烏龍茶</span>
-        </a>
-        <a
-          href="#"
-          class="col cusindex-btn3 flex-center bg-cover"
-          @click.prevent="jumpToCusProducts('精選紅茶')"
-        >
-          <span class="cusindex-btn-mask"/>
-          <span class="h2 cusindex-btn-text">精選紅茶</span>
-        </a>
-      </div>
-      <h2 class="cusindex-content-header flex-center">為何要喝茶？</h2>
-      <div class="row cusindex-container-limit">
-        <div class="col-md-6 bg-cover cusindex-content-img1"/>
-        <p class="col-md-6 cusindex-content flex-center">根據醫學研究，茶葉具有提神、抗氧化、降低血糖及血脂等多重功效，是良好的保健食品。又茶葉是東亞文化中最重要的飲料，飲用茶葉、學習茶葉知識有助提升個人氣質、建立優雅的個人形象。</p>
-      </div>
-      <h2 class="cusindex-content-header flex-center">為何選擇劉記茗茶？</h2>
-      <div class="row d-flex cusindex-container-limit">
-        <p class="flex-center cusindex-content col-md-6 order-2 order-md-1">劉記販售的所有茶葉均為臺灣生產，生長環境純淨，以有機方式栽培不使用任何化學藥劑，採小農契作方式收購同時保障品質及農民權益，採收後即交由資歷豐富之茶師製茶。唯有堅持，才能產出得獎無數的精品茶葉。</p>
-        <div class="col-md-6 bg-cover cusindex-content-img2 order-1 order-md-2"/>
-      </div>
-    <h2 class="cusindex-content-header flex-center flex-column flex-sm-row">
+    <h2 class="cusindex-content-header flex-center">精選茗茶</h2>
+    <div class="row cusindex-container-limit">
+      <a
+        href="#"
+        class="col cusindex-btn1 bg-cover flex-center"
+        @click.prevent="jumpToCusProducts('')"
+      >
+        <span class="cusindex-btn-mask"/>
+        <span class="h2 cusindex-btn-text">所有茶品</span>
+      </a>
+      <a
+        href="#"
+        class="col cusindex-btn2 flex-center bg-cover"
+        @click.prevent="jumpToCusProducts('經典烏龍')"
+      >
+        <span class="cusindex-btn-mask"/>
+        <span class="h2 cusindex-btn-text">經典烏龍</span>
+      </a>
+      <a
+        href="#"
+        class="col cusindex-btn3 flex-center bg-cover"
+        @click.prevent="jumpToCusProducts('極品紅茶')"
+      >
+        <span class="cusindex-btn-mask"/>
+        <span class="h2 cusindex-btn-text">極品紅茶</span>
+      </a>
+    </div>
+    <h2 class="cusindex-content-header flex-center">為何要喝茶？</h2>
+    <div class="row cusindex-container-limit">
+      <div class="col-md-6 bg-cover cusindex-content-img1"/>
+      <p class="col-md-6 cusindex-content flex-center">根據醫學研究，茶葉具有提神、抗氧化、降低血糖及血脂等多重功效，是良好的保健食品。又茶葉是東亞文化中最重要的飲料，飲用茶葉、學習茶葉知識有助提升個人氣質、建立優雅的個人形象。</p>
+    </div>
+    <h2 class="cusindex-content-header flex-center">為何選擇劉記茗茶？</h2>
+    <div class="row d-flex cusindex-container-limit">
+      <p class="flex-center cusindex-content col-md-6 order-2 order-md-1">劉記販售的所有茶葉均為臺灣生產，生長環境純淨，以有機方式栽培不使用任何化學藥劑，採小農契作方式收購同時保障品質及農民權益，採收後即交由資歷豐富之茶師製茶。唯有堅持，才能產出得獎無數的精品茶葉。</p>
+      <div class="col-md-6 bg-cover cusindex-content-img2 order-1 order-md-2"/>
+    </div>
+    <h2 class="flex-center flex-column flex-sm-row text-white mt-4 mt-md-5 mb-4">
       <div class="d-sm-inline-block">劉記茗茶，</div>
       您最值得信賴的茗茶專家
     </h2>
+    <VueSlickCarousel
+      v-bind="settings"
+    >
+      <products-card-lg
+        v-for="cusProduct in shuffledCusProducts"
+        :key="cusProduct.id"
+        :cusProduct="cusProduct"
+      />
+    </VueSlickCarousel>
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex';
+import VueSlickCarousel from 'vue-slick-carousel';
+import ProductsCardLg from '@/components/ProductsCardLg.vue';
 
 export default {
+  components: { VueSlickCarousel, ProductsCardLg },
+  data() {
+    return {
+      settings: {
+        adaptiveHeight: true,
+        dots: true,
+        dotsClass: 'slick-dots',
+        focusOnSelect: false,
+        lazyLoad: 'true',
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        responsive: [
+          {
+            breakpoint: 575,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+            },
+          },
+          {
+            breakpoint: 767,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+        ],
+      },
+    };
+  },
   computed: {
     ...mapState(['cusProducts', 'cats', 'cusProductsActive']),
+    shuffledCusProducts() {
+      // if (this.cusProducts.length > 1) {
+      return this.cusProducts;
+      // }
+    },
   },
   created() {
     this.SET_MSG({ event: 'showingCoupon' });

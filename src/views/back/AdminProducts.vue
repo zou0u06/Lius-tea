@@ -5,7 +5,7 @@
       <button
         type="button"
         class="btn btn-primary"
-        @click="openAdminProductsModel()"
+        @click="openAdminProductsModal()"
       >建立新的商品</button>
     </div>
     <div class="table-responsive mb-3">
@@ -42,7 +42,7 @@
               <button
                 type="button"
                 class="btn btn-outline-primary btn-sm"
-                @click="openAdminProductsModel(adminProduct)"
+                @click="openAdminProductsModal(adminProduct)"
               >編輯</button>
               <button
                 type="button"
@@ -61,7 +61,7 @@
     />
     <!-- adminProducts Modal -->
     <div
-      id="adminProductsModel"
+      id="adminProductsModal"
       class="modal fade"
       data-backdrop="static"
       data-keyboard="false"
@@ -100,7 +100,7 @@
                   <input
                     type="text"
                     id="image"
-                    v-model="tempProduct.imageUrl"
+                    v-Modal="tempProduct.imageUrl"
                     class="form-control"
                     placeholder="請輸入網址"
                   />
@@ -127,7 +127,6 @@
                 >圖片檔案過大或格式錯誤，請重新上傳</div>
                 <img
                   v-else
-                  alt="商品圖片"
                   class="img-fluid"
                   :src="tempProduct.imageUrl"
                 />
@@ -139,7 +138,7 @@
                   <input
                     type="text"
                     id="title"
-                    v-model="tempProduct.title"
+                    v-Modal="tempProduct.title"
                     class="form-control"
                     placeholder="請輸入標題"
                   />
@@ -151,7 +150,7 @@
                     <input
                       type="text"
                       id="category"
-                      v-model="tempProduct.category"
+                      v-Modal="tempProduct.category"
                       class="form-control"
                       placeholder="請輸入分類"
                     />
@@ -161,7 +160,7 @@
                     <input
                       type="unit"
                       id="unit"
-                      v-model="tempProduct.unit"
+                      v-Modal="tempProduct.unit"
                       class="form-control"
                       placeholder="請輸入單位"
                     />
@@ -174,7 +173,7 @@
                     <input
                       type="number"
                       id="origin_price"
-                      v-model="tempProduct.origin_price"
+                      v-Modal="tempProduct.origin_price"
                       class="form-control"
                       placeholder="請輸入原價"
                     />
@@ -184,7 +183,7 @@
                     <input
                       type="number"
                       id="price"
-                      v-model="tempProduct.price"
+                      v-Modal="tempProduct.price"
                       class="form-control"
                       placeholder="請輸入售價"
                     />
@@ -197,7 +196,7 @@
                   <textarea
                     type="text"
                     id="description"
-                    v-model="tempProduct.description"
+                    v-Modal="tempProduct.description"
                     class="form-control"
                     placeholder="請輸入商品簡述"
                   />
@@ -207,7 +206,7 @@
                   <textarea
                     type="text"
                     id="content"
-                    v-model="tempProduct.content"
+                    v-Modal="tempProduct.content"
                     class="form-control"
                     placeholder="請輸入商品說明"
                   />
@@ -217,7 +216,7 @@
                     <input
                       type="checkbox"
                       id="is_enabled"
-                      v-model="tempProduct.is_enabled"
+                      v-Modal="tempProduct.is_enabled"
                       class="form-check-input"
                       :true-value=1
                       :false-value=0
@@ -280,7 +279,7 @@ export default {
     getAdminProducts(page) {
       this.$store.dispatch('getAdminProducts', page);
     },
-    openAdminProductsModel(adminProduct) {
+    openAdminProductsModal(adminProduct) {
       if (adminProduct) {
         this.tempProduct = { ...adminProduct };
         this.addition = false;
@@ -288,7 +287,7 @@ export default {
         this.tempProduct = {};
         this.addition = true;
       }
-      $('#adminProductsModel').modal('show');
+      $('#adminProductsModal').modal('show');
     },
     uploadProduct() {
       const vm = this;
@@ -297,7 +296,7 @@ export default {
         vm.axios.post(API, { data: vm.tempProduct }).then((response) => {
           if (response.data.success) {
             this.clearPic();
-            $('#adminProductsModel').modal('hide');
+            $('#adminProductsModal').modal('hide');
             vm.getAdminProducts();
           }
         }).catch((error) => {
@@ -310,7 +309,7 @@ export default {
         vm.axios.put(API, { data: vm.tempProduct }).then((response) => {
           if (response.data.success) {
             this.clearPic();
-            $('#adminProductsModel').modal('hide');
+            $('#adminProductsModal').modal('hide');
             vm.getAdminProducts();
           }
         }).catch((error) => {
@@ -346,8 +345,9 @@ export default {
       });
     },
     clearPic() {
-      const adminProductsPic = document.getElementById('adminProductsPic');
-      adminProductsPic.value = '';
+      // const adminProductsPic = document.getElementById('adminProductsPic');
+      // adminProductsPic.value = '';
+      console.log('clear');
     },
     openDelModal(adminProduct) {
       this.$store.commit('SET_MSG', {
@@ -360,6 +360,5 @@ export default {
 };
 </script>
 
-<style scope>
-
+<style>
 </style>

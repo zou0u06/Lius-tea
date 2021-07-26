@@ -8,6 +8,8 @@ import $ from 'jquery';
 import 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import 'vue-loading-overlay/dist/vue-loading.css';
+import 'vue-slick-carousel/dist/vue-slick-carousel.css';
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
 
 // 以下為Vee Validate相關
 import {

@@ -3,25 +3,25 @@
     <div class="row">
       <div class="col-md-7 mb-4">
         <h2 class="rounded-top card-header h3">收藏清單</h2>
-        <products-card
+        <products-card-sm
           :bases="favoredProducts"
           :kind="'favoredProducts'"
         />
       </div>
       <div class="col-md-5 mb-4">
         <h3 class="rounded-top card-header">推薦商品</h3>
-        <products-card :bases="adProducts"/>
+        <products-card-sm :bases="adProducts"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ProductsCard from '@/components/ProductsCard.vue';
+import ProductsCardSm from '@/components/ProductsCardSm.vue';
 import { mapState, mapActions } from 'vuex';
 
 export default {
-  components: { ProductsCard },
+  components: { ProductsCardSm },
   data() {
     return {
       favoredProducts: [],
