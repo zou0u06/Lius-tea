@@ -37,9 +37,9 @@
         </div>
       </div>
       <div class="col-md-9">
-        <products-card-lg
-          :bases="filterCusProducts"
-          class="row"
+        <product-card
+          :bases="cusProducts"
+          class="mb-4"
         />
       </div>
     </div>
@@ -47,11 +47,11 @@
 </template>
 
 <script>
-import ProductsCardLg from '@/components/ProductsCardLg.vue';
+import ProductCard from '@/components/ProductCard.vue';
 import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default {
-  components: { ProductsCardLg },
+  components: { ProductCard },
   computed: {
     ...mapState(['cusProducts', 'cats', 'cusProductsActive']),
     filterCusProducts() {

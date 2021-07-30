@@ -1,15 +1,15 @@
 <template>
   <div
-    class="card border-0 mb-4 productscardlg"
+    class="card border-0 productcard"
     @click="jumpToCusProduct(cusProduct.id)"
   >
     <div
-      class="bg-cover rounded-top productscardlg-img"
+      class="bg-cover rounded-top productcard-img"
       :style="{'background-image': `url(${cusProduct.imageUrl})`}"
     />
     <div class="card-body">
       <span
-        class="badge badge-primary productscardlg-badge float-right ml-2"
+        class="badge badge-primary productcard-badge float-right ml-2"
       >{{ cusProduct.category }}</span>
       <h5 class="card-title">{{ cusProduct.title }}</h5>
       <div class="d-flex justify-content-between align-items-baseline">
@@ -17,7 +17,7 @@
         <div class="h5 text-secondary">特價 {{ cusProduct.price }} 元</div>
       </div>
     </div>
-    <products-btns
+    <product-btns
       class="card-footer d-flex justify-content-between"
       :cusProduct="cusProduct"
       :hideIcon="true"
@@ -26,10 +26,10 @@
 </template>
 
 <script>
-import ProductsBtns from '@/components/ProductsBtns.vue';
+import ProductBtns from '@/components/ProductBtns.vue';
 
 export default {
-  components: { ProductsBtns },
+  components: { ProductBtns },
   props: {
     cusProduct: Object,
   },

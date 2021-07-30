@@ -158,15 +158,15 @@ input[type="number"]{
   -moz-appearance: textfield;
 }
 
-////// ProductsBtns
-.productsbtns-back {
+////// ProductBtns
+.productbtns-back {
   display: none;
   @include media-breakpoint-only(sm) {
     display: flex;
     align-items: center;
   }
 }
-.productsbtns-short {
+.productbtns-short {
   display: none;
   @media (min-width: 375px) {
     display: inline;
@@ -197,17 +197,17 @@ input[type="number"]{
   background-color: $light;
 }
 
-////// ProductsCardLg
-.productscardlg {
+////// ProductCard
+.productcard {
   cursor: pointer;
 }
-.productscardlg-img {
+.productcard-img {
   height: 200px;
 }
-.productscardlg-img:hover {
+.productcard-img:hover {
   background-size: 120%;
 }
-.productscardlg-badge {
+.productcard-badge {
   position: relative;
   top: 3px
 }
@@ -309,4 +309,12 @@ ul,
 dl {
   list-style-type: none;
   padding-left: 0;
+}
+
+//// Slick Carousel 輪播
+.slick-slide:not(:first-child) {
+  margin-left: 1rem;
+}
+.slick-slide:not(:last-child) {
+  margin-right: -1rem;
 }

@@ -100,7 +100,7 @@
                   <input
                     type="text"
                     id="image"
-                    v-Modal="tempProduct.imageUrl"
+                    v-model="tempProduct.imageUrl"
                     class="form-control"
                     placeholder="請輸入網址"
                   />
@@ -138,7 +138,7 @@
                   <input
                     type="text"
                     id="title"
-                    v-Modal="tempProduct.title"
+                    v-model="tempProduct.title"
                     class="form-control"
                     placeholder="請輸入標題"
                   />
@@ -150,7 +150,7 @@
                     <input
                       type="text"
                       id="category"
-                      v-Modal="tempProduct.category"
+                      v-model="tempProduct.category"
                       class="form-control"
                       placeholder="請輸入分類"
                     />
@@ -160,7 +160,7 @@
                     <input
                       type="unit"
                       id="unit"
-                      v-Modal="tempProduct.unit"
+                      v-model="tempProduct.unit"
                       class="form-control"
                       placeholder="請輸入單位"
                     />
@@ -173,7 +173,7 @@
                     <input
                       type="number"
                       id="origin_price"
-                      v-Modal="tempProduct.origin_price"
+                      v-model="tempProduct.origin_price"
                       class="form-control"
                       placeholder="請輸入原價"
                     />
@@ -183,7 +183,7 @@
                     <input
                       type="number"
                       id="price"
-                      v-Modal="tempProduct.price"
+                      v-model="tempProduct.price"
                       class="form-control"
                       placeholder="請輸入售價"
                     />
@@ -196,7 +196,7 @@
                   <textarea
                     type="text"
                     id="description"
-                    v-Modal="tempProduct.description"
+                    v-model="tempProduct.description"
                     class="form-control"
                     placeholder="請輸入商品簡述"
                   />
@@ -206,7 +206,7 @@
                   <textarea
                     type="text"
                     id="content"
-                    v-Modal="tempProduct.content"
+                    v-model="tempProduct.content"
                     class="form-control"
                     placeholder="請輸入商品說明"
                   />
@@ -216,7 +216,7 @@
                     <input
                       type="checkbox"
                       id="is_enabled"
-                      v-Modal="tempProduct.is_enabled"
+                      v-model="tempProduct.is_enabled"
                       class="form-check-input"
                       :true-value=1
                       :false-value=0
@@ -345,9 +345,8 @@ export default {
       });
     },
     clearPic() {
-      // const adminProductsPic = document.getElementById('adminProductsPic');
-      // adminProductsPic.value = '';
-      console.log('clear');
+      const adminProductsPic = document.getElementById('adminProductsPic');
+      adminProductsPic.value = '';
     },
     openDelModal(adminProduct) {
       this.$store.commit('SET_MSG', {

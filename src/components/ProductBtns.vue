@@ -3,7 +3,7 @@
     <router-link
       to="/products"
       v-if="short"
-      class="btn btn-extra productsbtns-back"
+      class="btn btn-extra productbtns-back"
     >
       <i class="fas fa-mug-hot mr-1"/>
       回到商品一覽頁
@@ -18,7 +18,7 @@
         class="far fa-heart mr-1"
         :class="{ 'd-none': hideIcon }"
       />
-      <span :class="{ 'productsbtns-short': short }">加入</span>收藏
+      <span :class="{ 'productbtns-short': short }">加入</span>收藏
     </button>
     <button
       type="button"
@@ -30,7 +30,7 @@
         class="fas fa-heart mr-1"
         :class="{ 'd-none': hideIcon }"
       />
-      <span :class="{ 'productsbtns-short': short }">取消</span>收藏
+      <span :class="{ 'productbtns-short': short }">取消</span>收藏
     </button>
     <button
       type="button"

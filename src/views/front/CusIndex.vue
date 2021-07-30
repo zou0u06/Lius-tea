@@ -100,11 +100,13 @@
     </h2>
     <VueSlickCarousel
       v-bind="settings"
+      class="mx-3"
     >
-      <products-card-lg
+      <product-card
         v-for="cusProduct in shuffledCusProducts"
         :key="cusProduct.id"
         :cusProduct="cusProduct"
+        class="mx-3"
       />
     </VueSlickCarousel>
   </div>
@@ -113,33 +115,37 @@
 <script>
 import { mapState, mapMutations } from 'vuex';
 import VueSlickCarousel from 'vue-slick-carousel';
-import ProductsCardLg from '@/components/ProductsCardLg.vue';
+import ProductCard from '@/components/ProductCard.vue';
 
 export default {
-  components: { VueSlickCarousel, ProductsCardLg },
+  components: { VueSlickCarousel, ProductCard },
   data() {
     return {
       settings: {
         adaptiveHeight: true,
+        arrows: true,
         dots: true,
-        dotsClass: 'slick-dots',
-        focusOnSelect: false,
-        lazyLoad: 'true',
         slidesToShow: 3,
         slidesToScroll: 3,
         responsive: [
           {
-            breakpoint: 575,
+            breakpoint: 768,
             settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1,
+              adaptiveHeight: true,
+              arrows: true,
+              dots: true,
+              slidesToShow: 2,
+              slidesToScroll: 2,
             },
           },
           {
-            breakpoint: 767,
+            breakpoint: 576,
             settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2,
+              adaptiveHeight: true,
+              arrows: true,
+              dots: true,
+              slidesToShow: 1,
+              slidesToScroll: 1,
             },
           },
         ],

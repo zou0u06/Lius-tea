@@ -49,7 +49,7 @@
               >{{ i }}</option>
             </select>
           </div>
-            <products-btns
+            <product-btns
               class="d-flex justify-content-around"
               :cusProduct="cusProduct"
               :qty="qty"
@@ -85,7 +85,7 @@
         <products-card-sm :bases="adProducts" />
       </div>
     </div>
-    <products-btns
+    <product-btns
       :cusProduct="cusProduct"
       :favTheme="'light'"
       :short="true"
@@ -97,11 +97,11 @@
 
 <script>
 import ProductsCardSm from '@/components/ProductsCardSm.vue';
-import ProductsBtns from '@/components/ProductsBtns.vue';
+import ProductBtns from '@/components/ProductBtns.vue';
 import { mapState, mapActions } from 'vuex';
 
 export default {
-  components: { ProductsCardSm, ProductsBtns },
+  components: { ProductsCardSm, ProductBtns },
   data() {
     return {
       cusProductId: '',
