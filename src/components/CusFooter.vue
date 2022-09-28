@@ -92,7 +92,7 @@
               244 新北市林口區竹林路27號
             </a>
             <br/>
-            <span>© 2022 Lius' Tea All Rights Reserved</span>
+            <span>© 2022 Lius' Tea All Rights Reserved.</span>
           </div>
         </div>
         <h6>本網站僅為練習用，所有資訊均屬虛構，如有雷同純屬巧合</h6>
