@@ -91,7 +91,7 @@
     </div>
     <h2 class="cusindex-content-header flex-center">為何選擇劉記茗茶？</h2>
     <div class="row d-flex cusindex-container-limit">
-      <p class="flex-center cusindex-content col-md-6 order-2 order-md-1">劉記販售的所有茶葉均為臺灣生產，生長環境純淨，以有機方式栽培不使用任何化學藥劑，採小農契作方式收購同時保障品質及農民權益，採收後即交由資歷豐富之茶師製茶。唯有堅持，才能產出得獎無數的精品茶葉。</p>
+      <p class="flex-center cusindex-content col-md-6 order-2 order-md-1">劉記販售的所有茶葉均為臺灣生產，生長環境純淨，採有機栽培不使用任何化學藥劑，以小農契作方式收購同時保障品質及農民權益，採收後即交由資歷豐富之茶師製茶。唯有堅持，才能產出得獎無數的精品茶葉。</p>
       <div class="col-md-6 bg-cover cusindex-content-img2 order-1 order-md-2"/>
     </div>
     <h2 class="flex-center flex-column flex-sm-row text-white mt-4 mt-md-5 mb-4">
@@ -100,13 +100,12 @@
     </h2>
     <VueSlickCarousel
       v-bind="settings"
-      class="mx-3"
+      class="mx-4"
     >
       <product-card
-        v-for="cusProduct in shuffledCusProducts"
+        v-for="cusProduct in shuffleCusProducts"
         :key="cusProduct.id"
         :cusProduct="cusProduct"
-        class="mx-3"
       />
     </VueSlickCarousel>
   </div>
@@ -129,7 +128,7 @@ export default {
         slidesToScroll: 3,
         responsive: [
           {
-            breakpoint: 768,
+            breakpoint: 800,
             settings: {
               adaptiveHeight: true,
               arrows: true,
@@ -154,10 +153,8 @@ export default {
   },
   computed: {
     ...mapState(['cusProducts', 'cats', 'cusProductsActive']),
-    shuffledCusProducts() {
-      // if (this.cusProducts.length > 1) {
+    shuffleCusProducts() {
       return this.cusProducts;
-      // }
     },
   },
   created() {

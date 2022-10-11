@@ -1,6 +1,6 @@
 <template>
   <div
-    class="card border-0 productcard"
+    class="card productcard"
     @click="jumpToCusProduct(cusProduct.id)"
   >
     <div

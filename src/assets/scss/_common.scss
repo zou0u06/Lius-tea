@@ -311,10 +311,28 @@ dl {
   padding-left: 0;
 }
 
-//// Slick Carousel 輪播
-.slick-slide:not(:first-child) {
-  margin-left: 1rem;
+// Slick Carousel 輪播
+.slick-prev::before, .slick-next::before {
+  color: #fff;
 }
-.slick-slide:not(:last-child) {
-  margin-right: -1rem;
+.slick-slider {
+  padding-bottom: 30px;
 }
+.slick-prev {
+  left: -22px;
+}
+.slick-next {
+  right: -22px;
+}
+.slick-dots {
+  bottom: 3px;
+}
+.slick-dots li.slick-active button:before {
+  color: #fff;
+}
+// .slick-slide:not(:first-child) {
+//   margin-left: 1rem;
+// }
+// .slick-slide:not(:last-child) {
+//   margin-right: -1rem;
+// }

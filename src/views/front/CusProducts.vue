@@ -38,7 +38,9 @@
       </div>
       <div class="col-md-9">
         <product-card
-          :bases="cusProducts"
+          v-for="cusProduct in filterCusProducts"
+          :key="cusProduct.id"
+          :cusProduct="cusProduct"
           class="mb-4"
         />
       </div>
