@@ -13,7 +13,7 @@
             <div class="progress-icon progress-chara3"/>
           </div>
           <img
-            src="https://raw.githubusercontent.com/zou0u06/Lius-tea/main/src/assets/images/cuscartfinished-img.jpg"
+            src="https://raw.githubusercontent.com/zou0u06/Lius-tea/main/src/assets/images/cuscartfinished-img.gif"
             alt="經典茗茶即將送到"
             class="cuscartfinished-img"
           >

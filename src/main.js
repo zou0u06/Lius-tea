@@ -2,6 +2,7 @@ import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import Vuex from 'vuex';
+import VueGtm from '@gtm-support/vue2-gtm';
 import 'bootstrap';
 import $ from 'jquery';
 
@@ -27,7 +28,18 @@ import displayCurrency from './filters/displayCurrency';
 
 window.$ = $;
 
-Vue.use(VueAxios, axios, Vuex);
+Vue.use(VueAxios, axios, Vuex, VueGtm, {
+  id: 'GTM-M8SKWZM',
+  defer: false,
+  compatibility: true,
+  // nonce: '2726c7f26c', // Will add `nonce` to the script tag
+  enabled: true,
+  debug: true,
+  loadScript: true, // Whether or not to load the GTM Script (Helpful if you are including GTM
+  // manually, but need the dataLayer functionality in your components)(optional)
+  vueRouter: router, // Pass the router instance to automatically sync with router (optional)
+  trackOnNextTick: false,
+});
 
 Vue.filter('displayCurrency', displayCurrency);
 Vue.filter('displayDate', displayDate);

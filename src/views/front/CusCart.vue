@@ -344,10 +344,35 @@ export default {
                 });
               break;
             }
-            default:
+            default: {
               vm.getFinalCusCart();
+              const GTMitems = [];
+              let GTMitemsValue = 0;
+              // eslint-disable-next-line no-plusplus
+              for (let i = 0; i < vm.cusCart.carts.length; i++) {
+                const GTMitem = {};
+                GTMitem.item_id = vm.cusCart.carts[i].product.id;
+                GTMitem.item_name = vm.cusCart.carts[i].product.title;
+                if (vm.cusCart.carts[i].coupon) {
+                  GTMitem.coupon = vm.cusCart.carts[i].coupon.title;
+                }
+                GTMitem.currency = 'NTD';
+                GTMitem.item_category = vm.cusCart.carts[i].product.category;
+                GTMitem.price = vm.cusCart.carts[i].final_total || vm.cusCart.carts[i].product.price
+                  * vm.cusCart.carts[i].qty;
+                GTMitemsValue += GTMitem.price;
+                GTMitem.quantity = vm.cusCart.carts[i].qty;
+                GTMitems.push(GTMitem);
+              }
+              console.log(GTMitems);
+              window.gtag('event', 'begin_checkout', {
+                currency: 'NTD',
+                value: GTMitemsValue,
+                items: GTMitems,
+              });
               vm.$router.push('/info');
               break;
+            }
           }
         } else {
           vm.SET_MSG({ event: 'cusServerError' });
